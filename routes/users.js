@@ -5,39 +5,40 @@ var router = express.Router();
 var firebase = require("firebase");
 
 var config = {
-    apiKey: "",
-    authDomain: "playwithme-" + process.env.NODE_ENV + "development.firebaseapp.com",
-    authDomain: "playwithme-development.firebaseapp.com",
-    databaseURL: "https://playwithme-development.firebaseio.com",
-    storageBucket: "playwithme-development.appspot.com",
-    messagingSenderId: "524685348783"
-  };
+    apiKey: process.env.FIREBASE_DEVELOPMENT,
+    authDomain: "playwithme-" + process.env.NODE_ENV + ".firebaseapp.com",
+    databaseURL: "https://playwithme-" + process.env.NODE_ENV + ".firebaseio.com/",
+    messagingSenderId: process.env.FIREBASE_MESSAGING_DEVELOPMENT
+};
 firebase.initializeApp(config);
-
-firebase.initializeApp({
-  serviceAccount: "./keys/serviceAccount-" + process.env.NODE_ENV + ".json",
-  databaseURL: "https://playwithme-" + process.env.NODE_ENV + ".firebaseio.com/"
-});
 
 /* GET users listing. */
 
 router.get('/signup', function(req, res, next) {
-  res.render('signup', {
-    title: "User signup"
-  });
+  res.render('signup', {title: "User signup"});
 });
 
 router.post('/signup', function(req, res, next) {
-  var email = req.body.email;
-  var password = req.body.password.toString();
-  firebase.auth().createUserWithEmailAndPassword(email, password).catch(function(error) {
-    // Handle Errors here.
-    console.log("Error: " + error.code + " - " + error.message)
-    // var errorCode = error.code;
-    // var errorMessage = error.message;
-    // ...
-  });
-  res.redirect('/');
+  sess = req.session;
+  if(req.body.password === req.body.password_confirmation) {
+    firebase.auth().createUserWithEmailAndPassword(req.body.email, req.body.password).catch(function(error) {
+      console.log("Error: " + error.code + " - " + error.message)
+    }).then(function() {
+      firebase.auth().onAuthStateChanged(function(user) {
+        if (user) {
+          sess.current_user = user;
+        } else {
+          console.log("User is not assigned to the session variable")
+        }
+      })
+    });
+    res.redirect('/');
+  } else {
+    console.log("Password confirmation does not match")
+    res.redirect("/users/signup")
+  }
+
+
 });
 
 router.post('/login', function(req, res, next) {
