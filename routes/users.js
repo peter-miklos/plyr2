@@ -14,4 +14,14 @@ router.get('/signup', function(req, res, next) {
   });
 });
 
+router.post('/login', function(req, res, next) {
+  res.redirect('/users/login');
+});
+
+router.get('/login', function(req, res, next) {
+  res.render('login', {
+    title: "User login"
+  });
+});
+
 module.exports = router;
