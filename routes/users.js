@@ -1,5 +1,3 @@
-process.env.NODE_ENV ? process.env.NODE_ENV : process.env.NODE_ENV = 'development';
-
 var express = require('express');
 var router = express.Router();
 var firebase = require("firebase");
