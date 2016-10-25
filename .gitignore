@@ -1,3 +1,6 @@
 *Ignore all keys
 /keys/*
 npm-debug.log
+
+*Ignore .env file
+.env
