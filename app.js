@@ -43,13 +43,7 @@ app.use(session({
 app.use('/', routes);
 app.use('/users', users);
 app.use('/users/*', users);
-<<<<<<< HEAD
 app.use('/events', events);
-
-=======
-// app.use('/sessions', sessions);
-// app.use('/sessions/*', sessions);
->>>>>>> 96372f732afcedacec067411ac75b57c2790494f
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
