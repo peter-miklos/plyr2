@@ -40,6 +40,10 @@ describe('homescreen', function() {
       browser.assert.url({pathname: '/'});
     });
 
+    // it("should display a log out button", function(){
+    //   browser.assert.text("head", /Log out/);
+    // });
+
   });
 
   after(function(done) {
