@@ -15,12 +15,12 @@ var events = require('./routes/events');
 
 var app = express();
 var session = require('express-session');
-var firebase = require("firebase");
-
-firebase.initializeApp({
-  serviceAccount: "./keys/serviceAccount-" + process.env.NODE_ENV + ".json",
-  databaseURL: "https://playwithme-" + process.env.NODE_ENV + ".firebaseio.com/"
-});
+// var firebase = require("firebase");
+//
+// firebase.initializeApp({
+//   serviceAccount: "./keys/serviceAccount-" + process.env.NODE_ENV + ".json",
+//   databaseURL: "https://playwithme-" + process.env.NODE_ENV + ".firebaseio.com/"
+// });
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
