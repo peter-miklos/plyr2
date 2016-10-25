@@ -18,7 +18,7 @@ router.get('/signup', function(req, res, next) {
 
 router.post('/signup', function(req, res, next) {
   sess = req.session;
-  if(req.body.password === req.body.password_confirmation) {
+  if(req.body.password && req.body.password === req.body.pwd_confirm) {
     firebase.auth().createUserWithEmailAndPassword(req.body.email, req.body.password).catch(function(error) {
       console.log("Error: " + error.code + " - " + error.message)
     }).then(function() {
