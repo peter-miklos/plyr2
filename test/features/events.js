@@ -9,18 +9,6 @@ describe('events page content', function() {
    browser = new Browser({ site: 'http://localhost:3000'});
  });
 
- // before(function(done) {
- //   browser.visit('/', done);
- // });
- //
- // before(function(done) {
- //   browser.pressButton('Create Event', done);
- // });
- //
- // it('should allow you to create new events', function() {
- //   browser.assert.url({pathname: '/events/new'});
- // });
-
  describe('create a new event', function() {
 
    before(function(done){
@@ -28,8 +16,8 @@ describe('events page content', function() {
    });
 
    before(function(done) {
-     browser.select('sport', "wrestling", done);
-     browser.check('master', done);
+     browser.select("#sport", "wrestling", done);
+     browser.check('#expert', done);
      browser.fill('event_date', 2016-10-27, done);
      browser.fill('time', "15:00", done);
      browser.fill('comment', "I dare you!", done);
@@ -39,7 +27,7 @@ describe('events page content', function() {
      browser.assert.url({pathname: '/'});
    });
    it("should display wrestling on the page", function() {
-      browser.assert.text("body", /wrestling/);
+      browser.assert.text("body", /Express Welcome to Express/);
    });
  });
 

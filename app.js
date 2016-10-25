@@ -26,7 +26,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes);
 app.use('/users', users);
-app.use('/event', events);
+app.use('/events', events);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -35,9 +35,6 @@ app.use(function(req, res, next) {
   next(err);
 });
 
-app.get("/events/new", function(req, res) {
-  res.render("events/new", {});
-    });
 
 // error handlers
 
