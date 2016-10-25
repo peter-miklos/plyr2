@@ -10,6 +10,8 @@ var session = require("express-session");
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
+var events = require('./routes/events');
+
 
 var app = express();
 var session = require('express-session');
@@ -41,8 +43,7 @@ app.use(session({
 app.use('/', routes);
 app.use('/users', users);
 app.use('/users/*', users);
-// app.use('/sessions', sessions);
-// app.use('/sessions/*', sessions);
+app.use('/events', events);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -50,6 +51,7 @@ app.use(function(req, res, next) {
   err.status = 404;
   next(err);
 });
+
 
 // error handlers
 

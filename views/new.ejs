@@ -1,14 +1,12 @@
-<% layout('../layout') -%>
-
 <div class="container">
   <div class="starter-template">
     <h1>Please create your event</h1>
-    <form action="/listings" method="post">
+    <form action="/events" method="post">
       <div class="form-group">
         <label for="sport">Select your preferred sport</label>
-        <select>
+        <select id="sport">
           <option value="ping pong">Ping pong</option>
-          <option value="wrestling">Wrestling</option>
+          <option value="wrestling">wrestling</option>
           <option value="tennis">Tennis</option>
         </select>
         <!-- <input type="text" class="form-control" id="name" placeholder="Name" name="name"> -->
