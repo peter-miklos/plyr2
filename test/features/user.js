@@ -9,13 +9,20 @@ describe('user homescreen', function() {
     browser = new Browser({ site: 'http://localhost:3000'});
   });
 
+
   before(function(done) {
-    browser.visit('/users', done);
+    browser.visit('/', done);
   });
 
-  it('should have content sign up', function() {
-    browser.assert.text("body", /Log in/);
+  before(function(done) {
+    browser.pressButton('Sign up', done);
   });
+
+  it('should allow you to sign up', function() {
+      browser.assert.url({pathname: '/users/signup'});
+  });
+
+
 
   after(function(done) {
     server.close(done);

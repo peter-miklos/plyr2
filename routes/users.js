@@ -2,12 +2,16 @@ var express = require('express');
 var router = express.Router();
 
 /* GET users listing. */
-router.get('/users', function(req, res, next) {
 
-  res.render('logIn', {
-    title: "User log in"
+
+router.post('/signup', function(req, res, next) {
+  res.redirect('/users/signup');
+});
+
+router.get('/signup', function(req, res, next) {
+  res.render('signup', {
+    title: "User signup"
   });
-
 });
 
 module.exports = router;
