@@ -9,7 +9,7 @@ router.post('/signup', function(req, res, next) {
 });
 
 router.get('/signup', function(req, res, next) {
-  res.render('users/signup', {
+  res.render('signup', {
     title: "User signup"
   });
 });

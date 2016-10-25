@@ -1,3 +1,5 @@
+
+
 var app = require('../../app');
 var Browser = require('zombie');
 var http = require('http');
@@ -43,5 +45,5 @@ describe('homescreen', function() {
   after(function(done) {
     server.close(done);
   });
-  
+
 });
