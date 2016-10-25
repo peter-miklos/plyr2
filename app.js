@@ -1,3 +1,5 @@
+process.env.NODE_ENV ? process.env.NODE_ENV : process.env.NODE_ENV = 'development';
+
 var express = require('express');
 var path = require('path');
 var favicon = require('serve-favicon');
@@ -9,7 +11,13 @@ var routes = require('./routes/index');
 var users = require('./routes/users');
 
 var app = express();
-var sess;
+var session = require('express-session');
+var firebase = require("firebase");
+
+firebase.initializeApp({
+  serviceAccount: "./keys/serviceAccount-" + process.env.NODE_ENV + ".json",
+  databaseURL: "https://playwithme-" + process.env.NODE_ENV + ".firebaseio.com/"
+});
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
