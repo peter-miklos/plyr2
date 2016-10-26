@@ -7,3 +7,6 @@ npm-debug.log
 
 *Ignore node_modules
 **/node_modules
+
+*Ignore sequelizerc
+.sequelizerc
