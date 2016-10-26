@@ -9,8 +9,6 @@ describe('events page content', function() {
    browser = new Browser({ site: 'http://localhost:3000'});
  });
 
- describe('create a new event', function() {
-
    before(function(done){
      browser.visit('/events/new', done);
    });
@@ -23,13 +21,14 @@ describe('events page content', function() {
      browser.fill('comment', "I dare you!", done);
      browser.pressButton('Create Event!', done);
    });
+
    it("should redirect to homepage", function() {
      browser.assert.url({pathname: '/'});
    });
+
    it("should display wrestling on the page", function() {
-      browser.assert.text("body", /Express Welcome to Express/);
+      browser.assert.text("body", /Wrestling/);
    });
- });
 
  after(function(done) {
    server.close(done);
