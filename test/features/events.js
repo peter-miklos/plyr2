@@ -63,6 +63,26 @@ describe('events page content', function() {
      });
    });
 
+   describe('reject events', function() {
+
+     before(function(done) {
+       browser.visit('/events/requests', done);
+     });
+     it("should let the user reject events", function() {
+       browser.assert.text("body", /Wrestling/);
+     });
+   });
+
+   describe('cancel events (by owner and requestor)', function() {
+
+     before(function(done) {
+       browser.visit('/events/requests', done);
+     });
+     it("should let the user cancel events", function() {
+       browser.assert.text("body", /Wrestling/);
+     });
+   });
+
  after(function(done) {
    server.close(done);
  });
