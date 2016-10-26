@@ -23,6 +23,7 @@ firebase.initializeApp(config);
 var routes = require('./routes/index');
 var users = require('./routes/users');
 var events = require('./routes/events');
+var sessions = require('./routes/sessions');
 
 var app = express();
 
@@ -49,7 +50,8 @@ app.use('/users', users);
 app.use('/users/*', users);
 app.use('/events', events);
 app.use('/events/*', events);
-
+app.use('/sessions', sessions);
+app.use('/sessions/*', sessions);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

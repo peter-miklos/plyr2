@@ -25,7 +25,7 @@ describe('user log out', function() {
 
     before(function(done) {
       browser
-        .pressButton('Log out', done)
+        .clickLink('Log out', done)
     });
 
     it("should redirect to homepage if log out is successful", function(){
