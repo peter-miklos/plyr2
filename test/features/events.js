@@ -37,7 +37,7 @@ describe('events page content', function() {
      });
 
      it("should display the various events on the page", function() {
-        browser.assert.text("body", /Wrestling/);
+        browser.assert.text("body", /Wrestling - 10.08.2016/);
      });
    });
 
