@@ -1,27 +1,36 @@
-<nav "navbar navbar-inverse navbar-fixed-top" role="navigation">
-    <div class="container">
+<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation" style="margin-bottom:20px;">
 
+
+
+    <div class="container">
+        <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
-            <a class="navbar-brand" href="#">
-                <span class="glyphicon glyphicon glyphicon-tree-deciduous"></span>
-            </a>
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="/">Home</a>
         </div>
 
-        <ul class="nav navbar-nav">
-            <li><a href="/">Sports Events</a></li>
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav">
+              <li>
+                  <a style="text-decoration:none;color:gray;" href="/users/signup">Sign up</a>
+              </li>
+              <li>
+                <a style="text-decoration:none;color:gray;" href="/users/login">Log in</a>
+              </li>
+            </ul>
+          </div>
 
-            <li>
-              <form class="navbar-form pull-right" action="/users/signup">
-                <input type="submit" value="Sign up">
-              </form>
-            </li>
-              <form class="navbar-form pull-right" action="/users/login">
-                <input type="submit" value="Log in">
-              </form>
-            <li>
 
-            </li>
-        </ul>
-
+    <!-- /.container -->
     </div>
 </nav>
+
+
+
+          <!-- /.navbar-collapse -->

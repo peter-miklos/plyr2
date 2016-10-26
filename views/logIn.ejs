@@ -8,7 +8,7 @@
     <header>
       <% include partials/header %>
     </header>
-
+    <div class="col-md-6 col-md-offset-3">
       <form class="form-horizontal" action="/users/login" method="post">
 
         <div class="form-group">
@@ -26,10 +26,13 @@
         </div>
 
       </form>
+      <footer>
+          <% include partials/footer %>
+      </footer>
+    </div>
 
-    <footer>
-        <% include partials/footer %>
-    </footer>
+
+
 
   </body>
 </html>
