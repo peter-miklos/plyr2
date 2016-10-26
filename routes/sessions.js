@@ -2,11 +2,16 @@ var express = require('express');
 var router = express.Router();
 
 /* GET home page. */
-router.get('/', function(req, res, next) {
-  res.render('login', { title: 'User Login' });
+router.get('/login', function(req, res, next) {
+  res.render('sessions/login', { title: 'User Login' });
 });
 
-router.post('/', function(req, res, next) {
+router.post('/login', function(req, res, next) {
+  res.redirect('/');
+});
+
+router.get('/logout', function(req, res) {
+  req.session.user = null
   res.redirect('/');
 });
 

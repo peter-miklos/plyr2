@@ -8,23 +8,14 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var session = require("express-session");
-var sess;
-
-firebase = require("firebase");
-
-var config = {
-    apiKey: process.env.FIREBASE_DEVELOPMENT,
-    authDomain: "playwithme-" + process.env.NODE_ENV + ".firebaseapp.com",
-    databaseURL: "https://playwithme-" + process.env.NODE_ENV + ".firebaseio.com/",
-    messagingSenderId: process.env.FIREBASE_MESSAGING_DEVELOPMENT
-};
-firebase.initializeApp(config);
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
 var events = require('./routes/events');
+var sessions = require('./routes/sessions');
 
 var app = express();
+var sess;
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -44,12 +35,18 @@ app.use(session({
   saveUninitialized: true
 }));
 
+app.use(function(req,res,next){
+  res.locals.currentUser = req.session.user;
+  next()
+});
+
 app.use('/', routes);
 app.use('/users', users);
 app.use('/users/*', users);
 app.use('/events', events);
 app.use('/events/*', events);
-
+app.use('/sessions', sessions);
+app.use('/sessions/*', sessions);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
