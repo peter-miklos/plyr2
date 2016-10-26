@@ -4,7 +4,7 @@ var app = require('../../app');
 var Browser = require('zombie');
 var http = require('http');
 
-describe('homescreen', function() {
+describe('log in', function() {
 
   before(function(){
     server = http.createServer(app).listen(3000);
@@ -17,7 +17,7 @@ describe('homescreen', function() {
   });
 
   before(function(done) {
-    browser.pressButton('Log in', done);
+    browser.clickLink('Log in', done);
   });
 
   it('should allow you to log in', function() {
@@ -33,12 +33,13 @@ describe('homescreen', function() {
     before(function(done) {
       browser.fill('email', 'ewan@hotmail.com', done);
       browser.fill('password', 'Password', done);
-      browser.pressButton('Log in', done)
+      browser.clickLink('Log in', done)
     });
 
     it("should redirect to homepage if sign up is successful", function(){
       browser.assert.url({pathname: '/'});
     });
+
   });
 
 
