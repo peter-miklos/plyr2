@@ -4,19 +4,35 @@
     <% include partials/head %>
   </head>
   <body>
+
     <header>
       <% include partials/header %>
     </header>
-      <form class="" action="/" method="post">
-        Email: <input type="email" name="email"></input>
-        <br>
-        Password: <input type="password" name="password"></input>
-        <br>
-        <input type="submit" value="Log in"></input>
-      </form>
+    <div class="col-md-6 col-md-offset-3">
+      <form class="form-horizontal" action="/users/login" method="post">
 
-    <footer>
-        <% include partials/footer %>
-    </footer>
+        <div class="form-group">
+          <label class="control-label col-sm-2" for="email">Email:</label>
+          <div class="col-sm-5">
+            <input type="email" class="form-control" id="email" name="email" placeholder="Enter email">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="control-label col-sm-2" for="pwd">Password:</label>
+          <div class="col-sm-5">
+            <input type="password" class="form-control" id="pwd" name="password" placeholder="Enter Password">
+          </div>
+        </div>
+
+      </form>
+      <footer>
+          <% include partials/footer %>
+      </footer>
+    </div>
+
+
+
+
   </body>
 </html>
