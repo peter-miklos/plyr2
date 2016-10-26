@@ -43,7 +43,7 @@ describe('events page content', function() {
    });
 
 
-   describe('show received and booked events', function() {
+   describe('show received and booked/rejected requests', function() {
 
      before(function(done) {
        browser.visit('/events/requests', done);
@@ -54,7 +54,7 @@ describe('events page content', function() {
      });
    });
 
-   describe('accept events', function() {
+   describe('accept requests ', function() {
 
      before(function(done) {
        browser.visit('/events/requests', done);
@@ -64,7 +64,7 @@ describe('events page content', function() {
      });
    });
 
-   describe('reject events', function() {
+   describe('reject requests', function() {
 
      before(function(done) {
        browser.visit('/events/requests', done);

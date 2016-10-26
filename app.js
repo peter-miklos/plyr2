@@ -44,6 +44,11 @@ app.use(session({
   saveUninitialized: true
 }));
 
+app.use(function(req,res,next){
+  res.locals.sport = req.session.sport;
+  next();
+});
+
 app.use('/', routes);
 app.use('/users', users);
 app.use('/users/*', users);
