@@ -33,11 +33,12 @@ describe('events page content', function() {
    describe('show all events', function() {
 
      before(function(done){
-       browser.visit('/events', done);
+       browser.visit('/events/new');
+        browser.select("#sport", "wrestling", done);
      });
 
      it("should display the various events on the page", function() {
-        browser.assert.text("body", /Wrestling - 10.08.2016/);
+        browser.assert.text("body", /Wrestling/);
      });
    });
 

@@ -3,8 +3,7 @@ var router = express.Router();
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
-  console.log("INSIDE THE ROOT===========");
-    console.log(req.session.sport);
+  sport = req.session.sport;
   res.render('index');
 });
 
@@ -14,7 +13,6 @@ router.get('/new', function(req, res, next) {
 
 router.post('/', function(req, res, next) {
   req.session.sport = req.body.sport;
-  console.log("INSIDE THE POST REQUEST=================");
   res.redirect('/events');
 });
 
