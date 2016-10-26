@@ -20,7 +20,7 @@ describe('user sign up', function() {
       browser.fill('email', 'ewan@hotmail.com', done);
       browser.fill('password', 'Password', done);
       browser.fill('pwd_confirm', 'Password', done);
-      browser.pressButton('Create Account', done)
+      browser.pressButton('Create Account', done);
     });
 
     it("should redirect to homepage if sign up is successful", function(){
