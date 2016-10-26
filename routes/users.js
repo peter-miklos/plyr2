@@ -1,14 +1,5 @@
 var express = require('express');
 var router = express.Router();
-var firebase = require("firebase");
-
-var config = {
-    apiKey: process.env.FIREBASE_DEVELOPMENT,
-    authDomain: "playwithme-" + process.env.NODE_ENV + ".firebaseapp.com",
-    databaseURL: "https://playwithme-" + process.env.NODE_ENV + ".firebaseio.com/",
-    messagingSenderId: process.env.FIREBASE_MESSAGING_DEVELOPMENT
-};
-firebase.initializeApp(config);
 
 /* GET users listing. */
 
