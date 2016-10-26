@@ -30,6 +30,39 @@ describe('events page content', function() {
       browser.assert.text("body", /Wrestling/);
    });
 
+   describe('show all events', function() {
+
+     before(function(done){
+       browser.visit('/events', done);
+     });
+
+     it("should display the various events on the page", function() {
+        browser.assert.text("body", /Wrestling/);
+     });
+   });
+
+
+   describe('show received and booked events', function() {
+
+     before(function(done) {
+       browser.visit('/events/requests', done);
+     });
+
+     it("should display the events of the user", function() {
+       browser.assert.text("body", /Wrestling/);
+     });
+   });
+
+   describe('accept events', function() {
+
+     before(function(done) {
+       browser.visit('/events/requests', done);
+     });
+     it("should let the user accept events", function() {
+       browser.assert.text("body", /Wrestling/);
+     });
+   });
+
  after(function(done) {
    server.close(done);
  });
