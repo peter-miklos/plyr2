@@ -12,17 +12,19 @@ describe('events page content', function() {
  });
 
    before(function(done){
-     browser.visit('/events/new', done);
+     browser.visit('/events/new');
+     done();
    });
 
    before(function(done) {
-     browser.select("#sport", "Wrestling", done);
-     browser.select("#skill", "4", done);
-     browser.fill('event_date', 27-10-2016, done);
-     browser.fill('time', "15:00", done);
-     browser.fill('location', "Peter's house", done);
-     browser.fill('comment', "I dare you!", done);
-     browser.pressButton('Create Event!', done);
+     browser.select("#sport", "Wrestling");
+     browser.select("#skill", "4");
+     browser.fill('event_date', 27-10-2016);
+     browser.fill('time', "15:00");
+     browser.fill('location', "Peter's house");
+     browser.fill('comment', "I dare you!");
+     browser.pressButton('Create Event!');
+     done();
    });
 
    it("should redirect to homepage", function() {

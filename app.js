@@ -1,5 +1,16 @@
 process.env.NODE_ENV ? process.env.NODE_ENV : process.env.NODE_ENV = 'development';
 
+// ADDED IN THURSDAY AFTERNOON - DB CLEANER:
+
+// var DatabaseCleaner = require('database-cleaner');
+// var type = pg;
+// var databaseCleaner = new DatabaseCleaner(type); //type = 'mongodb|redis|couchdb'
+
+// databaseCleaner.clean(database, callback);
+
+//
+
+
 require("dotenv").config();
 var express = require('express');
 var path = require('path');
