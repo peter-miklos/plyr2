@@ -9,42 +9,52 @@
     </header>
     <div class="container">
       <div class="starter-template">
-        <h1><%= title %></h1>
-        <table class="table">
-          <tbody>
-            <tr>
-              <th scope="row">Location</th>
-              <td><%= event.location %></td>
-            </tr>
-            <tr>
-              <th scope="row">Sport</th>
-              <td><%= event.sport %></td>
-            </tr>
-            <tr>
-              <th scope="row">Skill level</th>
-              <td>
-                <% for (var i = 0; i < event.skill; i++) {%>
-                  <span class="glyphicon glyphicon-star"></span>
-                <% } %>
-                <% for (var i = 0; i < (5 - event.skill); i++) {%>
-                  <span class="glyphicon glyphicon-star-empty"></span>
-                <%}%>
-              </td>
-            </tr>
-            <tr>
-              <th scope="row">Date</th>
-              <td><%= new Date(event.eventDate).toDateString() %></td>
-            </tr>
-            <tr>
-              <th scope="row">Time</th>
-              <td><%= event.eventTime %></td>
-            </tr>
-            <tr>
-              <th scope="row">Description</th>
-              <td><%= event.description %></td>
-            </tr>
-          </tbody>
-        </table>
+        <div class="row">
+          <div class="col-xs-12 col-sm-6 col-md-8">
+            <h1><%= title %></h1>
+          </div>
+          <div class="col-xs-6 col-md-4">
+            <form action="/events/<%= event.id %>/requests/new">
+              <button type="submit" class="btn btn-default">Join</button>
+            </form>
+          </div>
+        </div>
+        <div class="row">
+          <table class="table">
+            <tbody>
+              <tr>
+                <th scope="row">Location</th>
+                <td><%= event.location %></td>
+              </tr>
+              <tr>
+                <th scope="row">Sport</th>
+                <td><%= event.sport %></td>
+              </tr>
+              <tr>
+                <th scope="row">Skill level</th>
+                <td>
+                  <% for (var i = 0; i < event.skill; i++) {%>
+                    <span class="glyphicon glyphicon-star"></span>
+                  <% } %>
+                  <% for (var i = 0; i < (5 - event.skill); i++) {%>
+                    <span class="glyphicon glyphicon-star-empty"></span>
+                  <%}%>
+                </td>
+              </tr>
+              <tr>
+                <th scope="row">Date</th>
+                <td><%= new Date(event.eventDate).toDateString() %></td>
+              </tr>
+              <tr>
+                <th scope="row">Time</th>
+                <td><%= event.eventTime %></td>
+              </tr>
+              <tr>
+                <th scope="row">Description</th>
+                <td><%= event.description %></td>
+              </tr>
+            </tbody>
+          </table>
         </div>
       </div>
     <footer>
