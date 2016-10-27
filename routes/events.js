@@ -5,6 +5,7 @@ var models = require("../models");
 /* GET users listing. */
 router.get('/index', function(req, res, next) {
   models.Event.findAll({}).then(function(events) {
+    // res.json(events)
     res.render('events/index', {title: "List of events", events: events});
   })
 });
