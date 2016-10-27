@@ -11,6 +11,8 @@
       <div class="starter-template">
         <h1><%= title %></h1>
         <% if (events) { %>
+          No events found.
+        <%} else {%>
           <table class="table">
             <thead>
               <tr>
@@ -24,24 +26,21 @@
               </tr>
             </thead>
             <tbody>
-          <% events.forEach(function(event, index) { %>
-            <tr>
-              <th scope="row"><%= index %></th>
-              <td><%= event.sport %></td>
-              <td><%= event.skill %></td>
-              <td><a href="/events/<%= event.id %>/requests/new"><%= new Date(event.eventDate).toDateString() %></td></a>
-              <td><%= event.eventTime %></td>
-              <td><%= event.location %></td>
-              <td>Join button TBA</td>
-            </tr>
-          <% })%>
-        <%} else {%>
-          No events found.
-        <% } %>
+              <% events.forEach(function(event, index) { %>
+                <tr>
+                  <th scope="row"><%= index %></th>
+                  <td><%= event.sport %></td>
+                  <td><%= event.skill %></td>
+                  <td><a href="/events/<%= event.id %>/requests/new"><%= new Date(event.eventDate).toDateString() %></td></a>
+                  <td><%= event.eventTime %></td>
+                  <td><%= event.location %></td>
+                  <td>Join button TBA</td>
+                </tr>
+              <% }) %>
             </tbody>
           </table>
+          <% }%>
         </div>
-
       </div>
     <footer>
         <% include ../partials/footer %>
