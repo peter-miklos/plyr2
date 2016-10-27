@@ -10,7 +10,7 @@
     <div class="container">
       <div class="starter-template">
         <h1><%= title %></h1>
-        <% if (events) { %>
+        <% if (events.length === 0) { %>
           No events found.
         <%} else {%>
           <table class="table">
@@ -22,7 +22,6 @@
                 <th>Date</th>
                 <th>Time</th>
                 <th>Location</th>
-                <th>Join</th>
               </tr>
             </thead>
             <tbody>
@@ -31,10 +30,9 @@
                   <th scope="row"><%= index %></th>
                   <td><%= event.sport %></td>
                   <td><%= event.skill %></td>
-                  <td><a href="/events/<%= event.id %>/requests/new"><%= new Date(event.eventDate).toDateString() %></td></a>
+                  <td><a href="/events/<%= event.id %>/show" id="link"><%= new Date(event.eventDate).toDateString() %></a></td>
                   <td><%= event.eventTime %></td>
                   <td><%= event.location %></td>
-                  <td>Join button TBA</td>
                 </tr>
               <% }) %>
             </tbody>
