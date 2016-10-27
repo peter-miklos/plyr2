@@ -15,7 +15,6 @@ var events = require('./routes/events');
 var sessions = require('./routes/sessions');
 
 var app = express();
-var sess;
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
