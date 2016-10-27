@@ -2,10 +2,8 @@ var express = require('express');
 var router = express.Router();
 var models = require("../models");
 
-/* GET users listing. */
 router.get('/index', function(req, res, next) {
   models.Event.findAll({}).then(function(events) {
-    // res.json(events)
     res.render('events/index', {title: "List of events", events: events});
   })
 });
@@ -16,7 +14,7 @@ router.get('/new', function(req, res, next) {
 
 router.post('/new', function(req, res, next) {
   models.Event.create({
-    skill: req.body.skill,
+    skill: parseInt(req.body.skill),
     eventDate: req.body.date,
     eventTime: req.body.time,
     location: req.body.location,
@@ -28,7 +26,9 @@ router.post('/new', function(req, res, next) {
 
 router.get('/:id/show', function(req, res, next) {
   var id = req.params.id
-  res.render('events/show', {title: "Event"});
+  models.Event.find({where: { id: req.params.id}}).then(function(event) {
+    res.render('events/show', {title: "Event", event: event});
+  })
 });
 
 
