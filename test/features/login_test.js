@@ -13,6 +13,7 @@ describe('log in', function() {
 
 
   before(function(done) {
+    models.sequelize.sync({force:true})
     browser.visit('/', done);
   });
 

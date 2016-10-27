@@ -10,7 +10,10 @@ describe('log in', function() {
     browser = new Browser({ site: 'http://localhost:3000'});
   });
 
-  
+  before(function(){
+    models.sequelize.sync({force:true})
+  });
+
 
   after(function(done) {
     server.close(done);

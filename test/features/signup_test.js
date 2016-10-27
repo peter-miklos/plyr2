@@ -12,6 +12,7 @@ describe('user sign up', function() {
   });
 
     before(function(done) {
+      models.sequelize.sync({force:true})
       browser.visit('/users/signup', done);
     });
 
