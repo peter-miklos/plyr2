@@ -11,13 +11,12 @@ router.get('/signup', function(req, res, next) {
 
 router.post('/signup', function(req, res, next) {
   if(req.body.password && req.body.password === req.body.pwd_confirm) {
-    req.session.user_name = req.body.name;
-    console.log(req.session.user_name);
     models.User.create({
       name: req.body.name,
       email: req.body.email,
       password: req.body.password
-    }).then(function(){
+    }).then(function(user){
+      req.session.user = user;
       res.redirect('/');
     });
   } else {
