@@ -1,31 +1,34 @@
 var express = require('express');
 var router = express.Router();
-
+var models = require("../models");
 
 /* GET users listing. */
 router.get('/index', function(req, res, next) {
-  res.render('index');
+  models.Event.findAll({}).then(function(events) {
+    // res.json(events)
+    res.render('events/index', {title: "List of events", events: events});
+  })
 });
 
 router.get('/new', function(req, res, next) {
-  res.render('events/new', {  title: "Create new event" });
+  res.render('events/new', {title: "Create new event"});
 });
 
 router.post('/new', function(req, res, next) {
   models.Event.create({
     skill: req.body.skill,
-    date: req.body.date,
-    time: req.body.time,
+    eventDate: req.body.date,
+    eventTime: req.body.time,
     location: req.body.location,
-    comment: req.body.comment
-  }).then(function(user) {
-    res.json(user);
+    description: req.body.comment
+  }).then(function(event) {
+    res.redirect('/events/index');
   });
-  res.redirect('/index');
 });
 
-router.post('/', function(req, res, next) {
-  res.redirect('/');
+router.get('/:id/show', function(req, res, next) {
+  var id = req.params.id
+  res.render('events/show', {title: "Event"});
 });
 
 module.exports = router;
