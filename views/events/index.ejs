@@ -29,7 +29,7 @@
               <th scope="row"><%= index %></th>
               <td><%= event.sport %></td>
               <td><%= event.skill %></td>
-              <td><%= event["eventDate"] %></td>
+              <td><%= new Date(event.eventDate).toDateString() %></td>
               <td><%= event.eventTime %></td>
               <td><%= event.location %></td>
               <td>Join button TBA</td>

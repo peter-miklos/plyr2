@@ -22,13 +22,13 @@ router.post('/new', function(req, res, next) {
     location: req.body.location,
     description: req.body.comment
   }).then(function(event) {
-    // res.json(event);
-    res.redirect("/index");
+    res.redirect('/events/index');
   });
 });
 
-router.post('/', function(req, res, next) {
-  res.redirect('/');
+router.get('/:id/show', function(req, res, next) {
+  var id = req.params.id
+  res.render('events/show', {title: "Event"});
 });
 
 module.exports = router;
