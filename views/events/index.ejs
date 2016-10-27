@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <% include ../partials/head %>
+  </head>
+  <body>
+    <header>
+      <% include ../partials/header %>
+    </header>
+    <div class="container">
+      <div class="starter-template">
+        <h1><%= title %></h1>
+        <% if (events) { %>
+          <table class="table">
+            <thead>
+              <tr>
+                <th>#</th>
+              </tr>
+            </thead>
+            <tbody>
+          <% events.forEach(function(event, index) { %>
+            <tr>
+              <th scope="row"><%= index %></th>
+              <td></td>              
+            </tr>
+          <% })%>
+        <%} else {%>
+          No events found.
+        <% } %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    <footer>
+        <% include ../partials/footer %>
+    </footer>
+  </body>
+</html>

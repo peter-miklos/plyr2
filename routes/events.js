@@ -4,7 +4,9 @@ var models = require("../models");
 
 /* GET users listing. */
 router.get('/index', function(req, res, next) {
-  res.render('events/index', {title: "List of events"});
+  models.Event.findAll({}).then(function(events) {
+    res.render('events/index', {title: "List of events", events: events});
+  })
 });
 
 router.get('/new', function(req, res, next) {
@@ -20,7 +22,7 @@ router.post('/new', function(req, res, next) {
     description: req.body.comment
   }).then(function(event) {
     // res.json(event);
-    res.redirect('/index');
+    res.redirect("/index");
   });
 });
 
