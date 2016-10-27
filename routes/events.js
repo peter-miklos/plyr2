@@ -20,7 +20,7 @@ router.post('/new', function(req, res, next) {
     eventDate: req.body.date,
     eventTime: req.body.time,
     location: req.body.location,
-    description: req.body.comment
+    description: req.body.description
   }).then(function(event) {
     res.redirect('/events/index');
   });
