@@ -14,6 +14,7 @@ describe('Manage events', function() {
 
  describe("Creates new event", function() {
    before(function(done){
+     models.sequelize.sync({force:true})
     //  models.Event.create({
     //    skill: 3,
     //    eventDate: "2016-10-30",

@@ -1,8 +1,9 @@
-
+process.env.NODE_ENV="test";
 
 var app = require('../../app');
 var Browser = require('zombie');
 var http = require('http');
+var models = require("../../models")
 
 describe('log in', function() {
 
@@ -13,6 +14,7 @@ describe('log in', function() {
 
 
   before(function(done) {
+    models.sequelize.sync({force:true})
     browser.visit('/', done);
   });
 

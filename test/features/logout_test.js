@@ -3,6 +3,7 @@ process.env.NODE_ENV="test"
 var app = require('../../app');
 var Browser = require('zombie');
 var http = require('http');
+var models = require("../../models")
 
 describe('user log out', function() {
 
@@ -12,6 +13,7 @@ describe('user log out', function() {
   });
 
     before(function(done) {
+      models.sequelize.sync({force:true})
       browser.visit('/users/signup', done);
     });
 
