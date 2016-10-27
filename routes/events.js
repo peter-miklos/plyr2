@@ -31,4 +31,26 @@ router.get('/:id/show', function(req, res, next) {
   res.render('events/show', {title: "Event"});
 });
 
+
+
+router.get("/:id/requests/new", function(req, res, next) {
+  eventID = req.params.id
+  res.render('events/requests/new', {title: "Create new request"})
+});
+
+router.post("/requests/index", function(req, res, next) {
+  models.Request.create({
+    comment: req.body.comment,
+    EventId: eventID
+  }).then(function(){
+    res.redirect('/events/requests/index');
+  });
+});
+
+router.get("/requests/index", function(req, res, next) {
+  res.render('events/requests/index')
+});
+
+
+
 module.exports = router;

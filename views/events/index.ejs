@@ -29,7 +29,7 @@
               <th scope="row"><%= index %></th>
               <td><%= event.sport %></td>
               <td><%= event.skill %></td>
-              <td><%= new Date(event.eventDate).toDateString() %></td>
+              <td><a href="/events/<%= event.id %>/requests/new"><%= new Date(event.eventDate).toDateString() %></td></a>
               <td><%= event.eventTime %></td>
               <td><%= event.location %></td>
               <td>Join button TBA</td>
@@ -41,6 +41,7 @@
             </tbody>
           </table>
         </div>
+
       </div>
     <footer>
         <% include ../partials/footer %>
