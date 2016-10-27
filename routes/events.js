@@ -31,26 +31,23 @@ router.get('/:id/show', function(req, res, next) {
   res.render('events/show', {title: "Event"});
 });
 
-router.post("/:event_id/requests/new", function(req, res, next) {
-  var eventID = req.params.event_id
-  console.log(eventID);
-  res.redirect("/:event_id/requests/new");
-});
 
 
-router.get("/:event_id/requests/new", function(req, res, next) {
+router.get("/:id/requests/new", function(req, res, next) {
+  eventID = req.params.id
   res.render('events/requests/new', {title: "Create new request"})
 });
 
-router.post("/events/requests/index", function(req, res, next) {
+router.post("/requests/index", function(req, res, next) {
   models.Request.create({
-    comment: req.body.comment
+    comment: req.body.comment,
+    EventId: eventID
   }).then(function(){
     res.redirect('/events/requests/index');
   });
 });
 
-router.get("/events/requests/index", function(req, res, next) {
+router.get("/requests/index", function(req, res, next) {
   res.render('events/requests/index')
 });
 
