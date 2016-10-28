@@ -47,7 +47,8 @@ router.post("/:id/requests/index", function(req, res, next) {
     models.Request.create({
       comment: req.body.comment,
       EventId: req.params.id,
-      StatusId: status.id
+      StatusId: status.id,
+      UserId: req.session.user.id
     }).then(function(){
       res.redirect('/events/requests/index');
     });
