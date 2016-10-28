@@ -6,7 +6,7 @@ var session = require('express-session');
 
 /* GET home page. */
 router.get('/login', function(req, res, next) {
-  res.render('sessions/login', { title: 'User Login' });
+  res.render('sessions/login', { title: 'User Login', flash: req.flash('loginError') });
 });
 
 router.post('/login', function(req, res, next) {
