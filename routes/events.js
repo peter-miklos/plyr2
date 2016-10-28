@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 var models = require("../models");
 
+
 router.get('/index', function(req, res, next) {
   models.Event.findAll({}).then(function(events) {
     models.Sport.findAll({}).then(function(sports) {
@@ -16,6 +17,7 @@ router.get('/new', function(req, res, next) {
     res.render('events/new', {title: "Create new event", sports: sports});
   })
 } else {
+  req.flash("loginError", "You need to be logged in");
   res.redirect('/sessions/login')
 }
 });
@@ -48,6 +50,7 @@ router.get("/:id/requests/new", function(req, res, next) {
   var eventId = req.params.id
   res.render('events/requests/new', {title: "Create new request", eventId: eventId})
 } else {
+  req.flash("loginError", "You need to be logged in");
   res.redirect('/sessions/login')
 }
 });
@@ -69,6 +72,7 @@ router.get("/requests/index", function(req, res, next) {
   if (req.session.user) {
   res.render('events/requests/index')
 } else {
+  req.flash("loginError", "You need to be logged in");
   res.redirect('/sessions/login')
 }
 });
