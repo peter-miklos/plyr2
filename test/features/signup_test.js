@@ -21,7 +21,7 @@ describe('user sign up', function() {
       browser.fill('name', 'Ewan', done);
       browser.fill('email', 'ewan@hotmail.com', done);
       browser.fill('password', 'Password', done);
-      browser.fill('pwd_confirm', 'Password', done);
+      browser.fill('password_confirmation', 'Password', done);
       browser.pressButton('Create Account', done)
     });
 
