@@ -8,7 +8,85 @@
       <% include ../../partials/header %>
     </header>
     <div class="container">
-
+      <div class="row">
+        <h1><%= title1 %></h1>
+          <% if (receivedRequests.length === 0) { %>
+            No requests found.
+          <%} else {%>
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Sport</th>
+                  <th>Skill level</th>
+                  <th>Date</th>
+                  <th>Time</th>
+                  <th>Location</th>
+                  <th>Comment</th>
+                  <th>Requestor</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                <% receivedRequests.forEach(function(request, index) { %>
+                  <% var eventIndex = events.findIndex(function(element) { return element.id === request.EventId})%>
+                  <% var event = events[eventIndex]%>
+                  <tr>
+                    <th scope="row"><%= index + 1 %></th>
+                    <% var sportIndex = sports.findIndex(function(element) { return element.id === event.SportId}) %>
+                    <td><%= sports[sportIndex].name %></td>
+                    <td><%= event.skill %></td>
+                    <td><a href="/events/<%= event.id %>/show" id="link"><%= new Date(event.eventDate).toDateString() %></a></td>
+                    <td><%= event.eventTime %></td>
+                    <td><%= event.location %></td>
+                    <td><%= request.comment %></td>
+                    <% var userIndex = users.findIndex(function(element) { return element.id === request.UserId}) %>
+                    <td><%= users[userIndex].name %></td>
+                    <% var statusIndex = statuses.findIndex(function(element) { return element.id === request.StatusId}) %>
+                    <td><%= statuses[statusIndex].name %></td>
+                  </tr>
+                <% }) %>
+              </tbody>
+            </table>
+            <% }%>
+        <h1><%= title2 %></h1>
+        <% if (myRequests.length === 0) { %>
+          No requests found.
+        <%} else {%>
+          <table class="table">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Sport</th>
+                <th>Skill level</th>
+                <th>Date</th>
+                <th>Time</th>
+                <th>Location</th>
+                <th>Comment</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% myRequests.forEach(function(request, index) { %>
+                <% var eventIndex = events.findIndex(function(element) { return element.id === request.EventId})%>
+                <% var event = events[eventIndex]%>
+                <tr>
+                  <th scope="row"><%= index + 1 %></th>
+                  <% var sportIndex = sports.findIndex(function(element) { return element.id === event.SportId}) %>
+                  <td><%= sports[sportIndex].name %></td>
+                  <td><%= event.skill %></td>
+                  <td><a href="/events/<%= event.id %>/show" id="link"><%= new Date(event.eventDate).toDateString() %></a></td>
+                  <td><%= event.eventTime %></td>
+                  <td><%= event.location %></td>
+                  <td><%= request.comment %></td>
+                  <% var statusIndex = statuses.findIndex(function(element) { return element.id === request.StatusId}) %>
+                  <td><%= statuses[statusIndex].name %></td>
+                </tr>
+              <% }) %>
+            </tbody>
+          </table>
+          <% }%>
+      </div>
     </div>
     <footer>
         <% include ../../partials/footer %>

@@ -32,13 +32,43 @@ router.get('/logout', function(req, res) {
 });
 
 router.get('/:id/requests/index', function(req, res, next) {
-  var myRequests;
-  var receivedRequests;
-  models.Request.findAll({where: {UserId: req.session.user.id}}).then(function(requests) {
-    myRequests = requests
+  models.Sport.findAll({}).then(function(sports) {
+    models.Event.findAll({}).then(function(events) {
+      models.Request.findAll({where: {UserId: req.session.user.id}}).then(function(myRequests) {
+        models.Status.findAll({}).then(function(statuses) {
+          models.User.findAll({}).then(function(users) {
+            models.Event.findAll({where: {UserId: req.session.user.id}}).then(function(myEvents) {
+              if (myEvents.length === 0) {
+                res.render("events/requests/index", {myRequests: myRequests,
+                                                    receivedRequests: [],
+                                                    title1: "Received requests",
+                                                    title2: "Sent requests",
+                                                    events: events,
+                                                    sports: sports,
+                                                    statuses: statuses,
+                                                    users: users})
+              } else {
+                models.Request.findAll({where: {
+                    EventId: {
+                      $any: myEvents.map(function(elem) { return elem.id })
+                    }
+                }}).then(function(receivedRequests) {
+                  res.render("events/requests/index", {myRequests: myRequests,
+                                                      receivedRequests: receivedRequests,
+                                                      title1: "Received requests",
+                                                      title2: "Sent requests",
+                                                      events: events,
+                                                      sports: sports,
+                                                      statuses: statuses,
+                                                      users: users})
+                })
+              }
+            })
+          })
+        })
+      })
+    })
   })
-  // receivedRequests must be found and rendered to the view
-  res.render("events/requests/index", {myRequests: myRequests, receivedRequests: receivedRequests})
 })
 
 module.exports = router;
