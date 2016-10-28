@@ -7,10 +7,13 @@
     <header>
       <% include ../partials/header %>
     </header>
+    <div>
+        <% include ../partials/flash %>
+    </div>    
     <div class="container">
       <div class="starter-template">
         <h1><%= title %></h1>
-          <%= flash %>
+
         <% if (events.length === 0) { %>
           No events found.
         <%} else {%>
