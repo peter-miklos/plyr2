@@ -11,9 +11,13 @@ router.get('/index', function(req, res, next) {
 });
 
 router.get('/new', function(req, res, next) {
+  if (req.session.user) {
   models.Sport.findAll({}).then(function(sports) {
     res.render('events/new', {title: "Create new event", sports: sports});
   })
+} else {
+  res.redirect('/sessions/login')
+}
 });
 
 router.post('/new', function(req, res, next) {
@@ -40,8 +44,12 @@ router.get('/:id/show', function(req, res, next) {
 });
 
 router.get("/:id/requests/new", function(req, res, next) {
+  if (req.session.user) {
   var eventId = req.params.id
   res.render('events/requests/new', {title: "Create new request", eventId: eventId})
+} else {
+  res.redirect('/sessions/login')
+}
 });
 
 router.post("/:id/requests/new", function(req, res, next) {
@@ -58,7 +66,11 @@ router.post("/:id/requests/new", function(req, res, next) {
 });
 
 router.get("/requests/index", function(req, res, next) {
+  if (req.session.user) {
   res.render('events/requests/index')
+} else {
+  res.redirect('/sessions/login')
+}
 });
 
 module.exports = router;
