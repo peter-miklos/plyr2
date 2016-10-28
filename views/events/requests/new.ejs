@@ -8,7 +8,7 @@
       <% include ../../partials/header %>
     </header>
     <div class="container">
-      <form action="/events/<%= eventId %>/requests/index" method="post">
+      <form action="/events/<%= eventId %>/requests/new" method="post">
         <div class="form-group">
           <label for="comment">Message</label>
           <textarea class="form-control" name="comment" placeholder="Do you want to send a message?" rows="8" cols="40"></textarea>

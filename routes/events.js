@@ -24,7 +24,7 @@ router.post('/new', function(req, res, next) {
     location: req.body.location,
     description: req.body.description,
     SportId: parseInt(req.body.sport_select),
-    // UserId: req.session.user.id
+    UserId: req.session.user.id
   }).then(function(event) {
     res.redirect('/events/index');
   });
@@ -42,14 +42,15 @@ router.get("/:id/requests/new", function(req, res, next) {
   res.render('events/requests/new', {title: "Create new request", eventId: eventId})
 });
 
-router.post("/:id/requests/index", function(req, res, next) {
+router.post("/:id/requests/new", function(req, res, next) {
   models.Status.find({where: {name: "Open"}}).then(function(status) {
     models.Request.create({
       comment: req.body.comment,
       EventId: req.params.id,
-      StatusId: status.id
+      StatusId: status.id,
+      UserId: req.session.user.id
     }).then(function(){
-      res.redirect('/events/requests/index');
+      res.redirect('/sessions/' + req.session.user.id + '/requests/index');
     });
   })
 });
