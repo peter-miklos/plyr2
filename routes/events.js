@@ -31,17 +31,15 @@ router.get('/:id/show', function(req, res, next) {
   })
 });
 
-
-
 router.get("/:id/requests/new", function(req, res, next) {
-  eventID = req.params.id
-  res.render('events/requests/new', {title: "Create new request"})
+  var eventId = req.params.id
+  res.render('events/requests/new', {title: "Create new request", eventId: eventId})
 });
 
-router.post("/requests/index", function(req, res, next) {
+router.post("/:id/requests/index", function(req, res, next) {
   models.Request.create({
     comment: req.body.comment,
-    EventId: eventID
+    EventId: req.params.id
   }).then(function(){
     res.redirect('/events/requests/index');
   });
@@ -50,7 +48,5 @@ router.post("/requests/index", function(req, res, next) {
 router.get("/requests/index", function(req, res, next) {
   res.render('events/requests/index')
 });
-
-
 
 module.exports = router;

@@ -36,15 +36,16 @@
             </div>
             <div class="form-group">
               <label for="time">Event time</label>
-                <input type="time" name="time">
+              <input class="form-control" type="time" name="time">
             </div>
             <div class="form-group">
               <label for="location">Location</label>
-                <input type="text" name="location" placeholder="Please set the location">
+              <input class="form-control" type="text" name="location" placeholder="Please set the location">
             </div>
             <div class="form-group">
-              <label for="comment">Description</label>
-                <input type="text" name="description" placeholder="Do you have any addition?" id="description">
+              <label for="description">Description</label>
+              <textarea class="form-control" name="description" placeholder="Do you have any addition?" id="description" rows="8" cols="40"></textarea>
+
             </div>
             <button type="submit" class="btn btn-default">Create Event!</button>
           </form>
