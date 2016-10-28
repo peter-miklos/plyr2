@@ -24,7 +24,7 @@ router.post('/new', function(req, res, next) {
     location: req.body.location,
     description: req.body.description,
     SportId: parseInt(req.body.sport_select),
-    // UserId: req.session.user.id
+    UserId: req.session.user.id
   }).then(function(event) {
     res.redirect('/events/index');
   });
