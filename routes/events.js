@@ -40,6 +40,7 @@ router.get('/:id/show', function(req, res, next) {
   var id = req.params.id
   models.Event.find({where: { id: req.params.id}}).then(function(event) {
     models.Sport.find({where: { id: event.SportId}}).then(function(sport) {
+      console.log(event.UserId);
       res.render('events/show', {title: "Event", event: event, sport: sport});
     });
   });
