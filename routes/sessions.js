@@ -31,4 +31,14 @@ router.get('/logout', function(req, res) {
   res.redirect('/');
 });
 
+router.get('/:id/requests/index', function(req, res, next) {
+  var myRequests;
+  var receivedRequests;
+  models.Request.findAll({where: {UserId: req.session.user.id}}).then(function(requests) {
+    myRequests = requests
+  })
+  // receivedRequests must be found and rendered to the view
+  res.render("events/requests/index", {myRequests: myRequests, receivedRequests: receivedRequests})
+})
+
 module.exports = router;

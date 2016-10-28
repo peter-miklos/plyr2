@@ -42,7 +42,7 @@ router.get("/:id/requests/new", function(req, res, next) {
   res.render('events/requests/new', {title: "Create new request", eventId: eventId})
 });
 
-router.post("/:id/requests/index", function(req, res, next) {
+router.post("/:id/requests/new", function(req, res, next) {
   models.Status.find({where: {name: "Open"}}).then(function(status) {
     models.Request.create({
       comment: req.body.comment,
@@ -50,7 +50,7 @@ router.post("/:id/requests/index", function(req, res, next) {
       StatusId: status.id,
       UserId: req.session.user.id
     }).then(function(){
-      res.redirect('/events/requests/index');
+      res.redirect('/sessions/' + req.session.user.id + '/requests/index');
     });
   })
 });
