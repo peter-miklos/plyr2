@@ -33,8 +33,10 @@ router.post('/new', function(req, res, next) {
 router.get('/:id/show', function(req, res, next) {
   var id = req.params.id
   models.Event.find({where: { id: req.params.id}}).then(function(event) {
-    res.render('events/show', {title: "Event", event: event});
-  })
+    models.Sport.find({where: { id: event.SportId}}).then(function(sport) {
+      res.render('events/show', {title: "Event", event: event, sport: sport});
+    });
+  });
 });
 
 router.get("/:id/requests/new", function(req, res, next) {
