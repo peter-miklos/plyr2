@@ -4,7 +4,7 @@ var models = require("../models");
 
 router.get('/index', function(req, res, next) {
   models.Event.findAll({}).then(function(events) {
-    res.render('events/index', {title: "List of events", events: events, flash: req.flash('info')});
+    res.render('events/index', {title: "List of events", events: events, flash: req.flash('eventCreated')});
   })
 });
 
@@ -20,7 +20,7 @@ router.post('/new', function(req, res, next) {
     location: req.body.location,
     description: req.body.description
   }).then(function(event) {
-    req.flash('info', 'Event created');
+    req.flash('eventCreated', 'Event created');
     res.redirect('/events/index');
   });
 });
@@ -42,12 +42,13 @@ router.post("/:id/requests/index", function(req, res, next) {
     comment: req.body.comment,
     EventId: req.params.id
   }).then(function(){
+    req.flash('requestSent', 'Request sent');
     res.redirect('/events/requests/index');
   });
 });
 
 router.get("/requests/index", function(req, res, next) {
-  res.render('events/requests/index')
+  res.render('events/requests/index', {flash: req.flash('requestSent')})
 });
 
 module.exports = router;
