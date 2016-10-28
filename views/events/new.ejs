@@ -13,10 +13,10 @@
         <form action="/events/new" method="post">
           <div class="form-group">
             <label for="sport">Select your preferred sport</label>
-            <select id="sport">
-              <option value="ping pong">Ping pong</option>
-              <option value="wrestling">Wrestling</option>
-              <option value="tennis">Tennis</option>
+            <select id="sport_selet" name="sport_select">
+              <% sports.forEach(function(sport) { %>
+                <option value="<%= sport.id %>"><%= sport.name %></option>
+              <% }) %>
             </select>
             <!-- <input type="text" class="form-control" id="name" placeholder="Name" name="name"> -->
             </div>
