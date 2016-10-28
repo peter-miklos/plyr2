@@ -17,10 +17,8 @@ router.post('/login', function(req, res, next) {
     .then(function(user){
       if (bcrypt.compareSync(req.body.password, user.dataValues.password_digest)) {
         req.session.user = user;
-        console.log(user);
         res.redirect('/');
       } else {
-        console.log(user);
         res.redirect('/sessionslogin');
       }
     });
