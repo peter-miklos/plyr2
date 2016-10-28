@@ -27,7 +27,7 @@ describe('Manage events', function() {
    before(function(done){
      browser.visit('/events/new').then(function() {
        browser
-        .select("#sport", "Wrestling")
+        .select("#sport_select", "Wrestling")
         .select("#skill", "4")
         .fill('date', '2016-10-30')
         .fill('time', "16:00")
@@ -51,7 +51,7 @@ describe('Manage events', function() {
    before(function(done){
      browser.visit('/events/new').then(function() {
        browser
-        .select("#sport", "Wrestling")
+        .select("#sport_select", "Wrestling")
         .select("#skill", "4")
         .fill('date', '2016-11-30')
         .fill('time', "15:00")
@@ -71,7 +71,7 @@ describe('Manage events', function() {
      models.sequelize.sync({force:true});
      browser.visit('/events/new').then(function() {
        browser
-        .select("#sport", "Wrestling")
+        .select("#sport_select", "Wrestling")
         .select("#skill", "4")
         .fill('date', '2016-11-30')
         .fill('time', "15:00")
