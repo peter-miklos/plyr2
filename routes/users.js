@@ -12,12 +12,14 @@ router.get('/signup', function(req, res, next) {
 });
 
 router.post('/signup', function(req, res, next) {
+  req.session.user_name = req.body.name;
   user = models.User.create({
                     name: req.body.name,
                     email: req.body.email,
                     password: req.body.password,
                     password_confirmation: req.body.password_confirmation})
   .then(function () {
+    // not quite sure how to pass through the current user in a session
     // req.session.currentUser = user._bountTo.dataValues.id;
     res.redirect('/');
   })
