@@ -15,6 +15,7 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.STRING,
       allowNull: false,
       validate: {
+        unique:true,
         notEmpty:true,
         isEmail:true
       }
@@ -55,7 +56,7 @@ module.exports = function(sequelize, DataTypes) {
   	});
   };
 
-//may eventually need similar funciton for updating users 
+//may eventually need similar funciton for updating users
   User.beforeCreate(function(user, options, callback) {
   	if (user.password)
   		hasSecurePassword(user, options, callback);
