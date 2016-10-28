@@ -25,6 +25,10 @@ describe('log in', function() {
     browser.pressButton('Create Account', done);
   });
 
+  before(function(done){
+    browser.visit('/addsportsstatuses', done);
+  });
+
 
     before(function(done) {
       browser.visit('/sessions/login', done);
