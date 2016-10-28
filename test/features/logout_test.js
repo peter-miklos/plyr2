@@ -21,7 +21,7 @@ describe('user log out', function() {
       browser
         .fill('email', 'test1@test.com', done)
         .fill('password', 'Password', done)
-        .fill('pwd_confirm', 'Password', done)
+        .fill('password_confirmation', 'Password', done)
         .pressButton('Create Account', done)
     });
 
