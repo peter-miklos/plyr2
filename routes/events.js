@@ -4,7 +4,7 @@ var models = require("../models");
 
 router.get('/index', function(req, res, next) {
   models.Event.findAll({}).then(function(events) {
-    res.render('events/index', {title: "List of events", events: events});
+    res.render('events/index', {title: "List of events", events: events, flash: req.flash('info')});
   })
 });
 
@@ -20,6 +20,7 @@ router.post('/new', function(req, res, next) {
     location: req.body.location,
     description: req.body.description
   }).then(function(event) {
+    req.flash('info', 'Event created');
     res.redirect('/events/index');
   });
 });

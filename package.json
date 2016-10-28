@@ -22,7 +22,8 @@
     "pg-hstore": "^2.3.2",
     "sequelize": "^3.24.6",
     "sequelize-cli": "^2.4.0",
-    "serve-favicon": "~2.3.0"
+    "serve-favicon": "~2.3.0",
+    "connect-flash": "^0.1.1"
   },
   "devDependencies": {
     "zombie": "^4.3.0"
