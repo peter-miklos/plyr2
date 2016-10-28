@@ -18,7 +18,7 @@ router.post('/login', function(req, res, next) {
         req.session.user = user;
         res.redirect('/');
       } else {
-        res.redirect('/sessionslogin');
+        res.redirect('/sessions/login');
       }
     })
     .catch(function(error) {
