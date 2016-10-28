@@ -13,7 +13,7 @@ describe('user sign up', function() {
   });
 
     before(function(done) {
-      models.sequelize.sync({force:true})
+      models.sequelize.sync({force:true});
       browser.visit('/users/signup', done);
     });
 
@@ -22,7 +22,7 @@ describe('user sign up', function() {
       browser.fill('email', 'ewan@hotmail.com', done);
       browser.fill('password', 'Password', done);
       browser.fill('password_confirmation', 'Password', done);
-      browser.pressButton('Create Account', done)
+      browser.pressButton('Create Account', done);
     });
 
     it("should redirect to homepage if sign up is successful", function(){
