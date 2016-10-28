@@ -71,4 +71,51 @@ router.get('/:id/requests/index', function(req, res, next) {
   })
 })
 
+router.post("/:user_id/requests/:id/complete", function(req, res, next) {
+  var requestId = req.params.id;
+  var userId = req.params.user_id;
+  if (req.body.action === "Accepted") {
+    models.Status.find({where: {name: req.body.action}}).then(function(status) {
+      models.Request.find({where: {id: requestId}}).then(function(acceptedRequest) {
+        if(acceptedRequest) {
+          acceptedRequest.updateAttributes({
+            StatusId: status.id
+          }).then(function(){
+            models.Event.find({where: {id: acceptedRequest.EventId}}).then(function(eventItem) {
+              eventItem.updateAttributes({
+                // Event should store the id of the accepted request. First the RequestId should be created
+              }).then(function(){
+                models.Status.find({where: {name: "Open"}}).then(function(openStatus) {
+                  models.Request.findAll({
+                    where: {
+                      StatusId: openStatus.id,
+                      EventId: eventItem.id
+                    }
+                  }).then(function(requests) {
+                    console.log(requests)
+                    res.redirect("/sessions/" + userId + "/requests/index");
+                  })
+                })
+              })
+            })
+          })
+        }
+      })
+    })
+  }
+  else if (req.body.action === "Rejected") {
+    models.Status.find({where: {name: req.body.action}}).then(function(status) {
+      models.Request.find({where: {id: requestId}}).then(function(request) {
+        if(request) {
+          request.updateAttributes({
+            StatusId: status.id
+          }).then(function() {
+            res.redirect("/sessions/" + userId + "/requests/index");
+          })
+        }
+      })
+    })
+  }
+})
+
 module.exports = router;

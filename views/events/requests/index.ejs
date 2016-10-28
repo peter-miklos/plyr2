@@ -40,15 +40,15 @@
                       <% var userIndex = users.findIndex(function(element) { return element.id === request.UserId}) %>
                       <td><%= users[userIndex].name %></td>
                       <td>
-                        <form action="/sessions/<%= currentUser.id %>/requests/complete">
-                          <input type="hidden" name="action" value="confirm">
-                          <input type="hidden" name="booking_id" value=<%=  %> >
-                          <button name="confirm" class="btn btn-default btn-sm" type="submit" >Confirm</button>
+                        <form action="/sessions/<%= currentUser.id %>/requests/<%= request.id %>/complete" method="post">
+                          <input type="hidden" name="action" value="Accepted">
+                          <input type="hidden" name="request_id" value=<%= request.id %> >
+                          <button name="Accepted" class="btn btn-default btn-sm" type="submit" >Confirm</button>
                         </form>
-                        <form action="/sessions/<%= currentUser.id %>/requests/complete">
-                          <input type="hidden" name="action" value="reject">
-                          <input type="hidden" name="booking_id" value=<%=  %> >
-                          <button name="reject" class="btn btn-default btn-sm" type="submit">Reject</button>
+                        <form action="/sessions/<%= currentUser.id %>/requests/<%= request.id %>/complete" method="post">
+                          <input type="hidden" name="action" value="Rejected">
+                          <input type="hidden" name="request_id" value=<%= request.id %> >
+                          <button name="Rejected" class="btn btn-default btn-sm" type="submit">Reject</button>
                         </form>
                       </td>
                     </tr>
