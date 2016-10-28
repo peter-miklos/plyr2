@@ -20,6 +20,9 @@ router.post('/login', function(req, res, next) {
       } else {
         res.redirect('/sessionslogin');
       }
+    })
+    .catch(function(error) {
+      res.redirect('/users/signup');
     });
 });
 
