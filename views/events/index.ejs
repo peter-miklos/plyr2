@@ -26,7 +26,7 @@
            </thead>
            <tbody>
              <% events.forEach(function(event, index) { %>
-               <tr>
+               <tr class="clickable-row" data-href="/events/<%= event.id %>/show">
                  <th scope="row"><%= index + 1 %></th>
                  <% var sportIndex = sports.findIndex(function(element) { return element.id === event.SportId}) %>
                  <td><%= sports[sportIndex].name %></td>
