@@ -17,7 +17,7 @@
         <li><a href="/events/index">All events</a></li>
         <% if (currentUser) { %>
           <li><a href="/events/new">Add event</a></li>
-          <li><a href="/sessions/<%= currentUser.id %>/requests/index">My requests</a></li>
+          <li class="my_requests"><a href="/sessions/<%= currentUser.id %>/requests/index">My requests</a></li>
         <% } %>
       </ul>
       <ul class="nav navbar-nav navbar-right">
