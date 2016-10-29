@@ -4,7 +4,6 @@ var bcrypt = require('bcrypt');
 var models = require('../models');
 var session = require('express-session');
 
-/* GET home page. */
 router.get('/login', function(req, res, next) {
   res.render('sessions/login', { title: 'User Login', flash: req.flash('loginError') });
 });
@@ -72,6 +71,55 @@ router.get('/:id/requests/index', function(req, res, next) {
       })
     })
   })
+})
+
+router.post("/:user_id/requests/:id/complete", function(req, res, next) {
+  var requestId = req.params.id;
+  var userId = req.params.user_id;
+  var acceptedStatus, openStatus, rejectedStatus;
+  models.Status.findAll({}).then(function(statuses) {
+    acceptedStatus = statuses.find(function(e) {return e.name === req.body.action})
+    openStatus = statuses.find(function(e) {return e.name === "Open"})
+    rejectedStatus = statuses.find(function(e) {return e.name === "Rejected"})
+  })
+  if (req.body.action === "Accepted") {
+    models.Request.find({where: {id: requestId}}).then(function(acceptedRequest) {
+      if(acceptedRequest) {
+        acceptedRequest.updateAttributes({
+          StatusId: acceptedStatus.id
+        }).then(function(){
+          models.Event.find({where: {id: acceptedRequest.EventId}}).then(function(eventItem) {
+            models.Request.findAll({
+              where: {
+                StatusId: openStatus.id,
+                EventId: eventItem.id
+              }
+            }).then(function(requests) {
+              requests.forEach(function(request, index) {
+                request.updateAttributes({
+                  StatusId: rejectedStatus.id
+                }).then(function(){})
+              })
+            })
+          })
+        })
+      }
+    })
+    res.redirect("/sessions/" + userId + "/requests/index");
+  }
+  else if (req.body.action === "Rejected") {
+    models.Status.find({where: {name: req.body.action}}).then(function(status) {
+      models.Request.find({where: {id: requestId}}).then(function(request) {
+        if(request) {
+          request.updateAttributes({
+            StatusId: status.id
+          }).then(function() {
+            res.redirect("/sessions/" + userId + "/requests/index");
+          })
+        }
+      })
+    })
+  }
 })
 
 module.exports = router;
