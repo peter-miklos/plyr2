@@ -168,13 +168,47 @@ describe('Manage requests', function() {
         browser.fill("comment", "I really wanna play", done);
         browser.pressButton("Send request!").then(function() {
           browser.assert.text("div", /I really wanna play/);
-        }).then(function() {
-          done();
-        })
+        }).then(function() { done(); })
       })
     });
 
+    describe("user cannot create a request to the same event more than once", function() {
+      // TBD
+    })
   });
+
+  describe("Reject request", function() {
+
+    before(function(done){
+      browser.clickLink("Log out").then(function() {
+        browser.clickLink("Log in", done);
+      });
+    });
+
+    before(function(done) {
+      browser
+        .fill('email', 'test1@test.com')
+        .fill('password', 'Password')
+        .pressButton('Log in').then(function() {
+          browser.clickLink("My requests", done);
+        })
+    });
+
+    it("received requests list shows the received request", function() {
+      browser.assert.text("div", /I really wanna play/);
+      browser.assert.hasNoClass("div", "no_received_request");
+    })
+
+    it("request becomes Rejeted", function(done) {
+      browser.pressButton("Reject").then(function() {
+        browser.assert.text("td", /Rejected/)
+      }).then(function() { done(); });
+    })
+  });
+
+  describe("Accept request", function() {
+
+  })
 
   after(function(done) {
     server.close(done);

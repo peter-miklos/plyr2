@@ -11,7 +11,9 @@
       <div class="row">
         <h1><%= title1 %></h1>
           <% if (receivedRequests.length === 0) { %>
-            No received requests found.
+            <div class="no_received_request">
+              No received requests found.
+            </div>
           <%} else {%>
             <div class="table-responsive" id="received_requests">
               <table class="table">
@@ -65,7 +67,9 @@
             <% }%>
         <h1><%= title2 %></h1>
         <% if (myRequests.length === 0) { %>
-          No sent requests found.
+          <div class="no_sent_request">
+            No sent requests found.
+          </div>
         <%} else {%>
           <div class="table-responsive" id="sent_requests">
             <table class="table">
