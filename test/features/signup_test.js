@@ -29,6 +29,10 @@ describe('user sign up', function() {
       browser.assert.url({pathname: '/'});
     });
 
+    it("should show the user's name in the navbar", function(){
+      browser.assert.text("nav", /Ewan/);
+    });
+
     describe('incorrect sign up - no email', function() {
 
     before(function(done) {
