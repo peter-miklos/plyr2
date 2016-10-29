@@ -4,7 +4,6 @@ var bcrypt = require('bcrypt');
 var models = require('../models');
 var session = require('express-session');
 
-/* GET home page. */
 router.get('/login', function(req, res, next) {
   res.render('sessions/login', { title: 'User Login', flash: req.flash('loginError') });
 });
@@ -93,7 +92,6 @@ router.post("/:user_id/requests/:id/complete", function(req, res, next) {
                 EventId: eventItem.id
               }
             }).then(function(requests) {
-              console.log(requests)
               requests.forEach(function(request, index) {
                 request.updateAttributes({
                   StatusId: rejectedStatus.id
