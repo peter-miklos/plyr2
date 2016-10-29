@@ -48,6 +48,48 @@ describe('log in', function() {
       browser.assert.text("nav", /Ewan/);
     });
 
+    describe('incorrect log in - no email or none existing email in DB', function() {
+
+    before(function(done) {
+      browser.visit('/sessions/login', done);
+    });
+
+    before(function(done) {
+      browser.fill('password', 'Password', done);
+      browser.pressButton('Log in', done);
+    });
+
+    it('should not log in without email', function() {
+      browser.assert.url({pathname: '/sessions/login'});
+    });
+
+    it("should show an error message", function(){
+      browser.assert.text("body", /Incorrect email or password/);
+    });
+
+  });
+
+  describe('incorrect log in - no password or none existing password', function() {
+
+  before(function(done) {
+    browser.visit('/sessions/login', done);
+  });
+
+  before(function(done) {
+    browser.fill('email', 'ewan@hotmail.com', done);
+    browser.pressButton('Log in', done);
+  });
+
+  it('should not log in without password', function() {
+    browser.assert.url({pathname: '/sessions/login'});
+  });
+
+  it("should show an error message", function(){
+    browser.assert.text("body", /Incorrect email or password/);
+  });
+
+});
+
   after(function(done) {
     server.close(done);
   });

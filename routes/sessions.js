@@ -18,11 +18,13 @@ router.post('/login', function(req, res, next) {
         req.session.user = user;
         res.redirect('/');
       } else {
+        req.flash("loginError", "Incorrect email or password");
         res.redirect('/sessions/login');
       }
     })
     .catch(function(error) {
-      res.redirect('/users/signup');
+      req.flash("loginError", "Incorrect email or password");
+      res.redirect('/sessions/login');
     });
 });
 
