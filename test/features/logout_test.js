@@ -41,6 +41,10 @@ describe('user log out', function() {
       browser.assert.text("nav", /Log in/);
     });
 
+    it('shows a goodbye message', function() {
+      browser.assert.text("body", /Successfully logged out!/);
+    });
+
   after(function(done) {
     server.close(done);
   });
