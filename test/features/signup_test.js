@@ -3,7 +3,7 @@ process.env.NODE_ENV="test";
 var app = require('../../app');
 var Browser = require('zombie');
 var http = require('http');
-var models = require("../../models")
+var models = require("../../models");
 
 describe('user sign up', function() {
 
@@ -28,6 +28,98 @@ describe('user sign up', function() {
     it("should redirect to homepage if sign up is successful", function(){
       browser.assert.url({pathname: '/'});
     });
+
+    it("should show the user's name in the navbar", function(){
+      browser.assert.text("nav", /Ewan/);
+    });
+
+    describe('incorrect sign up - no email', function() {
+
+    before(function(done) {
+      browser.visit('/users/signup', done);
+    });
+
+    before(function(done) {
+      browser.fill('name', 'ewan', done);
+      browser.fill('password', 'ewan', done);
+      browser.fill('password_confirmation', 'ewan', done);
+      browser.pressButton('Create Account', done);
+    });
+
+    it('should not sign in without email', function() {
+      browser.assert.url({pathname: '/users/signup'});
+    });
+
+    it("should show an error message", function(){
+      browser.assert.text("body", /You need to enter a name, email and matching passwords/);
+    });
+
+  });
+
+  describe('incorrect sign up - email format', function() {
+
+    before(function(done) {
+      browser.visit('/users/signup', done);
+    });
+
+    before(function(done) {
+      browser.fill('name', 'ewan', done);
+      browser.fill('email', 'ewan', done);
+      browser.fill('password', 'ewan', done);
+      browser.fill('password_confirmation', 'ewan', done);
+      browser.pressButton('Create Account', done);
+    });
+
+    it('should not sign in without correctly formatted email', function() {
+      browser.assert.url({pathname: '/users/signup'});
+    });
+
+  });
+
+  describe('incorrect sign up - no name', function() {
+
+    before(function(done) {
+      browser.visit('/users/signup', done);
+    });
+
+    before(function(done) {
+      browser.fill('email', 'ewan@ewan.ewan', done);
+      browser.fill('password', 'ewan', done);
+      browser.fill('password_confirmation', 'ewan', done);
+      browser.pressButton('Create Account', done);
+    });
+
+    it('should not sign in without name', function() {
+      browser.assert.url({pathname: '/users/signup'});
+    });
+
+    it("should show an error message", function(){
+      browser.assert.text("body", /You need to enter a name, email and matching passwords/);
+    });
+  });
+
+  describe('incorrect sign up - not matching password', function() {
+
+    before(function(done) {
+      browser.visit('/users/signup', done);
+    });
+
+    before(function(done) {
+      browser.fill('name', 'ewan', done);
+      browser.fill('email', 'ewan@ewan.ewan', done);
+      browser.fill('password', 'ewan', done);
+      browser.fill('password_confirmation', 'ewan2', done);
+      browser.pressButton('Create Account', done);
+    });
+
+    it('should not sign up with unmatching passwords', function() {
+      browser.assert.url({pathname: '/users/signup'});
+    });
+
+    it("should show an error message", function(){
+      browser.assert.text("body", /You need to enter a name, email and matching passwords/);
+    });
+  });
 
   after(function(done) {
     server.close(done);
