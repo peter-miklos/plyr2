@@ -46,6 +46,10 @@ describe('user sign up', function() {
       browser.assert.url({pathname: '/users/signup'});
     });
 
+    it("should show an error message", function(){
+      browser.assert.text("body", /You need to enter a name, email and matching passwords/);
+    });
+
   });
 
   describe('incorrect sign up - email format', function() {
@@ -84,6 +88,10 @@ describe('user sign up', function() {
     it('should not sign in without name', function() {
       browser.assert.url({pathname: '/users/signup'});
     });
+
+    it("should show an error message", function(){
+      browser.assert.text("body", /You need to enter a name, email and matching passwords/);
+    });
   });
 
   describe('incorrect sign up - not matching password', function() {
@@ -102,6 +110,10 @@ describe('user sign up', function() {
 
     it('should not sign up with unmatching passwords', function() {
       browser.assert.url({pathname: '/users/signup'});
+    });
+
+    it("should show an error message", function(){
+      browser.assert.text("body", /You need to enter a name, email and matching passwords/);
     });
   });
 

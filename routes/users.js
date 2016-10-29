@@ -5,7 +5,7 @@ var session = require('express-session');
 var user;
 
 router.get('/signup', function(req, res, next) {
-  res.render('users/signup', {title: "User signup"});
+  res.render('users/signup', {title: "User signup", flash: req.flash('signupError')});
 });
 
 router.post('/signup', function(req, res, next) {
@@ -19,6 +19,7 @@ router.post('/signup', function(req, res, next) {
     res.redirect('/');
   })
   .catch(function(error) {
+    req.flash("signupError", "You need to enter a name, email and matching passwords");
     res.redirect('/users/signup');
   });
 });
