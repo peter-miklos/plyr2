@@ -14,11 +14,16 @@
             <h1><%= title %></h1>
           </div>
           <div class="col-xs-6 col-md-4">
-            <% if (currentUser && currentUser.id != event.UserId) { %>
+            <% if (currentUser && currentUser.id != event.UserId && !request) { %>
               <div class="join_button">
                 <form action="/events/<%= event.id %>/requests/new">
                   <button type="submit" class="btn btn-default">Join</button>
                 </form>
+              </div>
+            <% } %>
+            <% if (currentUser && currentUser.id != event.UserId  && request) { %>
+              <div class="already_joined">
+                Request has been sent.
               </div>
             <% } %>
           </div>

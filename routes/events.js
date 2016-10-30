@@ -39,7 +39,16 @@ router.post('/new', function(req, res, next) {
 router.get('/:id/show', function(req, res, next) {
   models.Event.find({where: { id: req.params.id}}).then(function(event) {
     models.Sport.find({where: { id: event.SportId}}).then(function(sport) {
-      res.render('events/show', {title: "Event", event: event, sport: sport});
+      if (req.session.user) {
+        models.Request.find({where: {
+          EventId: event.id,
+          UserId: req.session.user.id
+        }}).then(function(request) {
+          res.render('events/show', {title: "Event", event: event, sport: sport, request: request});
+        })
+      } else {
+        res.render('events/show', {title: "Event", event: event, sport: sport});
+      }
     });
   });
 });
