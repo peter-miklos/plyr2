@@ -12,13 +12,6 @@ $(document).ready(function() {
       showHideEvent($(this).find("a"));
     });
   }
-  else {
-    //this is the original code from this file and where there will
-    //be a merge conflict!!
-    $(".clickable-row").click(function() {
-      window.location = $(this).data("href");
-    });
-  }
 
   function showEvent(aTag) {
     var pageUrl = $(aTag).attr("href");
