@@ -25,7 +25,7 @@ $(document).ready(function() {
     var parentTr = $(aTag).parent().parent();
 
     $.get( pageUrl, function( data ) {
-      parentTr.after('<tr><td colspan="6"><table>' + $(data).find(".table").html() + '</table></td></tr>');
+      parentTr.after('<tr><td colspan="6"><table class="eventDetail">' + $(data).find(".table").html() + '</table></td></tr>');
       $(aTag).attr('class', 'expanded');
     });
   }
