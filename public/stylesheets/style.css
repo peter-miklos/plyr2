@@ -9,7 +9,16 @@ a {
 
 
 table.eventDetail {
-  border: 10px solid black !important;
-  padding: 100px;
-  margin: 50px;
+  margin-top: 10px;
+  width: 100%;
+
+}
+
+table.eventDetail td {
+  padding: 10px;
+}
+
+table.eventDetail th {
+  width: 20%;
+
 }
