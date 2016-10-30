@@ -6,6 +6,7 @@ $(document).ready(function() {
     window.location = $(this).data("href");
   });
 
+
   $("tr").not(':first').hover(
     function () {
       $(this).css("background","aqua");
