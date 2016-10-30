@@ -13,15 +13,16 @@ $(document).ready(function() {
     });
   }
   else {
+    //this is the original code from this file and where there will
+    //be a merge conflict!!
     $(".clickable-row").click(function() {
-      window.document.location = $(this).data("href");
+      window.location = $(this).data("href");
     });
   }
 
   function showEvent(aTag) {
     var pageUrl = $(aTag).attr("href");
     var parentTr = $(aTag).parent().parent();
-    //parentTr.after('<tr><td colspan="6">Loading....</td></tr>');
 
     $.get( pageUrl, function( data ) {
       parentTr.after('<tr><td colspan="6"><table>' + $(data).find(".table").html() + '</table></td></tr>');
@@ -43,5 +44,15 @@ $(document).ready(function() {
       showEvent(aTag);
     }
   }
+
+
+  $("tr").not(':first').hover(
+    function () {
+      $(this).css("background","aqua");
+    },
+    function () {
+      $(this).css("background","");
+    }
+  );
 
 })
