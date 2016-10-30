@@ -55,7 +55,14 @@ module.exports = function(sequelize, DataTypes) {
   	});
   };
 
-//may eventually need similar funciton for updating users 
+  User.checkPassword = function(user, password)
+  {
+    return user != null && bcrypt.compareSync(
+      password,
+      user.dataValues.password_digest);
+  };
+
+//may eventually need similar funciton for updating users
   User.beforeCreate(function(user, options, callback) {
   	if (user.password)
   		hasSecurePassword(user, options, callback);

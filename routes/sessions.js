@@ -12,8 +12,9 @@ router.post('/login', function(req, res, next) {
     models.User.findOne({
     where: { email: req.body.email }
   })
-    .then(function(user){
-      if (bcrypt.compareSync(req.body.password, user.dataValues.password_digest)) {
+    .then(function(user){    
+      if (models.User.checkPassword(user, req.body.password))
+      {
         req.session.user = user;
         res.redirect('/');
       } else {
@@ -21,8 +22,9 @@ router.post('/login', function(req, res, next) {
         res.redirect('/sessions/login');
       }
     })
+    //this is for catching exceptions from object NOT incorrect details
     .catch(function(error) {
-      req.flash("loginError", "Incorrect email or password");
+      req.flash("loginError", "Exception details: " + error);
       res.redirect('/sessions/login');
     });
 });
@@ -73,9 +75,9 @@ router.get('/:id/requests/index', function(req, res, next) {
   })
 })
 
-router.post("/:user_id/requests/:id/complete", function(req, res, next) {
-  var requestId = req.params.id;
-  var userId = req.params.user_id;
+router.post("/:userId/requests/:requestId/complete", function(req, res, next) {
+  var requestId = req.params.requestId;
+  var userId = req.params.userId;
   var acceptedStatus, openStatus, rejectedStatus;
   models.Status.findAll({}).then(function(statuses) {
     acceptedStatus = statuses.find(function(e) {return e.name === req.body.action})
