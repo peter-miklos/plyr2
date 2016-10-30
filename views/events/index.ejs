@@ -31,7 +31,7 @@
                  <% var sportIndex = sports.findIndex(function(element) { return element.id === event.SportId}) %>
                  <td><%= sports[sportIndex].name %></td>
                  <td><%= event.skill %></td>
-                 <td><%= new Date(event.eventDate).toDateString() %></td>
+                 <td><a href="/events/<%= event.id %>/show" id="link"><%= new Date(event.eventDate).toDateString() %></a></td>
                  <td><%= event.eventTime %></td>
                  <td><%= event.location %></td>
                </tr>
