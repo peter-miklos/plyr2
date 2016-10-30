@@ -75,9 +75,9 @@ router.get('/:id/requests/index', function(req, res, next) {
   })
 })
 
-router.post("/:user_id/requests/:id/complete", function(req, res, next) {
-  var requestId = req.params.id;
-  var userId = req.params.user_id;
+router.post("/:userId/requests/:requestId/complete", function(req, res, next) {
+  var requestId = req.params.requestId;
+  var userId = req.params.userId;
   var acceptedStatus, openStatus, rejectedStatus;
   models.Status.findAll({}).then(function(statuses) {
     acceptedStatus = statuses.find(function(e) {return e.name === req.body.action})
