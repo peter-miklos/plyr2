@@ -12,8 +12,9 @@ router.post('/login', function(req, res, next) {
     models.User.findOne({
     where: { email: req.body.email }
   })
-    .then(function(user){
-      if (bcrypt.compareSync(req.body.password, user.dataValues.password_digest)) {
+    .then(function(user){    
+      if (models.User.checkPassword(user, req.body.password))
+      {
         req.session.user = user;
         res.redirect('/');
       } else {
@@ -21,8 +22,9 @@ router.post('/login', function(req, res, next) {
         res.redirect('/sessions/login');
       }
     })
+    //this is for catching exceptions from object NOT incorrect details
     .catch(function(error) {
-      req.flash("loginError", "Incorrect email or password");
+      req.flash("loginError", "Exception details: " + error);
       res.redirect('/sessions/login');
     });
 });
