@@ -3,7 +3,16 @@
 $(document).ready(function() {
 
   $(".clickable-row").click(function() {
-    window.document.location = $(this).data("href");
+    window.location = $(this).data("href");
   });
+
+  $("tr").not(':first').hover(
+    function () {
+      $(this).css("background","aqua");
+    },
+    function () {
+      $(this).css("background","");
+    }
+  );
 
 })
