@@ -137,6 +137,18 @@ describe('Manage requests', function() {
       });
 
       before(function(done){
+        browser.visit('/events/new').then(function() {
+          browser
+           .select("#skill", "2")
+           .fill('date', '2016-12-15')
+           .fill('time', "11:00")
+           .fill('location', "Makers")
+           .fill('description', "come and play")
+           .pressButton('Create Event!', done);
+        })
+      });
+
+      before(function(done){
         browser.visit('/events/index').then(function() {
           browser.clickLink("Wed Nov 30 2016", done);
         })
@@ -208,7 +220,85 @@ describe('Manage requests', function() {
 
   describe("Accept request", function() {
 
-  })
+    before(function(done) {
+      browser.visit('/events/index').then(function() {
+        browser.clickLink("Thu Dec 15 2016").then(function() {
+          browser.pressButton("Join", done);
+        })
+      })
+    });
+
+    before(function(done) {
+      browser.fill("comment", "wanna play with you 1", done);
+      done()
+    })
+
+    before(function(done) {
+      browser.pressButton("Send request!", done)
+    })
+
+    before(function(done){
+      browser.clickLink("Log out").then(function() {
+        browser.clickLink('Sign up', done);
+      })
+    });
+
+    before(function(done) {
+      browser
+        .fill('name', 'Test User 3')
+        .fill('email', 'test3@test.com')
+        .fill('password', 'Password')
+        .fill('password_confirmation', 'Password')
+        .pressButton('Create Account', done);
+    });
+
+    before(function(done) {
+      browser.visit('/events/index').then(function() {
+        browser.clickLink("Thu Dec 15 2016").then(function() {
+          browser.pressButton("Join", done);
+        })
+      })
+    });
+
+    before(function(done) {
+      browser.fill("comment", "wanna play with you 2", done);
+      done()
+    })
+
+    before(function(done) {
+      browser.pressButton("Send request!", done)
+    })
+
+    before(function(done) {
+      browser.clickLink("Log out").then(function() {
+        browser.clickLink('Log in', done);
+      })
+    });
+
+    before(function(done){
+      browser
+        .fill('email', 'test2@test.com')
+        .fill('password', 'Password')
+        .pressButton('Log in').then(function() {
+          browser.clickLink("My requests", done);
+        })
+    });
+
+    before(function(done) {
+      browser.pressButton("Confirm").then(function() {
+        browser.clickLink("My requests", done);
+      })
+    })
+
+    it("first request's status becomes Accepted", function() {
+      browser.assert.text("tbody", /wanna play with you 1 Test User 1 Accepted/)
+    })
+
+    it("second request's status becomes Rejected", function() {
+      browser.assert.text("body", /wanna play with you 2 Test User 3 Rejected/)
+    })
+
+  });
 
   after(function(done) {
     server.close(done);
