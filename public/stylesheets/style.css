@@ -8,8 +8,8 @@ a {
 }
 
 
-table.eventDetail tr {
-  border: 10px solid black;
+table.eventDetail {
+  border: 10px solid black !important;
   padding: 100px;
   margin: 50px;
 }
