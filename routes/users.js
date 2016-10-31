@@ -5,13 +5,13 @@ var session = require('express-session');
 var user;
 
 router.get('/signup', function(req, res, next) {
-  res.render('users/signup', {title: "User signup", flash: req.flash('uniqueMail')});
+  res.render('users/signup', {title: "User signup", flash: req.flash('signupError')});
 });
 
 router.post('/signup', function(req, res, next) {
   models.User.find({ where: { email: req.body.email }}).then(function(user) {
     if (user) {
-      req.flash("uniqueMail", "This mail is already registered");
+      req.flash("signupError", "This mail was used previously");
       res.redirect('/users/signup');
     } else {
       user = models.User.create({
@@ -22,6 +22,10 @@ router.post('/signup', function(req, res, next) {
       .then(function (user) {
         req.session.user = user;
         res.redirect('/');
+      })
+      .catch(function(error) {
+        req.flash("signupError", "You need to enter a name, email and matching passwords");
+        res.redirect('/users/signup');
       });
     }
   });
