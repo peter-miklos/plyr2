@@ -4,45 +4,50 @@
    <% include ../partials/head %>
  </head>
  <body>
-   <header>
+   <!-- Always shows a header, even in smaller screens. -->
+   <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
      <% include ../partials/header %>
-   </header>
-   <div class="container">
-     <div class="starter-template">
-       <h1><%= title %></h1>
-       <% if (events.length === 0) { %>
-         No events found.
-       <%} else {%>
-         <table class="table">
-           <thead>
-             <tr>
-               <th>#</th>
-               <th>Sport</th>
-               <th>Skill level</th>
-               <th>Date</th>
-               <th>Time</th>
-               <th>Location</th>
-             </tr>
-           </thead>
-           <tbody>
-             <% events.forEach(function(event, index) { %>
-               <tr class="clickable-row" data-href="/events/<%= event.id %>/show">
-                 <th scope="row"><%= index + 1 %></th>
-                 <% var sportIndex = sports.findIndex(function(element) { return element.id === event.SportId}) %>
-                 <td><%= sports[sportIndex].name %></td>
-                 <td><%= event.skill %></td>
-                 <td><a href="/events/<%= event.id %>/show" id="link"><%= new Date(event.eventDate).toDateString() %></a></td>
-                 <td><%= event.eventTime %></td>
-                 <td><%= event.location %></td>
-               </tr>
-             <% }) %>
-           </tbody>
-         </table>
-         <% }%>
+     <main class="mdl-layout__content">
+       <div class="page-content">
+         <div class="mdl-grid">
+           <div class="mdl-cell mdl-cell--12-col mdl-cell--4-col-phone mdl-cell--8-col-tablet">
+             <h1><%= title %></h1>
+             <% if (events.length === 0) { %>
+               No events found.
+             <%} else {%>
+               <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp full-width" id="event_table">
+                <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Sport</th>
+                    <th>Skill level</th>
+                    <th>Date</th>
+                    <th>Time</th>
+                    <th>Location</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <% events.forEach(function(event, index) { %>
+                    <tr class="clickable-row" data-href="/events/<%= event.id %>/show" id="other">
+                      <td><%= index + 1 %></td>
+                      <% var sportIndex = sports.findIndex(function(element) { return element.id === event.SportId}) %>
+                      <td><%= sports[sportIndex].name %></td>
+                      <td><%= event.skill %></td>
+                      <td><a href="/events/<%= event.id %>/show" id="link"><%= new Date(event.eventDate).toDateString() %></a></td>
+                      <td><%= event.eventTime %></td>
+                      <td><%= event.location %></td>
+                    </tr>
+                  <% }) %>
+                </tbody>
+                </table>
+               <% }%>
+           </div>
+         </div>
        </div>
-     </div>
-   <footer>
-       <% include ../partials/footer %>
-   </footer>
+     </main>
+     <footer class="mdl-mini-footer">
+         <% include ../partials/footer %>
+     </footer>
+   </div>
  </body>
 </html>

@@ -11,7 +11,13 @@
         <div class="page-content">
           <div class="mdl-grid">
             <div class="mdl-cell mdl-cell--12-col mdl-cell--4-col-phone mdl-cell--8-col-tablet">
-              <form action="/sessions/login" method="post">
+              <form action="/users/new" method="post">
+
+
+                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                  <label class="mdl-textfield__label" for="name">Name:</label>
+                  <input type="text" class="mdl-textfield__input" id="name" name="name">
+                </div>
 
                 <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                   <label class="mdl-textfield__label" for="email">Email:</label>
@@ -23,9 +29,14 @@
                   <input type="password" class="mdl-textfield__input" id="pwd" name="password">
                 </div>
 
+                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                  <label class="mdl-textfield__label" for="password_confirmation">Password confirmation:</label>
+                  <input type="password" class="mdl-textfield__input" id="password_confirmation" name="password_confirmation">
+                </div>
+
                 <div class="">
                   <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
-                    Log in
+                    Create account
                   </button>
                 </div>
 
