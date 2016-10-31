@@ -237,7 +237,7 @@ describe('Manage requests', function() {
     before(function(done) {
       browser.visit('/events/index').then(function() {
         browser.clickLink("Thu Dec 15 2016").then(function() {
-          browser.pressButton("Join", done);
+          browser.pressButton("JOIN", done);
         })
       })
     });
@@ -269,7 +269,7 @@ describe('Manage requests', function() {
     before(function(done) {
       browser.visit('/events/index').then(function() {
         browser.clickLink("Thu Dec 15 2016").then(function() {
-          browser.pressButton("Join", done);
+          browser.pressButton("JOIN", done);
         })
       })
     });
