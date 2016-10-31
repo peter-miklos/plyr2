@@ -14,7 +14,7 @@ describe('Manage requests', function() {
   });
 
   before(function(done){
-    browser.visit('/users/signup', done);
+    browser.visit('/users/new', done);
   });
 
   before(function(done) {
@@ -123,7 +123,7 @@ describe('Manage requests', function() {
         browser.visit("/").then(function() {
           browser.clickLink("Log out");
         }).then(function() {
-          browser.visit('/users/signup', done);
+          browser.visit('/users/new', done);
         })
       });
 
