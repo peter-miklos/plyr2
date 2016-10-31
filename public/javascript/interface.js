@@ -10,6 +10,10 @@ $(document).ready(function() {
     calculateCoordinates();
   }
 
+  if (document.getElementById("event_date")) {
+    setEventDate();
+  }
+
   $(".clickable-row").click(function() {
     window.location = $(this).data("href");
   });
@@ -29,27 +33,29 @@ $(document).ready(function() {
     }
   }
 
-  var now = new Date();
-  var day = ("0" + now.getDate()).slice(-2);
-  var month = ("0" + (now.getMonth() + 1)).slice(-2);
-  var today = now.getFullYear()+"-"+(month)+"-"+(day);
+  function setEventDate() {
+    var now = new Date();
+    var day = ("0" + now.getDate()).slice(-2);
+    var month = ("0" + (now.getMonth() + 1)).slice(-2);
+    var today = now.getFullYear()+"-"+(month)+"-"+(day);
 
-  $('#event_date').val(today);
-  $('#event_date').attr({'min': today});
+    $('#event_date').val(today);
+    $('#event_date').attr({'min': today});
 
-  $(function(){
-    $("#event_time").each(function(){
-      var d = new Date(),
-          h = d.getHours(),
-          m = d.getMinutes();
-      if(h < 10) h = '0' + h;
-      if(m < 10) m = '0' + m;
-      $(this).attr({
-        'value': h + 1 + ':' + m,
-        'min': h + 1 + ':' + m
+    $(function(){
+      $("#event_time").each(function(){
+        var d = new Date(),
+            h = d.getHours(),
+            m = d.getMinutes();
+        if(h < 10) h = '0' + h;
+        if(m < 10) m = '0' + m;
+        $(this).attr({
+          'value': h + 1 + ':' + m,
+          'min': h + ':' + m
+        });
       });
     });
-  });
+  }
 
   function addMapToStartPage() {
     var locations = [

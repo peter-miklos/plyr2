@@ -24,7 +24,7 @@ router.get('/new', function(req, res, next) {
 
 router.post('/new', function(req, res, next) {
   var today = new Date();
-  today.setHours(today.getHours() + 1);
+  today.setHours(today.getHours());
  if ( today < new Date(req.body.date + "T" + req.body.time).valueOf()) {
    models.Event.create({
      skill: parseInt(req.body.skill),
