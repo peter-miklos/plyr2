@@ -14,11 +14,11 @@
     "dialect": "postgres"
   },
   "production": {
-    "username": "",
-    "password": null,
-    "database": "sports_production",
-    "host": "127.0.0.1",
+    "username": "xprghtzzvnfghp",
+    "password": "process.env.DATABASE_PASSWORD",
+    "database": "dnd72akr7ccd1",
+    "host": "ec2-54-243-59-15.compute-1.amazonaws.com",
     "dialect": "postgres",
-    "use_env_variable": "DATABASE_URL"
+    "use_env_variable": "process.env.DATABASE_URL"
   }
 }
