@@ -22,6 +22,10 @@ router.get('/new', function(req, res, next) {
 }
 });
 
+router.get('/map', function(req, res, next) {
+  res.render('events/map', {title: "Map"});
+});
+
 router.post('/new', function(req, res, next) {
   models.Event.create({
     skill: parseInt(req.body.skill),
