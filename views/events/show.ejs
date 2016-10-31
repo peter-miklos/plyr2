@@ -62,6 +62,20 @@
                 <tr>
                   <th scope="row">Description</th>
                   <td><%= event.description %></td>
+                  <td>
+                    <% if (currentUser && currentUser.id != event.UserId && !request) { %>
+                      <div class="join_button">
+                        <form action="/events/<%= event.id %>/requests/new">
+                          <button type="submit" class="btn btn-default">Join</button>
+                        </form>
+                      </div>
+                    <% } %>
+                    <% if (currentUser && currentUser.id != event.UserId  && request) { %>
+                      <div class="already_joined">
+                        Request has been sent.
+                      </div>
+                    <% } %>
+                  </td>
                 </tr>
               </tbody>
             </table>
