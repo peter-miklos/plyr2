@@ -4,15 +4,15 @@ var models = require("../models");
 var session = require('express-session');
 var user;
 
-router.get('/signup', function(req, res, next) {
-  res.render('users/signup', {title: "User signup", flash: req.flash('signupError')});
+router.get('/new', function(req, res, next) {
+  res.render('users/new', {title: "User signup", flash: req.flash('signupError')});
 });
 
-router.post('/signup', function(req, res, next) {
+router.post('/new', function(req, res, next) {
   models.User.find({ where: { email: req.body.email }}).then(function(user) {
     if (user) {
       req.flash("signupError", "This mail was used previously");
-      res.redirect('/users/signup');
+      res.redirect('/users/new');
     } else {
       user = models.User.create({
                         name: req.body.name,
@@ -25,7 +25,7 @@ router.post('/signup', function(req, res, next) {
       })
       .catch(function(error) {
         req.flash("signupError", "You need to enter a name, email and matching passwords");
-        res.redirect('/users/signup');
+        res.redirect('/users/new');
       });
     }
   });
