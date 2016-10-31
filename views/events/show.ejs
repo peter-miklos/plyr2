@@ -4,72 +4,70 @@
     <% include ../partials/head %>
   </head>
   <body>
-    <header>
+    <!-- Always shows a header, even in smaller screens. -->
+    <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
       <% include ../partials/header %>
-    </header>
-    <div class="container">
-      <div class="starter-template">
-        <div class="row">
-          <div class="col-xs-12 col-sm-6 col-md-8">
-            <h1><%= title %></h1>
-          </div>
-          <div class="col-xs-6 col-md-4">
-            <% if (currentUser && currentUser.id != event.UserId && !request) { %>
-              <div class="join_button">
-                <form action="/events/<%= event.id %>/requests/new">
-                  <button type="submit" class="btn btn-default">Join</button>
-                </form>
+      <main class="mdl-layout__content">
+        <div class="page-content">
+          <div class="mdl-grid">
+            <div class="mdl-cell mdl-cell--12-col mdl-cell--4-col-phone mdl-cell--8-col-tablet">
+              <h2><%= title %></h2>
+              <div class="mdl-grid">
+                <% if (currentUser && currentUser.id != event.UserId && !request) { %>
+                  <div class="join_button">
+                    <form action="/events/<%= event.id %>/requests/new">
+                      <button type="submit" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">Join</button>
+                    </form>
+                  </div>
+                <% } %>
+                <% if (currentUser && currentUser.id != event.UserId  && request) { %>
+                  <div class="already_joined">
+                    Request has been sent.
+                  </div>
+                <% } %>
               </div>
-            <% } %>
-            <% if (currentUser && currentUser.id != event.UserId  && request) { %>
-              <div class="already_joined">
-                Request has been sent.
-              </div>
-            <% } %>
+              <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp full-width" id="event_table">
+                <tbody>
+                  <tr>
+                    <td scope="row" class="mdl-data-table__cell--non-numeric">Location</td>
+                    <td><%= event.location %></td>
+                  </tr>
+                  <tr>
+                    <td scope="row" class="mdl-data-table__cell--non-numeric">Sport</td>
+                    <td><%= sport.name %></td>
+                  </tr>
+                  <tr>
+                    <td scope="row" class="mdl-data-table__cell--non-numeric">Skill level</td>
+                    <td>
+                      <% for (var i = 0; i < event.skill; i++) {%>
+                        <span class="material-icons">star</span>
+                      <% } %>
+                      <% for (var i = 0; i < (5 - event.skill); i++) {%>
+                        <span class="material-icons">star_border</span>
+                      <%}%>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td scope="row" class="mdl-data-table__cell--non-numeric">Date</td>
+                    <td><%= new Date(event.eventDate).toDateString() %></td>
+                  </tr>
+                  <tr>
+                    <td scope="row" class="mdl-data-table__cell--non-numeric">Time</td>
+                    <td><%= event.eventTime %></td>
+                  </tr>
+                  <tr>
+                    <td scope="row" class="mdl-data-table__cell--non-numeric">Description</td>
+                    <td><%= event.description %></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>
-        <div class="row">
-          <div class="col-xs-12 col-md-12">
-            <table class="table">
-              <tbody>
-                <tr>
-                  <th scope="row">Location</th>
-                  <td><%= event.location %></td>
-                </tr>
-                <tr>
-                  <th scope="row">Sport</th>
-                  <td><%= sport.name %></td>
-                </tr>
-                <tr>
-                  <th scope="row">Skill level</th>
-                  <td>
-                    <% for (var i = 0; i < event.skill; i++) {%>
-                      <span class="glyphicon glyphicon-star"></span>
-                    <% } %>
-                    <% for (var i = 0; i < (5 - event.skill); i++) {%>
-                      <span class="glyphicon glyphicon-star-empty"></span>
-                    <%}%>
-                  </td>
-                </tr>
-                <tr>
-                  <th scope="row">Date</th>
-                  <td><%= new Date(event.eventDate).toDateString() %></td>
-                </tr>
-                <tr>
-                  <th scope="row">Time</th>
-                  <td><%= event.eventTime %></td>
-                </tr>
-                <tr>
-                  <th scope="row">Description</th>
-                  <td><%= event.description %></td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </div>
-    <footer>
-        <% include ../partials/footer %>
-    </footer>
+      </main>
+      <footer class="mdl-mini-footer">
+          <% include ../partials/footer %>
+      </footer>
+    </div>
   </body>
 </html>
