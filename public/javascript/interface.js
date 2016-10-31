@@ -36,11 +36,22 @@ $(document).ready(function() {
       $(aTag).attr('class', 'collapsed');
     }
     else if ($(aTag).attr('class') == 'collapsed') {
+//this can be moved to own function
+      $(".expanded").each(function() {
+        $(this).parent().parent().next().hide();
+        $(this).attr('class', 'collapsed');
+      });
+
+      $(".expanded").hide();
       $(aTag).parent().parent().next().show();
       $(aTag).attr('class', 'expanded');
     }
     else
-    {
+    { //this can be moved to own function
+      $(".expanded").each(function() {
+        $(this).parent().parent().next().hide();
+        $(this).attr('class', 'collapsed');
+        });
       showEvent(aTag);
     }
   }
