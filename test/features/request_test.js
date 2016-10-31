@@ -38,7 +38,7 @@ describe('Manage requests', function() {
        .fill('time', "15:00")
        .fill('location', "Hyde Park")
        .fill('description', "I dare you!")
-       .pressButton('Create Event!', done);
+       .pressButton('Create Event', done);
     })
   });
 
@@ -144,7 +144,7 @@ describe('Manage requests', function() {
            .fill('time', "11:00")
            .fill('location', "Makers")
            .fill('description', "come and play")
-           .pressButton('Create Event!', done);
+           .pressButton('Create Event', done);
         })
       });
 
@@ -169,7 +169,7 @@ describe('Manage requests', function() {
       });
 
       before(function(done) {
-        browser.pressButton("JOIN", done);
+        browser.pressButton("Join", done);
       })
 
       it("request's empty comment field is available", function() {
@@ -178,7 +178,7 @@ describe('Manage requests', function() {
 
       it("created request is available in user's sent requests", function(done) {
         browser.fill("comment", "I really wanna play", done);
-        browser.pressButton("Send request!").then(function() {
+        browser.pressButton("Send request").then(function() {
           browser.assert.text("div", /I really wanna play/);
         }).then(function() { done(); })
       })
@@ -237,7 +237,7 @@ describe('Manage requests', function() {
     before(function(done) {
       browser.visit('/events/index').then(function() {
         browser.clickLink("Thu Dec 15 2016").then(function() {
-          browser.pressButton("JOIN", done);
+          browser.pressButton("Join", done);
         })
       })
     });
@@ -248,7 +248,7 @@ describe('Manage requests', function() {
     })
 
     before(function(done) {
-      browser.pressButton("Send request!", done)
+      browser.pressButton("Send request", done)
     })
 
     before(function(done){
@@ -269,7 +269,7 @@ describe('Manage requests', function() {
     before(function(done) {
       browser.visit('/events/index').then(function() {
         browser.clickLink("Thu Dec 15 2016").then(function() {
-          browser.pressButton("JOIN", done);
+          browser.pressButton("Join", done);
         })
       })
     });
@@ -280,7 +280,7 @@ describe('Manage requests', function() {
     })
 
     before(function(done) {
-      browser.pressButton("Send request!", done)
+      browser.pressButton("Send request", done)
     })
 
     before(function(done) {
