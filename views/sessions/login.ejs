@@ -4,43 +4,43 @@
     <% include ../partials/head %>
   </head>
   <body>
-
-    <header>
+    <!-- Always shows a header, even in smaller screens. -->
+    <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
       <% include ../partials/header %>
-    </header>
-    <div class="col-md-6 col-md-offset-3">
+      <main class="mdl-layout__content">
+        <div class="page-content">
+          <div class="mdl-grid">
+            <div class="mdl-cell mdl-cell--12-col mdl-cell--4-col-phone mdl-cell--8-col-tablet">
+              <form action="/sessions/login" method="post">
+                
+                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                  <label class="mdl-textfield__label" for="email">Email:</label>
+                  <input type="email" class="mdl-textfield__input" id="email" name="email">
+                </div>
 
-      <form class="form-horizontal" action="/sessions/login" method="post">
+                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                  <label class="mdl-textfield__label" for="pwd">Password:</label>
+                  <input type="password" class="mdl-textfield__input" id="pwd" name="password">
+                </div>
 
-        <div class="form-group">
-          <label class="control-label col-sm-2" for="email">Email:</label>
-          <div class="col-sm-5">
-            <input type="email" class="form-control" id="email" name="email" placeholder="Enter email">
+                <div class="">
+                  <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
+                    Log in
+                  </button>
+                </div>
+
+                <div class="">
+                  <p align="center"><% include ../partials/flash %></p>
+                </div>
+
+              </form>
+            </div>
           </div>
         </div>
-
-        <div class="form-group">
-          <label class="control-label col-sm-2" for="pwd">Password:</label>
-          <div class="col-sm-5">
-            <input type="password" class="form-control" id="pwd" name="password" placeholder="Enter Password">
-          </div>
-        </div>
-
-        <div class="form-group">
-          <div class="col-sm-offset-2 col-sm-10">
-            <button type="submit" class="btn btn-default">Log in</button>
-          </div>
-          <p align="center"><% include ../partials/flash %></p>
-        </div>
-
-      </form>
-      <footer>
+      </main>
+      <footer class="mdl-mini-footer">
           <% include ../partials/footer %>
       </footer>
     </div>
-
-
-
-
   </body>
 </html>
