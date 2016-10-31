@@ -14,9 +14,6 @@ $(document).ready(function() {
             var place = autocomplete.getPlace();
             document.getElementById('cityLat').value = place.geometry.location.lat();
             document.getElementById('cityLng').value = place.geometry.location.lng();
-            // alert(place.name);
-            // alert(place.geometry.location.lng());
-            // alert(place.geometry.location.lat());
            });
       }
 
