@@ -46,6 +46,7 @@ $(document).ready(function() {
   }
 
 
+
   $("tr").not(':first').hover(
     function () {
       $(this).css("background","aqua");

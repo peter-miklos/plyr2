@@ -185,7 +185,21 @@ describe('Manage requests', function() {
     });
 
     describe("user cannot create a request to the same event more than once", function() {
-      // TBD
+      before(function(done){
+        browser.visit('/events/index').then(function() {
+          browser.clickLink("Wed Nov 30 2016", done);
+        })
+      });
+
+      it("doesn't show the Join button", function() {
+        browser.assert.hasNoClass("div", "join_button");
+      })
+
+      it("informs user that he/she already joined the event", function() {
+        browser.assert.text("body", /Request has been sent/)
+      })
+
+
     })
   });
 
