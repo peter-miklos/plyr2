@@ -4,23 +4,26 @@
     <% include partials/head %>
   </head>
   <body>
-    <header>
+    <!-- Always shows a header, even in smaller screens. -->
+    <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+
       <% include partials/header %>
-    </header>
 
-    <main>
-
-      <div class='jumbotron'>
-        <h1>Welcome to Sports Friend Finder</h1>
-      </div>
-            <p align="center"><% include partials/flash %></p>
-    </main>
-    <footer>
-        <% include partials/footer %>
-    </footer>
-
-
-
+      <main class="mdl-layout__content">
+        <div class="page-content">
+          <div class="mdl-grid">
+            <div class="mdl-cell mdl-cell--12-col mdl-cell--4-col-phone mdl-cell--8-col-tablet">
+              <div class="">
+                <h1>Welcome to Sports Friend Finder</h1>
+              </div>
+              <p align="center"><% include partials/flash %></p>
+            </div>
+          </div>
+        </div>
+      </main>
+      <footer class="mdl-mini-footer">
+          <% include partials/footer %>
+      </footer>
+    </div>
   </body>
-
 </html>
