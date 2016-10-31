@@ -78,7 +78,7 @@ describe('user sign up', function() {
 
   describe('mails for the users must be unique', function() {
     before(function(done) {
-      browser.visit('/users/signup', done);
+      browser.visit('/users/new', done);
     });
 
     before(function(done) {
