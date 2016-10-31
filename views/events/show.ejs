@@ -2,6 +2,21 @@
 <html>
   <head>
     <% include ../partials/head %>
+    <script>
+    var map;
+      function initMap() {
+        map = new google.maps.Map(document.getElementById('map'), {
+        center: {lat: -34.397, lng: 150.644},
+        zoom: 8
+      });
+    }
+    </script>
+<style>
+  #map {
+    height: 400px;
+    width: 100%;
+  }
+</style>
   </head>
   <body>
     <header>
@@ -63,12 +78,13 @@
                   <th scope="row">Description</th>
                   <td><%= event.description %></td>
                 </tr>
-                
               </tbody>
             </table>
           </div>
         </div>
       </div>
+      <div id="map"></div>
+      <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBQzK5yTUfKn-JydzDbxFAwhV4fy9x5xf0&callback=initMap" async defer></script>
     <footer>
         <% include ../partials/footer %>
     </footer>
