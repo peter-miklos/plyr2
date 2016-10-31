@@ -169,7 +169,7 @@ describe('Manage requests', function() {
       });
 
       before(function(done) {
-        browser.pressButton("Join", done);
+        browser.pressButton("JOIN", done);
       })
 
       it("request's empty comment field is available", function() {
