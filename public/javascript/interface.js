@@ -16,4 +16,6 @@ $(document).ready(function() {
     }
   );
 
+document.getElementById('event_date').valueAsDate = new Date();
+
 })
