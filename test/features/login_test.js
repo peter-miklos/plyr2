@@ -14,7 +14,7 @@ describe('log in', function() {
   });
 
   before(function(done) {
-    browser.visit('/users/signup', done);
+    browser.visit('/users/new', done);
  });
 
   before(function(done) {
