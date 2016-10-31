@@ -4,21 +4,30 @@
     <% include ../../partials/head %>
   </head>
   <body>
-    <header>
+    <!-- Always shows a header, even in smaller screens. -->
+    <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
       <% include ../../partials/header %>
-    </header>
-    <div class="container">
-      <form action="/events/<%= eventId %>/requests/new" method="post">
-        <div class="form-group">
-          <label for="comment">Message</label>
-          <textarea class="form-control" name="comment" placeholder="Do you want to send a message?" rows="8" cols="40"></textarea>
+      <main class="mdl-layout__content">
+        <div class="page-content">
+          <div class="mdl-grid">
+            <div class="mdl-cell mdl-cell--12-col mdl-cell--4-col-phone mdl-cell--8-col-tablet">
+              <h2>Create new request</h2>
+              <div class="mdl-grid">
+                <form action="/events/<%= eventId %>/requests/new" method="post">
+                  <div class="form-group">
+                    <label for="comment">Message</label>
+                    <textarea class="form-control" name="comment" placeholder="Do you want to send a message?" rows="8" cols="40"></textarea>
+                  </div>
+                  <button type="submit" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">Send request</button>
+                </form>
+              </div>
+            </div>
+          </div>
         </div>
-        <button type="submit" class="btn btn-default">Send request!</button>
-      </form>
+      </main>
+      <footer class="mdl-mini-footer">
+          <% include ../../partials/footer %>
+      </footer>
     </div>
-
-    <footer>
-        <% include ../../partials/footer %>
-    </footer>
   </body>
 </html>
