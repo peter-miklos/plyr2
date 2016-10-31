@@ -1,7 +1,6 @@
 *Ignore all keys
 /keys/*
 npm-debug.log
-.env
 
 *Ignore node_modules
 **/node_modules
