@@ -76,6 +76,38 @@ describe('user sign up', function() {
 
   });
 
+  describe('mails for the users must be unique', function() {
+    before(function(done) {
+      browser.visit('/users/signup', done);
+    });
+
+    before(function(done) {
+      browser.fill('name', 'ewan', done);
+      browser.fill('email', 'ewan@alfie.com', done);
+      browser.fill('password', 'ewan', done);
+      browser.fill('password_confirmation', 'ewan', done);
+      browser.pressButton('Create Account', done);
+    });
+    before(function(done) {
+        browser.clickLink('Log out', done);
+    });
+    before(function(done) {
+      browser.visit('/users/signup', done);
+    });
+
+    before(function(done) {
+      browser.fill('name', 'ewan', done);
+      browser.fill('email', 'ewan@alfie.com', done);
+      browser.fill('password', 'ewan', done);
+      browser.fill('password_confirmation', 'ewan', done);
+      browser.pressButton('Create Account', done);
+    });
+
+    it("should show an error message", function(){
+      browser.assert.text("body", /This mail was used previously/);
+    });
+  });
+
   describe('incorrect sign up - no name', function() {
 
     before(function(done) {
