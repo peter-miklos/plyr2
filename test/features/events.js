@@ -45,7 +45,7 @@ describe('Manage events', function() {
        browser
         .select("#sport_select", "Wrestling")
         .select("#skill", "4")
-        .fill('date', '2016-10-30')
+        .fill('date', '2016-11-30')
         .fill('time', "16:00")
         .fill('location', "Peter's house")
         .fill('description', "I dare you!")
@@ -59,7 +59,7 @@ describe('Manage events', function() {
 
    it("should display wrestling on the page", function() {
       browser.assert.text("body", /Peter's house/);
-      browser.assert.text("body", /Oct 30 2016/);
+      browser.assert.text("body", /Nov 30 2016/);
    });
  });
 
@@ -82,6 +82,24 @@ describe('Manage events', function() {
    });
  })
 
+describe('Event date can not be earlier than today', function(){
+  before(function(done){
+    browser.visit('/events/new').then(function() {
+      browser
+       .select("#sport_select", "Wrestling")
+       .select("#skill", "4")
+       .fill('date', '2016-10-30')
+       .fill('time', "15:00")
+       .fill('location', "Hyde Park")
+       .fill('description', "I dare you!")
+       .pressButton('Create Event!', done);
+    })
+  });
+
+  it("should show an error message", function(){
+    browser.assert.text("body", /Event time can't be earlier than now/);
+  });
+})
 //  describe("Shows the content of an event", function() {
 //    before(function(done){
 //      browser.visit('/events/new')
