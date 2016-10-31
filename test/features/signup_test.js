@@ -14,7 +14,7 @@ describe('user sign up', function() {
 
     before(function(done) {
       models.sequelize.sync({force:true});
-      browser.visit('/users/signup', done);
+      browser.visit('/users/new', done);
     });
 
     before(function(done) {
@@ -36,7 +36,7 @@ describe('user sign up', function() {
     describe('incorrect sign up - no email', function() {
 
     before(function(done) {
-      browser.visit('/users/signup', done);
+      browser.visit('/users/new', done);
     });
 
     before(function(done) {
@@ -47,7 +47,7 @@ describe('user sign up', function() {
     });
 
     it('should not sign in without email', function() {
-      browser.assert.url({pathname: '/users/signup'});
+      browser.assert.url({pathname: '/users/new'});
     });
 
     it("should show an error message", function(){
@@ -59,7 +59,7 @@ describe('user sign up', function() {
   describe('incorrect sign up - email format', function() {
 
     before(function(done) {
-      browser.visit('/users/signup', done);
+      browser.visit('/users/new', done);
     });
 
     before(function(done) {
@@ -71,14 +71,14 @@ describe('user sign up', function() {
     });
 
     it('should not sign in without correctly formatted email', function() {
-      browser.assert.url({pathname: '/users/signup'});
+      browser.assert.url({pathname: '/users/new'});
     });
 
   });
 
   describe('mails for the users must be unique', function() {
     before(function(done) {
-      browser.visit('/users/signup', done);
+      browser.visit('/users/new', done);
     });
 
     before(function(done) {
@@ -92,7 +92,7 @@ describe('user sign up', function() {
         browser.clickLink('Log out', done);
     });
     before(function(done) {
-      browser.visit('/users/signup', done);
+      browser.visit('/users/new', done);
     });
 
     before(function(done) {
@@ -111,7 +111,7 @@ describe('user sign up', function() {
   describe('incorrect sign up - no name', function() {
 
     before(function(done) {
-      browser.visit('/users/signup', done);
+      browser.visit('/users/new', done);
     });
 
     before(function(done) {
@@ -122,7 +122,7 @@ describe('user sign up', function() {
     });
 
     it('should not sign in without name', function() {
-      browser.assert.url({pathname: '/users/signup'});
+      browser.assert.url({pathname: '/users/new'});
     });
 
     it("should show an error message", function(){
@@ -133,7 +133,7 @@ describe('user sign up', function() {
   describe('incorrect sign up - not matching password', function() {
 
     before(function(done) {
-      browser.visit('/users/signup', done);
+      browser.visit('/users/new', done);
     });
 
     before(function(done) {
@@ -145,7 +145,7 @@ describe('user sign up', function() {
     });
 
     it('should not sign up with unmatching passwords', function() {
-      browser.assert.url({pathname: '/users/signup'});
+      browser.assert.url({pathname: '/users/new'});
     });
 
     it("should show an error message", function(){
