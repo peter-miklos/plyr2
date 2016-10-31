@@ -1,8 +1,11 @@
 body {
-  padding-top: 50px;
+  padding-top: 0px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
+.full-width {
+    width: 100%;
+}
 
 .form-horizontal {
   padding-top: 20px;
