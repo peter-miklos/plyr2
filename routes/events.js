@@ -14,7 +14,7 @@ router.get('/index', function(req, res, next) {
 router.get('/new', function(req, res, next) {
   if (req.session.user) {
   models.Sport.findAll({}).then(function(sports) {
-    res.render('events/new', {title: "Create new event", sports: sports});
+    res.render('events/new', {title: "Create new event", sports: sports, flash: req.flash("dateError")});
   })
 } else {
   req.flash("loginError", "You need to be logged in");
@@ -23,18 +23,23 @@ router.get('/new', function(req, res, next) {
 });
 
 router.post('/new', function(req, res, next) {
-  models.Event.create({
-    skill: parseInt(req.body.skill),
-    eventDate: req.body.date,
-    eventTime: req.body.time,
-    location: req.body.location,
-    description: req.body.description,
-    SportId: parseInt(req.body.sport_select),
-    UserId: req.session.user.id
-  }).then(function(event) {
-    res.redirect('/events/index');
-  });
-});
+ if (new Date().valueOf() < new Date(req.body.date).valueOf()) {
+   models.Event.create({
+     skill: parseInt(req.body.skill),
+     eventDate: req.body.date,
+     eventTime: req.body.time,
+     location: req.body.location,
+     description: req.body.description,
+     SportId: parseInt(req.body.sport_select),
+     UserId: req.session.user.id
+   }).then(function(event) {
+     res.redirect('/events/index');
+   });
+ } else {
+   req.flash("dateError", "Date can't be earlier than today");
+   res.redirect('/events/new');
+ }
+ });
 
 router.get('/:id/show', function(req, res, next) {
   models.Event.find({where: { id: req.params.id}}).then(function(event) {

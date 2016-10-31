@@ -35,7 +35,7 @@
             </div>
             <div class="form-group">
               <label for="time">Event time</label>
-              <input class="form-control" type="time" name="time" id="event_time">
+              <input class="form-control" type="time" min="" name="time" id="event_time">
             </div>
             <div class="form-group">
               <label for="location">Location</label>
@@ -44,7 +44,7 @@
             <div class="form-group">
               <label for="description">Description</label>
               <textarea class="form-control" name="description" placeholder="Do you have any addition?" id="description" rows="8" cols="40"></textarea>
-
+              <% include ../partials/flash %>
             </div>
             <button type="submit" class="btn btn-default">Create Event!</button>
           </form>
