@@ -2,6 +2,7 @@
 <html>
   <head>
     <% include ../partials/head %>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAawpwHidYbVt5nO1Oivnlmr7Jv5Y1TP-4&libraries=places"></script>
   </head>
   <body>
     <!-- Always shows a header, even in smaller screens. -->
@@ -44,7 +45,8 @@
                     </div>
                     <div class="form-group">
                       <label for="location">Location</label>
-                      <input class="form-control" type="text" name="location" placeholder="Please set the location">
+                      <input  id="searchTextField" type="text" name="location" placeholder="Please set the location" size="50">
+
                     </div>
                     <div class="form-group">
                       <label for="description">Description</label>
@@ -61,6 +63,17 @@
       <footer class="mdl-mini-footer">
           <% include ../partials/footer %>
       </footer>
+
     </div>
+
+
+    <script type="text/javascript">
+    function initialize() {
+      var input = document.getElementById('searchTextField');
+      var autocomplete = new google.maps.places.Autocomplete(input);
+      }
+      google.maps.event.addDomListener(window, 'load', initialize);
+
+    </script>
   </body>
 </html>
