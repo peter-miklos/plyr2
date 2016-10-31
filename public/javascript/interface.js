@@ -2,8 +2,13 @@
 
 $(document).ready(function() {
 
-  addMapToStartPage();
-  calculateCoordinates();
+  if (document.getElementById("map")) {
+    addMapToStartPage();
+  }
+
+  if (document.getElementById("searchTextField")) {
+    calculateCoordinates();
+  }
 
   $(".clickable-row").click(function() {
     window.location = $(this).data("href");
