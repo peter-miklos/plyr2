@@ -49,7 +49,7 @@ describe('Manage events', function() {
         .fill('time', "16:00")
         .fill('location', "Peter's house")
         .fill('description', "I dare you!")
-        .pressButton('Create Event!', done)
+        .pressButton('Create Event', done)
      });
    });
 
@@ -73,7 +73,7 @@ describe('Manage events', function() {
         .fill('time', "15:00")
         .fill('location', "Hyde Park")
         .fill('description', "I dare you!")
-        .pressButton('Create Event!', done);
+        .pressButton('Create Event', done);
      })
    });
 
@@ -92,7 +92,7 @@ describe('Event date can not be earlier than today', function(){
        .fill('time', "15:00")
        .fill('location', "Hyde Park")
        .fill('description', "I dare you!")
-       .pressButton('Create Event!', done);
+       .pressButton('Create Event', done);
     })
   });
 
@@ -113,7 +113,7 @@ describe('Event date can not be earlier than today', function(){
 //         browser.fill('time', "15:00", done)
 //         browser.fill('location', "Hyde Park", done)
 //         browser.fill('description', "I double dare you!", done)
-//         browser.pressButton('Create Event!', done).then(function() {
+//         browser.pressButton('Create Event', done).then(function() {
 //           browser.clickLink("Wed Nov 30 2016");
 //         });
 //      })
