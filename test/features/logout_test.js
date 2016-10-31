@@ -14,7 +14,7 @@ describe('user log out', function() {
 
     before(function(done) {
       models.sequelize.sync({force:true});
-      browser.visit('/users/signup', done);
+      browser.visit('/users/new', done);
     });
 
     before(function(done) {
