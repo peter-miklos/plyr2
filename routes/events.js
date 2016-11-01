@@ -29,7 +29,7 @@ router.post('/new', function(req, res, next) {
  if ( today < new Date(req.body.date + "T" + req.body.time).valueOf()) {
    models.Event.create({
      skill: parseInt(req.body.skill),
-     eventDate: req.body.date,
+     eventDate: new Date(req.body.date + "T" + req.body.time),
      eventTime: req.body.time,
      location: req.body.location,
      description: req.body.description,
