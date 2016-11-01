@@ -15,7 +15,8 @@
              <% if (events.length === 0) { %>
                No events found.
              <%} else {%>
-               <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp full-width" id="event_table">
+             <div class="table-responsive">
+               <table class="table" id="event_table">
                 <thead>
                 <tr>
                     <th>#</th>
@@ -28,7 +29,7 @@
                 </thead>
                 <tbody>
                   <% events.forEach(function(event, index) { %>
-                    <tr class="clickable-row" data-href="/events/<%= event.id %>/show" id="other">
+                    <tr data-href="/events/<%= event.id %>/show" id="other">
                       <td><%= index + 1 %></td>
                       <% var sportIndex = sports.findIndex(function(element) { return element.id === event.SportId}) %>
                       <td><%= sports[sportIndex].name %></td>
@@ -40,6 +41,7 @@
                   <% }) %>
                 </tbody>
                 </table>
+              </div>
                <% }%>
            </div>
          </div>
