@@ -20,7 +20,11 @@ a {
   color: #00B7FF;
 }
 
+.width-fixer {
+  width: 100%;
+
 #map {
   width: 100%;
   height: 100%;
+
 }
