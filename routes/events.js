@@ -83,6 +83,21 @@ router.post("/:id/requests/new", function(req, res, next) {
   })
 });
 
+router.post("/search", function(req, res, next) {
+  console.log(req.body.sport_select);
+    models.Event.findAll({ where: { SportId: req.body.sport_select }}).then(function(events) {
+      models.Sport.findAll({}).then(function(sports) {
+      res.render('events/index', {title: "List of events", events: events, sports: sports});
+      });
+  })
+});
+
+router.get('/search', function(req, res, next) {
+    models.Sport.findAll({}).then(function(sports) {
+      res.render('events/search', {title: "Search for events", sports: sports});
+  })
+});
+
 router.get("/requests/index", function(req, res, next) {
   if (req.session.user) {
   res.render('events/requests/index')
