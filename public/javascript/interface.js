@@ -41,6 +41,9 @@ $(document).ready(function() {
 
     $('#event_date').val(today);
     $('#event_date').attr({'min': today});
+    $('#date_select_search').val(today);
+    $('#date_select_search').attr({'min': today});
+
 
     $(function(){
       $("#event_time").each(function(){

@@ -85,8 +85,9 @@ router.post("/:id/requests/new", function(req, res, next) {
 
 router.post("/search", function(req, res, next) {
   console.log(req.body.sport_select);
-    models.Event.findAll({ where: { SportId: req.body.sport_select }}).then(function(events) {
+    models.Event.findAll({ where: { SportId: req.body.sport_select }}).then(function(selectedEvents) {
       models.Sport.findAll({}).then(function(sports) {
+        var events = selectedEvents.filter(function(e) { return (e.eventDate >= new Date(req.body.date_select_search)) });
       res.render('events/index', {title: "List of events", events: events, sports: sports});
       });
   })

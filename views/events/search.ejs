@@ -1,20 +1,32 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <meta charset="utf-8">
-    <title></title>
+    <% include ../partials/head %>
   </head>
   <body>
-<form action="/events/search" method="post">
-  <div class="form-group">
-    <label for="sport">Select your preferred sport</label>
-    <select id="sport_select" name="sport_select">
-      <% sports.forEach(function(sport) { %>
-        <option value="<%= sport.id %>"><%= sport.name %></option>
-      <% }) %>
-    </select>
+    <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+      <% include ../partials/header %>
+      <main class="mdl-layout__content">
+        <div class="page-content">
+          <form action="/events/search" method="post">
+            <div class="form-group">
+              <label for="sport">Select your preferred sport</label>
+              <select id="sport_select" name="sport_select">
+                <% sports.forEach(function(sport) { %>
+                  <option value="<%= sport.id %>"><%= sport.name %></option>
+                <% }) %>
+              </select>
+              </div>
+              <div class="form-group">
+                <input type="date" name="date_select_search" id="date_select_search">
+              </div>
+              <button type="submit" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">Search Event</button>
+          </form>
+        </div>
+      </main>
+      <footer class="mdl-mini-footer">
+          <% include ../partials/footer %>
+      </footer>
     </div>
-    <button type="submit" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">Search Event</button>
-</form>
   </body>
 </html>
