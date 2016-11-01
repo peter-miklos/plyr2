@@ -11,7 +11,7 @@
         <div class="page-content">
           <div class="mdl-grid">
             <div class="mdl-cell mdl-cell--12-col mdl-cell--4-col-phone mdl-cell--8-col-tablet">
-              <div class="mdl-grid">
+              <div>
                 <h2><%= title1 %></h2>
                   <% if (receivedRequests.length === 0) { %>
                     <div class="no_received_request">
@@ -69,7 +69,7 @@
                     </div>
                   <% }%>
               </div>
-              <div class="mdl-grid">
+              <div>
                 <h2><%= title2 %></h2>
                 <% if (myRequests.length === 0) { %>
                   <div class="no_sent_request">
