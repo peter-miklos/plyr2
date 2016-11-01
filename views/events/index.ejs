@@ -16,6 +16,7 @@
                No events found.
              <%} else {%>
                <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp full-width" id="event_table">
+                 <input id="searchInput" value="Type To Filter">
                 <thead>
                 <tr>
                     <th>#</th>
@@ -26,7 +27,7 @@
                     <th>Location</th>
                   </tr>
                 </thead>
-                <tbody>
+                <tbody id="fbody">
                   <% events.forEach(function(event, index) { %>
                     <tr class="clickable-row" data-href="/events/<%= event.id %>/show" id="other">
                       <td><%= index + 1 %></td>
