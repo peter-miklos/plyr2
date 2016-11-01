@@ -14,10 +14,11 @@
     "dialect": "postgres"
   },
   "production": {
-    "username": "",
-    "password": null,
-    "database": "sports_production",
-    "host": "127.0.0.1",
-    "dialect": "postgres"
+    "dialect": "postgres",
+    "username": "dzqbswvwrnqiwp",
+    "password": "PT1oaSDp5p_mw5rycuiX7LGqmV",
+    "database": "d4i72k0p369nge",
+    "host": "ec2-54-235-132-192.compute-1.amazonaws.com",
+    "port": "5432"
   }
 }

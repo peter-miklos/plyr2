@@ -1,6 +1,10 @@
 process.env.NODE_ENV ? process.env.NODE_ENV : process.env.NODE_ENV = 'development';
 
 require("dotenv").config();
+// REQUIRED POSTGRES FOR HEROKU DEPLOYMENT:
+var pg = require('pg');
+//
+
 var express = require('express');
 var path = require('path');
 var favicon = require('serve-favicon');
@@ -80,6 +84,22 @@ app.use(function(err, req, res, next) {
     error: {}
   });
 });
+
+// CONNECT TO HEROKU DATABASE:
+
+app.get('/db', function (request, response) {
+  pg.connect(process.env.DATABASE_URL, function(err, client, done) {
+    client.query('SELECT * FROM test_table', function(err, result) {
+      done();
+      if (err)
+       { console.error(err); response.send("Error " + err); }
+      else
+       { response.render('pages/db', {results: result.rows} ); }
+    });
+  });
+});
+
+//
 
 
 module.exports = app;
