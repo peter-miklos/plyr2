@@ -96,7 +96,26 @@ router.get("/requests/index", function(req, res, next) {
 });
 
 router.get("/getEventLocations", function(req, res, next) {
-  res.send([["Makers", 51.5173, 0.0733, 1, "/events/index"]])
+  var eventLocations = []
+  models.Sport.findAll().then(function(sports){
+    models.Event.findAll().then(function(allEvents) {
+      var events = allEvents.filter(function(e) { return (e.eventDate >= new Date()) });
+      events.forEach(function(event, index){
+        var sportIndex = sports.findIndex(function(element) { return element.id === event.SportId})
+        var eventInfo = sports[sportIndex].name
+                        + "<br/> Skill level: " + event.skill
+                        + "<br/> Date: " + new Date(event.eventDate).toDateString()
+                        + "<br/> Time: " + event.eventTime
+                        + "<br/> <a href='/events/" + event.id
+                        + "/show'>Show Event </a>"
+        eventLocations.push([event.latitude, event.longitude, index+1, eventInfo])
+      })
+      res.send(eventLocations)
+    })
+
+  })
+
+
 })
 
 module.exports = router;
