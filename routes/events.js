@@ -96,20 +96,13 @@ router.get("/requests/index", function(req, res, next) {
 });
 
 router.get("/getEventLocations", function(req, res, next) {
-  var eventLocations = []
-  var url;
+  var eventLocations = [];
   models.Sport.findAll().then(function(sports){
     models.Event.findAll().then(function(allEvents) {
       var events = allEvents.filter(function(e) { return (e.eventDate >= new Date()) });
       events.forEach(function(event, index){
         var sportIndex = sports.findIndex(function(element) { return element.id === event.SportId})
-        if (event.SportId === 1) {
-          url = '/static/icons/tennis.png';
-        } else if (event.SportId === 2) {
-          url = '/static/icons/pingpong.png';
-        } else {
-          url = '/static/icons/wrestling.png';
-        }
+        var url = '/static/icons/' + sports[sportIndex].name + '.png';
         var eventInfo = sports[sportIndex].name
                         + "<br/> Skill level: " + event.skill
                         + "<br/> Date: " + new Date(event.eventDate).toDateString()
@@ -118,7 +111,6 @@ router.get("/getEventLocations", function(req, res, next) {
                         + "/show'>Show Event </a>"
         eventLocations.push([event.latitude, event.longitude, url, index+1, eventInfo])
       })
-      console.log(eventLocations)
       res.send(eventLocations)
     })
 

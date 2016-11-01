@@ -103,7 +103,7 @@ $(document).ready(function() {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(function(position) {
         map = new google.maps.Map(document.getElementById('map'), {
-          zoom: 11,
+          zoom: 14,
           center: new google.maps.LatLng(position.coords.latitude, position.coords.longitude),
           mapTypeId: google.maps.MapTypeId.ROADMAP
         });
@@ -111,7 +111,7 @@ $(document).ready(function() {
       });
     } else {
       map = new google.maps.Map(document.getElementById('map'), {
-        zoom: 11,
+        zoom: 14,
         center: new google.maps.LatLng(51.5074, .1278),
         mapTypeId: google.maps.MapTypeId.ROADMAP
       });
@@ -122,7 +122,6 @@ $(document).ready(function() {
 
 
   function putPinsOnMap(locations, map) {
-    console.log(locations);
     var marker, i;
     var infowindow = new google.maps.InfoWindow();
 
