@@ -4,8 +4,9 @@ var models = require("../models");
 
 
 router.get('/index', function(req, res, next) {
-  models.Event.findAll({}).then(function(events) {
-    models.Sport.findAll({}).then(function(sports) {
+  models.Sport.findAll({}).then(function(sports) {
+    models.Event.findAll({}).then(function(allEvents) {
+      var events = allEvents.filter(function(e) { return (e.eventDate >= new Date()) });
       res.render('events/index', {title: "List of events", events: events, sports: sports});
     })
   })
