@@ -16,7 +16,9 @@ router.get('/index', function(req, res, next) {
           id: {
             notIn: requests.map(function(e) {return e.EventId})
           }
-        }}).then(function(allEvents) {
+        },
+        order: '"createdAt" DESC'
+      }).then(function(allEvents) {
           var events = allEvents.filter(function(e) { return (e.eventDate >= new Date()) });
           res.render('events/index', {title: "List of events", events: events, sports: sports});
         })
