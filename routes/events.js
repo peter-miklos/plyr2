@@ -4,8 +4,9 @@ var models = require("../models");
 
 
 router.get('/index', function(req, res, next) {
-  models.Event.findAll({}).then(function(events) {
-    models.Sport.findAll({}).then(function(sports) {
+  models.Sport.findAll({}).then(function(sports) {
+    models.Event.findAll({}).then(function(allEvents) {
+      var events = allEvents.filter(function(e) { return (e.eventDate >= new Date()) });
       res.render('events/index', {title: "List of events", events: events, sports: sports});
     })
   })
@@ -28,7 +29,7 @@ router.post('/new', function(req, res, next) {
  if ( today < new Date(req.body.date + "T" + req.body.time).valueOf()) {
    models.Event.create({
      skill: parseInt(req.body.skill),
-     eventDate: req.body.date,
+     eventDate: new Date(req.body.date + "T" + req.body.time),
      eventTime: req.body.time,
      location: req.body.location,
      description: req.body.description,
@@ -93,5 +94,9 @@ router.get("/requests/index", function(req, res, next) {
   res.redirect('/sessions/login')
 }
 });
+
+router.get("/getEventLocations", function(req, res, next) {
+  res.send([["Makers", 51.5173, 0.0733, 1, "/events/index"]])
+})
 
 module.exports = router;
