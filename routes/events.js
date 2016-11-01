@@ -108,8 +108,9 @@ router.get("/getEventLocations", function(req, res, next) {
                         + "<br/> Time: " + event.eventTime
                         + "<br/> <a href='/events/" + event.id
                         + "/show'>Show Event </a>"
-        eventLocations.push([event.latitude, event.longitude, index+1, eventInfo])
+        eventLocations.push([event.latitude, event.longitude, event.SportId, index+1, eventInfo])
       })
+      console.log(eventLocations)
       res.send(eventLocations)
     })
 
