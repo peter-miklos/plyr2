@@ -12,7 +12,7 @@ router.post('/login', function(req, res, next) {
     models.User.findOne({
     where: { email: req.body.email }
   })
-    .then(function(user){    
+    .then(function(user){
       if (models.User.checkPassword(user, req.body.password))
       {
         req.session.user = user;
@@ -91,16 +91,20 @@ router.post("/:userId/requests/:requestId/complete", function(req, res, next) {
           StatusId: acceptedStatus.id
         }).then(function(){
           models.Event.find({where: {id: acceptedRequest.EventId}}).then(function(eventItem) {
-            models.Request.findAll({
-              where: {
-                StatusId: openStatus.id,
-                EventId: eventItem.id
-              }
-            }).then(function(requests) {
-              requests.forEach(function(request, index) {
-                request.updateAttributes({
-                  StatusId: rejectedStatus.id
-                }).then(function(){})
+            eventItem.updateAttributes({
+              RequestId: acceptedRequest.id
+            }).then(function() {
+              models.Request.findAll({
+                where: {
+                  StatusId: openStatus.id,
+                  EventId: eventItem.id
+                }
+              }).then(function(requests) {
+                requests.forEach(function(request, index) {
+                  request.updateAttributes({
+                    StatusId: rejectedStatus.id
+                  }).then(function(){})
+                })
               })
             })
           })

@@ -36,7 +36,7 @@ $(document).ready(function() {
   }).css({
       "color": "#C0C0C0"
   });
-  
+
   if (document.getElementById("map")) {
     getEventLocations();
   }
@@ -103,7 +103,7 @@ $(document).ready(function() {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(function(position) {
         map = new google.maps.Map(document.getElementById('map'), {
-          zoom: 11,
+          zoom: 14,
           center: new google.maps.LatLng(position.coords.latitude, position.coords.longitude),
           mapTypeId: google.maps.MapTypeId.ROADMAP
         });
@@ -111,7 +111,7 @@ $(document).ready(function() {
       });
     } else {
       map = new google.maps.Map(document.getElementById('map'), {
-        zoom: 11,
+        zoom: 14,
         center: new google.maps.LatLng(51.5074, .1278),
         mapTypeId: google.maps.MapTypeId.ROADMAP
       });
@@ -122,19 +122,19 @@ $(document).ready(function() {
 
 
   function putPinsOnMap(locations, map) {
-    console.log(locations);
     var marker, i;
     var infowindow = new google.maps.InfoWindow();
 
     for (i = 0; i < locations.length; i++) {
       marker = new google.maps.Marker({
         position: new google.maps.LatLng(locations[i][0], locations[i][1]),
+        icon: locations[i][2],
         map: map
       });
 
       google.maps.event.addListener(marker, 'click', (function(marker, i) {
         return function() {
-          infowindow.setContent(locations[i][3]);
+          infowindow.setContent(locations[i][4]);
           infowindow.open(map, marker);
         }
       })(marker, i));
