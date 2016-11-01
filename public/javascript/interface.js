@@ -3,7 +3,7 @@
 $(document).ready(function() {
 
   if (document.getElementById("map")) {
-    addMapToStartPage();
+    getEventLocations();
   }
 
   if (document.getElementById("searchTextField")) {
@@ -57,33 +57,36 @@ $(document).ready(function() {
     });
   }
 
-  function addMapToStartPage() {
-    var marker, i, map;
-
-    var locations = [
-      ['Bondi Beach', -33.890542, 151.274856, 4, "/events/index"],
-      ['Coogee Beach', -33.923036, 151.259052, 5, "/events/index"],
-      ['Cronulla Beach', -34.028249, 151.157507, 3, "/events/index"],
-      ['Manly Beach', -33.80010128657071, 151.28747820854187, 2,"/events/index"],
-      ['Maroubra Beach', -33.950198, 151.259302, 1, "/events/index"]
-    ];
+  function addMapToStartPage(locations) {
+    var map;
 
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(function(position) {
         map = new google.maps.Map(document.getElementById('map'), {
-          zoom: 10,
+          zoom: 11,
           center: new google.maps.LatLng(position.coords.latitude, position.coords.longitude),
           mapTypeId: google.maps.MapTypeId.ROADMAP
         });
+        putPinsOnMap(locations, map);
       });
     } else {
       map = new google.maps.Map(document.getElementById('map'), {
-        zoom: 10,
+        zoom: 11,
         center: new google.maps.LatLng(51.5074, .1278),
         mapTypeId: google.maps.MapTypeId.ROADMAP
       });
+      putPinsOnMap(locations, map);
     }
+  }
 
+  function getEventLocations() {
+    $.get("/events/getEventLocations", function(data) {
+      addMapToStartPage(data);
+    })
+  }
+
+  function putPinsOnMap(locations, map) {
+    var marker, i;
     var infowindow = new google.maps.InfoWindow();
 
     for (i = 0; i < locations.length; i++) {

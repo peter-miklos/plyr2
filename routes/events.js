@@ -95,4 +95,8 @@ router.get("/requests/index", function(req, res, next) {
 }
 });
 
+router.get("/getEventLocations", function(req, res, next) {
+  res.send([["Makers", 51.5173, 0.0733, 1, "/events/index"]])
+})
+
 module.exports = router;
