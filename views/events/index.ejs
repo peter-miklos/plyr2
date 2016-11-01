@@ -16,6 +16,7 @@
                No events found.
              <%} else {%>
                <table class="table" id="event_table">
+                 <input id="searchInput" value="Type To Filter">
                 <thead>
                 <tr>
                     <th>#</th>
@@ -26,7 +27,7 @@
                     <th>Location</th>
                   </tr>
                 </thead>
-                <tbody>
+                <tbody id="fbody">
                   <% events.forEach(function(event, index) { %>
                     <tr data-href="/events/<%= event.id %>/show" id="other">
                       <td><%= index + 1 %></td>
