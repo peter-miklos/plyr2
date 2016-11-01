@@ -12,33 +12,17 @@ router.get('/index', function(req, res, next) {
           $any: allStatus.map(function(e) {return e.id})
         }
       }}).then(function(requests) {
-        console.log("Requests:")
-        console.log(requests)
         models.Event.findAll({where: {
           id: {
             notIn: requests.map(function(e) {return e.EventId})
           }
         }}).then(function(allEvents) {
-          console.log("Events:")
-          console.log(allEvents)
           var events = allEvents.filter(function(e) { return (e.eventDate >= new Date()) });
           res.render('events/index', {title: "List of events", events: events, sports: sports});
         })
       })
     })
   })
-
-
-  //
-  // models.Sport.findAll({}).then(function(sports) {
-  //   models.Event.findAll({ where: {
-  //     RequestId: null
-  //   }
-  //   }).then(function(allEvents) {
-  //     var events = allEvents.filter(function(e) { return (e.eventDate >= new Date()) });
-  //     res.render('events/index', {title: "List of events", events: events, sports: sports});
-  //   })
-  // })
 });
 
 router.get('/new', function(req, res, next) {
