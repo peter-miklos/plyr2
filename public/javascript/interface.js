@@ -92,6 +92,11 @@ $(document).ready(function() {
     });
   }
 
+  function getEventLocations() {
+    $.get("/events/getEventLocations", function(data) {
+      addMapToStartPage(data);
+    })
+  }
   function addMapToStartPage(locations) {
     var map;
 
@@ -114,25 +119,22 @@ $(document).ready(function() {
     }
   }
 
-  function getEventLocations() {
-    $.get("/events/getEventLocations", function(data) {
-      addMapToStartPage(data);
-    })
-  }
+
 
   function putPinsOnMap(locations, map) {
+    console.log(locations);
     var marker, i;
     var infowindow = new google.maps.InfoWindow();
 
     for (i = 0; i < locations.length; i++) {
       marker = new google.maps.Marker({
-        position: new google.maps.LatLng(locations[i][1], locations[i][2]),
+        position: new google.maps.LatLng(locations[i][0], locations[i][1]),
         map: map
       });
 
       google.maps.event.addListener(marker, 'click', (function(marker, i) {
         return function() {
-          infowindow.setContent("Test name22" + "<br><a href='" + locations[i][4] + "'>Link</a>");
+          infowindow.setContent(locations[i][3]);
           infowindow.open(map, marker);
         }
       })(marker, i));
