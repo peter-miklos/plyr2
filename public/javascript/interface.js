@@ -97,29 +97,24 @@ $(document).ready(function() {
       addMapToStartPage(data);
     })
   }
-  function addMapToStartPage(locations) {
-    var map;
 
+  function addMapToStartPage(locations) {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(function(position) {
-        map = new google.maps.Map(document.getElementById('map'), {
+        var map = new google.maps.Map(document.getElementById('map'), {
           zoom: 14,
-          center: new google.maps.LatLng(position.coords.latitude, position.coords.longitude),
-          mapTypeId: google.maps.MapTypeId.ROADMAP
+          center: new google.maps.LatLng(position.coords.latitude, position.coords.longitude)
         });
         putPinsOnMap(locations, map);
       });
     } else {
-      map = new google.maps.Map(document.getElementById('map'), {
-        zoom: 14,
-        center: new google.maps.LatLng(51.5074, .1278),
-        mapTypeId: google.maps.MapTypeId.ROADMAP
+      var map = new google.maps.Map(document.getElementById('map'), {
+        zoom: 11,
+        center: new google.maps.LatLng(51.5074, .1278)
       });
       putPinsOnMap(locations, map);
     }
   }
-
-
 
   function putPinsOnMap(locations, map) {
     var marker, i;
