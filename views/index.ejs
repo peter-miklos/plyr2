@@ -2,6 +2,7 @@
 <html>
   <head>
     <% include partials/head %>
+    <script src="http://maps.google.com/maps/api/js?sensor=false" type="text/javascript"></script>
   </head>
   <body>
     <!-- Always shows a header, even in smaller screens. -->
@@ -13,8 +14,8 @@
         <div class="page-content">
           <div class="mdl-grid">
             <div class="mdl-cell mdl-cell--12-col mdl-cell--4-col-phone mdl-cell--8-col-tablet">
-              <div class="">
-                <h1>Welcome to Sports Friend Finder</h1>
+              <div class="mdl-grid">
+                <div id="map" style="width: 100%; height: 400px;"></div>
               </div>
               <p align="center"><% include partials/flash %></p>
             </div>

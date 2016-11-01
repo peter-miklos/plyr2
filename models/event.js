@@ -7,7 +7,10 @@ module.exports = function(sequelize, DataTypes) {
     eventTime: DataTypes.TIME,
     description: DataTypes.TEXT,
     UserId: DataTypes.INTEGER,
-    SportId: DataTypes.INTEGER
+    SportId: DataTypes.INTEGER,
+    RequestId: DataTypes.INTEGER,
+    longitude: DataTypes.FLOAT,
+    latitude: DataTypes.FLOAT
   }, {
     classMethods: {
       associate: function(models) {

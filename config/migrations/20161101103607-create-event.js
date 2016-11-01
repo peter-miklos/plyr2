@@ -9,7 +9,7 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       location: {
-        type: Sequelize.STRING
+        type: Sequelize.TEXT
       },
       skill: {
         type: Sequelize.INTEGER
@@ -28,6 +28,15 @@ module.exports = {
       },
       SportId: {
         type: Sequelize.INTEGER
+      },
+      RequestId: {
+        type: Sequelize.INTEGER
+      },
+      longitude: {
+        type: Sequelize.FLOAT
+      },
+      latitude: {
+        type: Sequelize.FLOAT
       },
       createdAt: {
         allowNull: false,
