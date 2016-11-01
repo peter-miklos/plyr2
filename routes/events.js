@@ -6,10 +6,10 @@ var models = require("../models");
 router.get('/index', function(req, res, next) {
   models.Sport.findAll({}).then(function(sports) {
     models.Status.findAll({}).then(function(allStatus) {
-      var statuses = allStatus.filter(function(e) {return e.name === "Rejected" || e.name === "Accepted"})
+      var statuses = allStatus.filter(function(e) {return e.name === "Accepted"})
       models.Request.findAll({where: {
         StatusId: {
-          $any: allStatus.map(function(e) {return e.id})
+          $any: statuses.map(function(e) {return e.id})
         }
       }}).then(function(requests) {
         models.Event.findAll({where: {
