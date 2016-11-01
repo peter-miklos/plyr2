@@ -3,7 +3,9 @@ var router = express.Router();
 var models = require("../models");
 
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Sport Friend Finder', flash: req.flash('logout') });
+  models.Sport.findAll({}).then(function(sports) {
+    res.render('index', { title: 'Sport Friend Finder', sports: sports, flash: req.flash('logout') });
+  });
 });
 
 // must be deleted after MVP
