@@ -154,7 +154,11 @@ $(document).ready(function() {
             var city = "london";
             $.get(url + city + apiKey + units, function(data) {
               console.log(data);
-            $('#weather').html(data.main.temp);
+              var icon = data.weather[0].icon
+              var temp = Math.round(data.main.temp)
+            $('#weather').html(temp);
+            $('#weather').prepend($('<img>',{id:'theImg',src:'http://openweathermap.org/img/w/'+ icon + '.png'}));
+
               });
           }
 
