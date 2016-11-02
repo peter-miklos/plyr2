@@ -22,6 +22,23 @@ $(document).ready(function() {
     window.location = $(this).data("href");
   });
 
+  $(document).click(function(e){
+    var elemId = e.target.parentElement.id
+    if (elemId.substring(0, 12) === "requestBasic") {
+      var requestId = elemId.substring(13)
+      if ($('#requestDetails_' + requestId).is('.hidden')) {
+        $('#requestDetails_' + requestId).removeClass('hidden');
+        $('#requestDetails_' + requestId).addClass('show');
+      }
+      else
+      {
+        $('#requestDetails_' + requestId).removeClass('show');
+        $('#requestDetails_' + requestId).addClass('hidden');
+      }
+    }
+
+      });
+
   function filterEventDate() {
     $("#searchInput").keyup(function () {
         //split the current value of searchInput
