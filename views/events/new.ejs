@@ -12,7 +12,7 @@
         <div class="page-content">
           <div class="mdl-grid">
             <div class="mdl-cell mdl-cell--12-col mdl-cell--4-col-phone mdl-cell--8-col-tablet">
-              <h2>Please create your event</h2>
+              <h2><%= title %></h2>
               <div class="mdl-grid">
                 <form action="/events/new" method="post" class="width-fixer" style="width: 100%;">
 
@@ -55,6 +55,7 @@
 
                     </div>
                     <button type="submit" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">Create Event</button>
+                    <a href="javascript:history.back();">Cancel</a>
 
                     <div class="">
                       <p align="center"><% include ../partials/flash %></p>
