@@ -59,7 +59,9 @@
                               <td><%= new Date(event.eventDate).toDateString() %></a></td>
                             </tr>
                         </tbody>
+                      </table>
 
+                      <table class="table" id="requestDetailTable">
                         <tbody id="requestDetails" class='hidden'>
                           <tr>
                             <td>Location: </td>
@@ -78,15 +80,15 @@
                           <tr>
                             <td>
                               <% if (request.StatusId === openStatus.id) { %>
-                              <form action="/sessions/<%= currentUser.id %>/requests/<%= request.id %>/complete" method="post">
+                              <form id="acceptRejectButton" action="/sessions/<%= currentUser.id %>/requests/<%= request.id %>/complete" method="post">
                                 <input type="hidden" name="action" value="Accepted">
                                 <input type="hidden" name="request_id" value=<%= request.id %> >
                                 <button name="Accepted" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" type="submit" >Confirm</button>
                               </form>
-                              <form action="/sessions/<%= currentUser.id %>/requests/<%= request.id %>/complete" method="post">
+                              <form id="acceptRejectButton" action="/sessions/<%= currentUser.id %>/requests/<%= request.id %>/complete" method="post">
                                 <input type="hidden" name="action" value="Rejected">
                                 <input type="hidden" name="request_id" value=<%= request.id %> >
-                                <button name="Rejected" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" type="submit">Reject</button>
+                                <button name="Rejected" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" type="submit">&nbspReject&nbsp</button>
                               </form>
                               <% } else { %>
                                 <% var statusIndex = statuses.findIndex(function(e) { return e.id === request.StatusId}) %>

@@ -29,3 +29,8 @@ a {
   height: 100%;
 
 }
+
+#acceptRejectButton {
+  float: left;
+  padding: 5px;
+}
