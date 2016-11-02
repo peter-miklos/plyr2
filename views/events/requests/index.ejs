@@ -39,53 +39,47 @@
                               <td><%= sports[sportIndex].name %></td>
                               <td><%= new Date(event.eventDate).toDateString() %></a></td>
                             </tr>
-                            <tr id="requestDetails_<%= request.id %>" class='hidden'>
-                              <td colspan="3">
-                                <table class="table" id="requestDetailTable">
-                                  <tbody >
-                                    <tr>
-                                      <td>Location: </td>
-                                      <td><a href="/events/<%= event.id %>/show" id="link"><%= event.location %></td>
-                                    </tr>
-                                    <tr>
-                                      <td>Comment: </td>
-                                      <td><%= request.comment %></td>
-                                    </tr>
-                                    <tr>
-                                      <td>Requestor: </td>
-                                      <% var userIndex = users.findIndex(function(element) { return element.id === request.UserId}) %>
-                                      <td><%= users[userIndex].name %></td>
-                                    </tr>
-                                    <tr>
-                                      <td>
-                                        <% if (request.StatusId === openStatus.id) { %>
-                                        <form id="acceptRejectButton" action="/sessions/<%= currentUser.id %>/requests/<%= request.id %>/complete" method="post">
-                                          <input type="hidden" name="action" value="Accepted">
-                                          <input type="hidden" name="request_id" value=<%= request.id %> >
-                                          <button name="Accepted" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" type="submit" >Confirm</button>
-                                        </form>
-                                        <form id="acceptRejectButton" action="/sessions/<%= currentUser.id %>/requests/<%= request.id %>/complete" method="post">
-                                          <input type="hidden" name="action" value="Rejected">
-                                          <input type="hidden" name="request_id" value=<%= request.id %> >
-                                          <button name="Rejected" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" type="submit">&nbspReject&nbsp</button>
-                                        </form>
-                                        <% } else { %>
-                                          <% var statusIndex = statuses.findIndex(function(e) { return e.id === request.StatusId}) %>
-                                          <%= statuses[statusIndex].name %>
-                                        <% } %>
-                                      </td>
-                                    </tr>
-                                  </tbody>
-                                </table>
+                          </tbody>
+                        </table>
+                        <table class="table" >
+                          <tbody class='hidden' id="requestDetails_<%= request.id %>">
+                            <tr>
+                              <td>Location: </td>
+                              <td><a href="/events/<%= event.id %>/show" id="link"><%= event.location %></td>
+                            </tr>
+                            <tr>
+                              <td>Comment: </td>
+                              <td><%= request.comment %></td>
+                            </tr>
+                            <tr>
+                              <td>Requestor: </td>
+                              <% var userIndex = users.findIndex(function(element) { return element.id === request.UserId}) %>
+                              <td><%= users[userIndex].name %></td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <% if (request.StatusId === openStatus.id) { %>
+                                <form id="acceptRejectButton" action="/sessions/<%= currentUser.id %>/requests/<%= request.id %>/complete" method="post">
+                                  <input type="hidden" name="action" value="Accepted">
+                                  <input type="hidden" name="request_id" value=<%= request.id %> >
+                                  <button name="Accepted" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" type="submit" >Confirm</button>
+                                </form>
+                                <form id="acceptRejectButton" action="/sessions/<%= currentUser.id %>/requests/<%= request.id %>/complete" method="post">
+                                  <input type="hidden" name="action" value="Rejected">
+                                  <input type="hidden" name="request_id" value=<%= request.id %> >
+                                  <button name="Rejected" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" type="submit">&nbspReject&nbsp</button>
+                                </form>
+                                <% } else { %>
+                                  <% var statusIndex = statuses.findIndex(function(e) { return e.id === request.StatusId}) %>
+                                  <%= statuses[statusIndex].name %>
+                                <% } %>
                               </td>
                             </tr>
-                            <% }) %>
-                        </tbody>
-                      </table>
-
-
-                    </div>
-                  <% }%>
+                          </tbody>
+                        </table>
+                      <% }) %>
+                  </div>
+                <% }%>
               </div>
               <div>
                 <h2><%= title2 %></h2>
