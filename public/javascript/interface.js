@@ -33,14 +33,14 @@ $(document).ready(function() {
     console.log(elemId)
     if (elemId.substring(0, 12) === "requestBasic") {
       var requestId = elemId.substring(13)
-      if ($('#requestDetails_' + requestId).is('.hidden')) {
-        $('#requestDetails_' + requestId).removeClass('hidden');
-        $('#requestDetails_' + requestId).addClass('show');
+      if ($('#requestRow_' + requestId).is('.hidden')) {
+        $('#requestRow_' + requestId).removeClass('hidden');
+        $('#requestRow_' + requestId).addClass('show-tr');
       }
       else
       {
-        $('#requestDetails_' + requestId).removeClass('show');
-        $('#requestDetails_' + requestId).addClass('hidden');
+        $('#requestRow_' + requestId).removeClass('show-tr');
+        $('#requestRow_' + requestId).addClass('hidden');
       }
     }
 

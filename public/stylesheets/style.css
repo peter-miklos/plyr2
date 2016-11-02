@@ -11,6 +11,18 @@ main {
   height: 100%;
 }
 
+.table .sub-table {
+  background-color: #f3f3f3;
+
+}
+
+.table .sub-table tr:first-child td {
+  border-top: 0;
+}
+
+.show-tr {
+  display: table-row;
+}
 
 
 .full-width {
