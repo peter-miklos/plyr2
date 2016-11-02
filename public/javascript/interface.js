@@ -90,8 +90,7 @@ $(document).ready(function() {
         if(h < 10) h = '0' + h;
         if(m < 10) m = '0' + m;
         $(this).attr({
-          'value': h + 1 + ':' + m,
-          'min': h + ':' + m
+          'value': h + 1 + ':' + m
         });
       });
     });
