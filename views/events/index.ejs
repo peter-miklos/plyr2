@@ -9,18 +9,18 @@
      <% include ../partials/header %>
      <main class="mdl-layout__content">
        <div class="page-content">
-         <div class="mdl-grid" style="margin: -10px;">
+         <div class="mdl-grid">
            <div class="mdl-cell mdl-cell--12-col mdl-cell--4-col-phone mdl-cell--8-col-tablet">
              <h2><%= title %></h2>
              <% if (events.length === 0) { %>
                No events found.
              <%} else {%>
+               <div class="mdl-textfield mdl-js-textfield">
+                 <input class="mdl-textfield__input" type="text" id="searchInput" placeholder="Refine your search">
+               </div>
                <table class="table" id="event_table">
-                <div class="mdl-textfield mdl-js-textfield">
-                  <input class="mdl-textfield__input" type="text" id="searchInput" placeholder="Refine your search">
-                </div>
                 <thead>
-                <tr>
+                  <tr>
                     <th>#</th>
                     <th>Sport</th>
                     <th>Skill level</th>
@@ -31,7 +31,7 @@
                 </thead>
                 <tbody id="fbody">
                   <% events.forEach(function(event, index) { %>
-                    <tr data-href="/events/<%= event.id %>/show" id="other">
+                    <tr data-href="/events/<%= event.id %>/show" id="other" class="clickable-row">
                       <td><%= index + 1 %></td>
                       <% var sportIndex = sports.findIndex(function(element) { return element.id === event.SportId}) %>
                       <td><%= sports[sportIndex].name %></td>
