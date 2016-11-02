@@ -12,7 +12,7 @@ router.post('/login', function(req, res, next) {
     models.User.findOne({
     where: { email: req.body.email }
   })
-    .then(function(user){    
+    .then(function(user){
       if (models.User.checkPassword(user, req.body.password))
       {
         req.session.user = user;
@@ -38,7 +38,10 @@ router.get('/logout', function(req, res) {
 router.get('/:id/requests/index', function(req, res, next) {
   models.Sport.findAll({}).then(function(sports) {
     models.Event.findAll({}).then(function(events) {
-      models.Request.findAll({where: {UserId: req.session.user.id}}).then(function(myRequests) {
+      models.Request.findAll({
+        where: {UserId: req.session.user.id},
+        order: '"createdAt" DESC'
+        }).then(function(myRequests) {
         models.Status.findAll({}).then(function(statuses) {
           models.User.findAll({}).then(function(users) {
             models.Event.findAll({where: {UserId: req.session.user.id}}).then(function(myEvents) {
@@ -56,7 +59,8 @@ router.get('/:id/requests/index', function(req, res, next) {
                     EventId: {
                       $any: myEvents.map(function(elem) { return elem.id })
                     }
-                }}).then(function(receivedRequests) {
+                },
+                order: '"createdAt" DESC'}).then(function(receivedRequests) {
                   res.render("events/requests/index", {myRequests: myRequests,
                                                       receivedRequests: receivedRequests,
                                                       title1: "Received requests",
@@ -91,16 +95,20 @@ router.post("/:userId/requests/:requestId/complete", function(req, res, next) {
           StatusId: acceptedStatus.id
         }).then(function(){
           models.Event.find({where: {id: acceptedRequest.EventId}}).then(function(eventItem) {
-            models.Request.findAll({
-              where: {
-                StatusId: openStatus.id,
-                EventId: eventItem.id
-              }
-            }).then(function(requests) {
-              requests.forEach(function(request, index) {
-                request.updateAttributes({
-                  StatusId: rejectedStatus.id
-                }).then(function(){})
+            eventItem.updateAttributes({
+              RequestId: acceptedRequest.id
+            }).then(function() {
+              models.Request.findAll({
+                where: {
+                  StatusId: openStatus.id,
+                  EventId: eventItem.id
+                }
+              }).then(function(requests) {
+                requests.forEach(function(request, index) {
+                  request.updateAttributes({
+                    StatusId: rejectedStatus.id
+                  }).then(function(){})
+                })
               })
             })
           })

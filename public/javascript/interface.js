@@ -2,8 +2,12 @@
 
 $(document).ready(function() {
 
+  if (document.getElementById("searchInput")) {
+    filterEventDate();
+  }
+
   if (document.getElementById("map")) {
-    addMapToStartPage();
+    getEventLocations();
   }
 
   if (document.getElementById("searchTextField")) {
@@ -17,6 +21,42 @@ $(document).ready(function() {
   $(".clickable-row").click(function() {
     window.location = $(this).data("href");
   });
+
+  function filterEventDate() {
+    $("#searchInput").keyup(function () {
+        //split the current value of searchInput
+        var data = this.value.toUpperCase().split(" ");
+        //create a jquery object of the rows
+        var jo = $("#fbody").find("tr");
+        if (this.value == "") {
+            jo.show();
+            return;
+        }
+        //hide all the rows
+        jo.hide();
+
+        //Recusively filter the jquery object to get results.
+        jo.filter(function (i, v) {
+            var $t = $(this);
+            for (var d = 0; d < data.length; ++d) {
+                if ($t.text().toUpperCase().indexOf(data[d]) > -1) {
+                    return true;
+                }
+            }
+            return false;
+        })
+        //show the rows that match.
+        .show();
+    }).focus(function () {
+        this.value = "";
+        $(this).css({
+            "color": "black"
+        });
+        $(this).unbind('focus');
+    }).css({
+        "color": "#C0C0C0"
+    });
+  }
 
   function calculateCoordinates() {
     if(document.location.href.indexOf("/events/new") != -1) {
@@ -57,44 +97,44 @@ $(document).ready(function() {
     });
   }
 
-  function addMapToStartPage() {
-    var marker, i, map;
+  function getEventLocations() {
+    $.get("/events/getEventLocations", function(data) {
+      addMapToStartPage(data);
+    })
+  }
 
-    var locations = [
-      ['Bondi Beach', -33.890542, 151.274856, 4, "/events/index"],
-      ['Coogee Beach', -33.923036, 151.259052, 5, "/events/index"],
-      ['Cronulla Beach', -34.028249, 151.157507, 3, "/events/index"],
-      ['Manly Beach', -33.80010128657071, 151.28747820854187, 2,"/events/index"],
-      ['Maroubra Beach', -33.950198, 151.259302, 1, "/events/index"]
-    ];
-
+  function addMapToStartPage(locations) {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(function(position) {
-        map = new google.maps.Map(document.getElementById('map'), {
-          zoom: 10,
-          center: new google.maps.LatLng(position.coords.latitude, position.coords.longitude),
-          mapTypeId: google.maps.MapTypeId.ROADMAP
+        var map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 14,
+          center: new google.maps.LatLng(position.coords.latitude, position.coords.longitude)
         });
+        putPinsOnMap(locations, map);
       });
     } else {
-      map = new google.maps.Map(document.getElementById('map'), {
-        zoom: 10,
-        center: new google.maps.LatLng(51.5074, .1278),
-        mapTypeId: google.maps.MapTypeId.ROADMAP
+      var map = new google.maps.Map(document.getElementById('map'), {
+        zoom: 11,
+        center: new google.maps.LatLng(51.5074, .1278)
       });
+      putPinsOnMap(locations, map);
     }
+  }
 
+  function putPinsOnMap(locations, map) {
+    var marker, i;
     var infowindow = new google.maps.InfoWindow();
 
     for (i = 0; i < locations.length; i++) {
       marker = new google.maps.Marker({
-        position: new google.maps.LatLng(locations[i][1], locations[i][2]),
+        position: new google.maps.LatLng(locations[i][0], locations[i][1]),
+        icon: locations[i][2],
         map: map
       });
 
       google.maps.event.addListener(marker, 'click', (function(marker, i) {
         return function() {
-          infowindow.setContent("Test name22" + "<br><a href='" + locations[i][4] + "'>Link</a>");
+          infowindow.setContent(locations[i][4]);
           infowindow.open(map, marker);
         }
       })(marker, i));

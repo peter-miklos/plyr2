@@ -4,9 +4,25 @@ var models = require("../models");
 
 
 router.get('/index', function(req, res, next) {
-  models.Event.findAll({}).then(function(events) {
-    models.Sport.findAll({}).then(function(sports) {
-      res.render('events/index', {title: "List of events", events: events, sports: sports});
+  models.Sport.findAll({}).then(function(sports) {
+    models.Status.findAll({}).then(function(allStatus) {
+      var statuses = allStatus.filter(function(e) {return e.name === "Accepted"})
+      models.Request.findAll({where: {
+        StatusId: {
+          $any: statuses.map(function(e) {return e.id})
+        }
+      }}).then(function(requests) {
+        models.Event.findAll({where: {
+          id: {
+            notIn: requests.map(function(e) {return e.EventId})
+          }
+        },
+        order: '"createdAt" DESC'
+      }).then(function(allEvents) {
+          var events = allEvents.filter(function(e) { return (e.eventDate >= new Date()) });
+          res.render('events/index', {title: "List of events", events: events, sports: sports});
+        })
+      })
     })
   })
 });
@@ -28,7 +44,7 @@ router.post('/new', function(req, res, next) {
  if ( today < new Date(req.body.date + "T" + req.body.time).valueOf()) {
    models.Event.create({
      skill: parseInt(req.body.skill),
-     eventDate: req.body.date,
+     eventDate: new Date(req.body.date + "T" + req.body.time),
      eventTime: req.body.time,
      location: req.body.location,
      description: req.body.description,
@@ -93,5 +109,39 @@ router.get("/requests/index", function(req, res, next) {
   res.redirect('/sessions/login')
 }
 });
+
+router.get("/getEventLocations", function(req, res, next) {
+  var eventLocations = [];
+  models.Sport.findAll({}).then(function(sports) {
+    models.Status.findAll({}).then(function(allStatus) {
+      var statuses = allStatus.filter(function(e) {return e.name === "Accepted"})
+      models.Request.findAll({where: {
+        StatusId: {
+          $any: statuses.map(function(e) {return e.id})
+        }
+      }}).then(function(requests) {
+        models.Event.findAll({where: {
+          id: {
+            notIn: requests.map(function(e) {return e.EventId})
+          }
+        }}).then(function(allEvents) {
+          var events = allEvents.filter(function(e) { return (e.eventDate >= new Date()) });
+          events.forEach(function(event, index){
+            var sportIndex = sports.findIndex(function(element) { return element.id === event.SportId})
+            var url = '/static/icons/' + sports[sportIndex].name + '.png';
+            var eventInfo = sports[sportIndex].name
+                            + "<br/> Skill level: " + event.skill
+                            + "<br/> Date: " + new Date(event.eventDate).toDateString()
+                            + "<br/> Time: " + event.eventTime
+                            + "<br/> <a href='/events/" + event.id
+                            + "/show'>Show Event </a>"
+            eventLocations.push([event.latitude, event.longitude, url, index+1, eventInfo])
+          })
+          res.send(eventLocations)
+        })
+      })
+    })
+  })
+})
 
 module.exports = router;
