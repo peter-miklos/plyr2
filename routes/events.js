@@ -12,11 +12,7 @@ router.get('/index', function(req, res, next) {
           $any: statuses.map(function(e) {return e.id})
         }
       }}).then(function(requests) {
-        models.Event.findAll({where: {
-          id: {
-            notIn: requests.map(function(e) {return e.EventId})
-          }
-        },
+        models.Event.findAll({
         order: '"createdAt" DESC'
       }).then(function(allEvents) {
           var events = allEvents.filter(function(e) { return (e.eventDate >= new Date()) });
@@ -121,11 +117,7 @@ router.get("/getEventLocations", function(req, res, next) {
           $any: statuses.map(function(e) {return e.id})
         }
       }}).then(function(requests) {
-        models.Event.findAll({where: {
-          id: {
-            notIn: requests.map(function(e) {return e.EventId})
-          }
-        }}).then(function(allEvents) {
+        models.Event.findAll({}).then(function(allEvents) {
           var events = allEvents.filter(function(e) { return (e.eventDate >= new Date()) });
           events.forEach(function(event, index){
             var sportIndex = sports.findIndex(function(element) { return element.id === event.SportId})

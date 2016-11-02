@@ -11,7 +11,7 @@
         <div class="page-content">
           <div class="mdl-grid">
             <div class="mdl-cell mdl-cell--12-col mdl-cell--4-col-phone mdl-cell--8-col-tablet">
-              <h2>Create new request</h2>
+              <h2><%= title %></h2>
               <div class="mdl-grid">
                 <form action="/events/<%= eventId %>/requests/new" method="post">
                   <div class="form-group">
@@ -19,6 +19,7 @@
                     <textarea class="form-control" name="comment" placeholder="Do you want to send a message?" rows="8" cols="40"></textarea>
                   </div>
                   <button type="submit" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">Send request</button>
+                  <a href="javascript:history.back();">Cancel</a>
                 </form>
               </div>
             </div>
