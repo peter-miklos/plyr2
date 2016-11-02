@@ -14,7 +14,7 @@
             <div class="mdl-cell mdl-cell--12-col mdl-cell--4-col-phone mdl-cell--8-col-tablet">
               <h2><%= title %></h2>
               <div class="mdl-grid">
-                <form action="/events/new" method="post" class="width-fixer" style="width: 100%;">
+                <form action="/events/new" method="post" class="width-fixer">
 
                   <div class="form-group">
                     <label for="sport">Select your preferred sport</label>
@@ -35,19 +35,21 @@
                         <option value="5">5</option>
                       </select>
                     </div>
-                    <div class="form-group">
-                      <label for="event_date">Event date</label>
-                      <input type="date" min="0" class="form-control" id="event_date" placeholder="event_date" name="date" style="width: 100%;">
-                    </div>
-                    <div class="form-group">
-                      <label for="time">Event time</label>
-                      <input class="form-control" type="time" name="time" id="event_time" min="0">
-                    </div>
-                    <div class="form-group">
-                      <label for="location">Location</label>
-                      <input  id="searchTextField" type="text" name="location" placeholder="Please set the location" size="50" class="form-control" style="width: 100%;">
-                      <input type="hidden" id="cityLat" name="cityLat" />
-                      <input type="hidden" id="cityLng" name="cityLng" />
+                    <div class="width-fixer">
+                      <div class="form-group">
+                        <label for="event_date">Event date</label>
+                        <input type="date" min="0" class="form-control" id="event_date" placeholder="event_date" name="date">
+                      </div>
+                      <div class="form-group">
+                        <label for="time">Event time</label>
+                        <input class="form-control" type="time" name="time" id="event_time" min="0">
+                      </div>
+                      <div class="form-group">
+                        <label for="location">Location</label>
+                        <input  id="searchTextField" type="text" name="location" placeholder="Please set the location" size="50" class="form-control">
+                        <input type="hidden" id="cityLat" name="cityLat" />
+                        <input type="hidden" id="cityLng" name="cityLng" />
+                      </div>
                     </div>
                     <div class="form-group">
                       <label for="description">Description</label>
