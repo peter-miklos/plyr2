@@ -21,7 +21,7 @@
                <table class="table" id="event_table">
                 <thead>
                   <tr>
-                    <th>#</th>
+
                     <th>Sport</th>
                     <th>Skill level</th>
                     <th>Date</th>
@@ -32,14 +32,14 @@
                 <tbody id="fbody">
                   <% events.forEach(function(event, index) { %>
                     <tr data-href="/events/<%= event.id %>/show" id="other" class="clickable-row">
-                      <td><%= index + 1 %></td>
+
                       <% var sportIndex = sports.findIndex(function(element) { return element.id === event.SportId}) %>
                       <% d = new Date(event.eventDate); %>
-                      <%  var days = ['Sun', 'Mon', 'Tues', 'Wed', 'Thu', 'Fri', 'Sat'];%>
+                      <%  var days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];%>
                       <% var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'] %>
                       <td><%= sports[sportIndex].name %></td>
                       <td><%= event.skill %></td>
-                      <td><a href="/events/<%= event.id %>/show" id="link"><%= days[d.getDay()] %>, <%= d.getUTCDate();%> / <%= months[d.getMonth()];%>  </a></td>
+                      <td><a href="/events/<%= event.id %>/show" id="link"><%= days[d.getDay()] %> <%= d.getUTCDate();%> <%= months[d.getMonth()];%>  </a></td>
                       <td><%= d.getHours() %>:<%= d.getMinutes() %></td>
                       <td><%s = event.location %><%= s.slice(0, s.lastIndexOf(","))%></td>
                     </tr>
