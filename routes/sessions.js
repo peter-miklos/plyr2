@@ -38,7 +38,10 @@ router.get('/logout', function(req, res) {
 router.get('/:id/requests/index', function(req, res, next) {
   models.Sport.findAll({}).then(function(sports) {
     models.Event.findAll({}).then(function(events) {
-      models.Request.findAll({where: {UserId: req.session.user.id}}).then(function(myRequests) {
+      models.Request.findAll({
+        where: {UserId: req.session.user.id},
+        order: '"createdAt" DESC'
+        }).then(function(myRequests) {
         models.Status.findAll({}).then(function(statuses) {
           models.User.findAll({}).then(function(users) {
             models.Event.findAll({where: {UserId: req.session.user.id}}).then(function(myEvents) {
@@ -56,7 +59,8 @@ router.get('/:id/requests/index', function(req, res, next) {
                     EventId: {
                       $any: myEvents.map(function(elem) { return elem.id })
                     }
-                }}).then(function(receivedRequests) {
+                },
+                order: '"createdAt" DESC'}).then(function(receivedRequests) {
                   res.render("events/requests/index", {myRequests: myRequests,
                                                       receivedRequests: receivedRequests,
                                                       title1: "Received requests",
