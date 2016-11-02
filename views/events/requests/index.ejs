@@ -4,15 +4,17 @@
     <% include ../../partials/head %>
 
     <script>
-    $(document).ready(function() {
-      $("#requestBasic").click(function(){
-        $("#requestDetails").show();
-      });
-
-      $("#requestDetails").click(function(){
-        $("#requestBasic").show();
-      });
-  });
+    $(document).on('click','#requestBasic',function(){
+          if ($('#requestDetails').is('.hidden')) {
+            $('#requestDetails').removeClass('hidden');
+            $('#requestDetails').addClass('show');
+          }
+          else
+          {
+            $('#requestDetails').removeClass('show');
+            $('#requestDetails').addClass('hidden');
+          }
+        });
     </script>
   </head>
   <body>
@@ -33,7 +35,7 @@
                     <div class="table-responsive" id="received_requests">
                       <table class="table">
                         <thead>
-                          <tr id="requestBasic">
+                          <tr>
                             <th>#</th>
                             <th>Sport</th>
                             <th>Date</th>
@@ -50,14 +52,15 @@
                             <% var openStatus = statuses.find(function(e) { return e.name === "Open"})%>
                             <% var eventIndex = events.findIndex(function(element) { return element.id === request.EventId})%>
                             <% var event = events[eventIndex]%>
-                            <tr class="clickable-row"  id="other">
+                            <tr id="requestBasic">
                               <td><%= index + 1 %></td>
                               <% var sportIndex = sports.findIndex(function(element) { return element.id === event.SportId}) %>
                               <td><%= sports[sportIndex].name %></td>
                               <td><%= new Date(event.eventDate).toDateString() %></a></td>
                             </tr>
-                          </tbody>
-                        <tbody id="requestDetails">
+                        </tbody>
+
+                        <tbody id="requestDetails" class='hidden'>
                           <tr>
                             <td>Location: </td>
                             <td><a href="/events/<%= event.id %>/show" id="link"><%= event.location %></td>

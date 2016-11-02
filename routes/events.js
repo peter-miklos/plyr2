@@ -53,6 +53,7 @@ router.post('/new', function(req, res, next) {
      longitude: req.body.cityLng,
      latitude: req.body.cityLat
    }).then(function(event) {
+     console.log(event)
      res.redirect('/events/index');
    });
  } else {
