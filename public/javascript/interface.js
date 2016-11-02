@@ -109,15 +109,20 @@ $(document).ready(function() {
   }
 
   function addMapToStartPage(locations) {
+    var dayControlDiv = document.createElement('div');
+    var dayControl = new DayControl(dayControlDiv, map);
+    // var allDateControlDiv = document.createElement('div');
+    // var allDateControl = new AllDateControl(allDateControlDiv, map);
+    dayControlDiv.index = 1;
+
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(function(position) {
         var map = new google.maps.Map(document.getElementById('map'), {
           zoom: 14,
           center: new google.maps.LatLng(position.coords.latitude, position.coords.longitude)
         });
-        var dayControlDiv = document.createElement('div');
-        var dayControl = new DayControl(dayControlDiv, map);
-        dayControlDiv.index = 1;
+
+
         map.controls[google.maps.ControlPosition.BOTTOM_LEFT].push(dayControlDiv);
         putPinsOnMap(locations, map);
       });
@@ -160,18 +165,18 @@ $(document).ready(function() {
     controlUI.style.cursor = 'pointer';
     controlUI.style.marginBottom = '22px';
     controlUI.style.textAlign = 'center';
-    controlUI.title = 'Click to recenter the map';
+    controlUI.title = "Click to show today's events";
     controlDiv.appendChild(controlUI);
 
     // Set CSS for the control interior.
     var controlText = document.createElement('div');
     controlText.style.color = 'rgb(25,25,25)';
     controlText.style.fontFamily = 'Roboto,Arial,sans-serif';
-    controlText.style.fontSize = '16px';
+    controlText.style.fontSize = '12px';
     controlText.style.lineHeight = '38px';
     controlText.style.paddingLeft = '5px';
     controlText.style.paddingRight = '5px';
-    controlText.innerHTML = 'Center Map';
+    controlText.innerHTML = "Today's events";
     controlUI.appendChild(controlText);
 
     // Setup the click event listeners: simply set the map to Chicago.
@@ -179,7 +184,9 @@ $(document).ready(function() {
       // map.setCenter({lat: 41.85, lng: -87.65});
       $.get("/events/getEventLocations", function(data) {
         // should check only the dates
-        var dayData = data.filter(function(e) { e[5] === new Date() })
+        var date = new Date()
+        var dayData = data.filter(function(e) { return e[5] === date.setHours(0,0,0,0,0) })
+        console.log(dayData)
         addMapToStartPage(dayData);
       })
     });
