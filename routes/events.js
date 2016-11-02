@@ -60,16 +60,18 @@ router.post('/new', function(req, res, next) {
 router.get('/:id/show', function(req, res, next) {
   models.Event.find({where: { id: req.params.id}}).then(function(event) {
     models.Sport.find({where: { id: event.SportId}}).then(function(sport) {
-      if (req.session.user) {
-        models.Request.find({where: {
-          EventId: event.id,
-          UserId: req.session.user.id
-        }}).then(function(request) {
-          res.render('events/show', {title: "Event", event: event, sport: sport, request: request});
-        })
-      } else {
-        res.render('events/show', {title: "Event", event: event, sport: sport});
-      }
+      models.User.find({where: { id: event.UserId}}).then(function(eventOwner) {
+        if (req.session.user) {
+          models.Request.find({where: {
+            EventId: event.id,
+            UserId: req.session.user.id
+          }}).then(function(request) {
+            res.render('events/show', {title: "Event", event: event, sport: sport, owner: eventOwner, request: request});
+          })
+        } else {
+          res.render('events/show', {title: "Event", event: event, sport: sport, owner: eventOwner});
+        }
+      })
     });
   });
 });
@@ -121,10 +123,10 @@ router.get("/getEventLocations", function(req, res, next) {
           events.forEach(function(event, index){
             var sportIndex = sports.findIndex(function(element) { return element.id === event.SportId})
             var url = '/static/icons/' + sports[sportIndex].name + '.png';
-            var eventInfo = sports[sportIndex].name
+            var eventInfo = "<strong>" + sports[sportIndex].name + "</strong>"
                             + "<br/> Skill level: " + event.skill
-                            + "<br/> Date: " + new Date(event.eventDate).toDateString()
-                            + "<br/> Time: " + event.eventTime
+                            + "<br/> Date: <strong>" + new Date(event.eventDate).toDateString() + "</strong>"
+                            + "<br/> Time: <strong>" + event.eventTime + "</strong>"
                             + "<br/> <a href='/events/" + event.id
                             + "/show'>Show Event </a>"
             eventLocations.push([event.latitude, event.longitude, url, index+1, eventInfo])
