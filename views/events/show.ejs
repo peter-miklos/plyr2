@@ -30,7 +30,7 @@
                 <tbody>
                   <tr>
                     <td scope="row" class="mdl-data-table__cell--non-numeric">Location</td>
-                    <td><%s = event.location %><%= s.slice(0, s.lastIndexOf(","))%></td>
+                    <td id="location"><%s = event.location %><%= s.slice(0, s.lastIndexOf(","))%></td>                    
                   </tr>
                   <tr>
                     <td scope="row" class="mdl-data-table__cell--non-numeric">Sport</td>
@@ -61,6 +61,10 @@
                   <tr>
                     <td scope="row" class="mdl-data-table__cell--non-numeric">Description</td>
                     <td><%= event.description %></td>
+                  </tr>
+                  <tr>
+                    <td scope="row" class="mdl-data-table__cell--non-numeric">Weather</td>
+                    <td> <p id = "weather"> </p>  </td>
                   </tr>
                 </tbody>
               </table>
