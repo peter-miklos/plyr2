@@ -22,7 +22,7 @@
                 <% } %>
                 <% if (currentUser && currentUser.id != event.UserId  && request) { %>
                   <div class="already_joined">
-                    Request has been sent.
+                    You've already sent a request to join!
                   </div>
                 <% } %>
               </div>
@@ -30,7 +30,7 @@
                 <tbody>
                   <tr>
                     <td scope="row" class="mdl-data-table__cell--non-numeric">Location</td>
-                    <td><%= event.location %></td>
+                    <td id="location"><%s = event.location %><%= s.slice(0, s.lastIndexOf(","))%></td>                    
                   </tr>
                   <tr>
                     <td scope="row" class="mdl-data-table__cell--non-numeric">Sport</td>
@@ -48,16 +48,23 @@
                     </td>
                   </tr>
                   <tr>
-                    <td scope="row" class="mdl-data-table__cell--non-numeric">Date</td>
-                    <td><%= new Date(event.eventDate).toDateString() %></td>
+                    <td scope="row" class="mdl-data-table__cell--non-numeric">Date & time</td>
+                    <%  var days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];%>
+                    <% var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'] %>
+                    <% d = new Date(event.eventDate); %>
+                    <td><%= days[d.getDay()] %> <%= d.getUTCDate();%> <%= months[d.getMonth()];%>, <%= d.getHours() %>:<%= d.getMinutes() %></td>
                   </tr>
                   <tr>
-                    <td scope="row" class="mdl-data-table__cell--non-numeric">Time</td>
-                    <td><%= event.eventTime %></td>
+                    <td scope="row" class="mdl-data-table__cell--non-numeric">Challenger</td>
+                    <td><a href="mailto:<%= owner.email %>?Subject=event"><%= owner.name %></a></td>
                   </tr>
                   <tr>
                     <td scope="row" class="mdl-data-table__cell--non-numeric">Description</td>
                     <td><%= event.description %></td>
+                  </tr>
+                  <tr>
+                    <td scope="row" class="mdl-data-table__cell--non-numeric">Weather</td>
+                    <td> <p id = "weather"> </p>  </td>
                   </tr>
                 </tbody>
               </table>
