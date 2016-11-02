@@ -18,6 +18,12 @@ $(document).ready(function() {
     setEventDate();
   }
 
+
+  if (document.getElementById("weather")) {
+    displayWeather();
+  }
+
+
   $(".clickable-row").click(function() {
     window.location = $(this).data("href");
   });
@@ -140,4 +146,18 @@ $(document).ready(function() {
       })(marker, i));
     }
   }
+
+  function displayWeather() {
+            var url = 'http://api.openweathermap.org/data/2.5/weather?q=';
+            var apiKey = "&apikey=1235658b8e5f2613a1e72f249e6efe3a";
+            var units = '&units=metric';
+            var city = "london";
+            $.get(url + city + apiKey + units, function(data) {
+              console.log(data);
+            $('#weather').html(data.main.temp);
+              });
+          }
+
+
+
 });
