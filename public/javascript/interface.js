@@ -148,10 +148,12 @@ $(document).ready(function() {
   }
 
   function displayWeather() {
+      var test = document.getElementById("location").innerText
+      console.log(test)
             var url = 'http://api.openweathermap.org/data/2.5/weather?q=';
             var apiKey = "&apikey=1235658b8e5f2613a1e72f249e6efe3a";
             var units = '&units=metric';
-            var city = $.find("#location").innerText;
+            var city = test;
             console.log(city);
             $.get(url + city + apiKey + units, function(data) {
               console.log(data);
@@ -162,6 +164,7 @@ $(document).ready(function() {
 
               });
           }
+
 
 
 
