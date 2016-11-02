@@ -30,7 +30,8 @@
                 <tbody>
                   <tr>
                     <td scope="row" class="mdl-data-table__cell--non-numeric">Location</td>
-                    <td><%= event.location %></td>
+                    <td id="location"><%= event.location %></td>
+                    <input type="hidden" id="location_input" name="location_input" value="<%= event.location %>"></input>
                   </tr>
                   <tr>
                     <td scope="row" class="mdl-data-table__cell--non-numeric">Sport</td>
@@ -58,6 +59,10 @@
                   <tr>
                     <td scope="row" class="mdl-data-table__cell--non-numeric">Description</td>
                     <td><%= event.description %></td>
+                  </tr>
+                  <tr>
+                    <td scope="row" class="mdl-data-table__cell--non-numeric">Weather</td>
+                    <td> <p id = "weather"> </p>  </td>
                   </tr>
                 </tbody>
               </table>
