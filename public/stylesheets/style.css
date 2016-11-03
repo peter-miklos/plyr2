@@ -11,6 +11,7 @@ main {
   height: 100%;
 }
 
+
 .table .sub-table {
   background-color: #f3f3f3;
 
@@ -39,6 +40,16 @@ body .main-table {
 
 }
 
+header .mdl-layout-title {
+  font-family:'Share Tech Mono', monospace;
+  font-size: 30px;
+}
+
+body .mdl-layout-title {
+  font-family:'Share Tech Mono', monospace;
+  font-size: 30px;
+}
+
 a {
   color: #00B7FF;
 }
@@ -56,4 +67,20 @@ a {
 #acceptRejectButton {
   float: left;
   padding: 5px;
+}
+
+footer a:link {
+    color: rgb(158,158,158);
+}
+
+footer a:visited {
+    color: rgb(158,158,158);
+}
+
+footer a:hover {
+    color: rgb(158,158,158);
+}
+
+footer a:active {
+    color: rgb(158,158,158);
 }
