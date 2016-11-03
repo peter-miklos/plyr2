@@ -25,7 +25,7 @@ router.get('/index', function(req, res, next) {
 
 router.get('/new', function(req, res, next) {
   if (req.session.user) {
-  models.Sport.findAll({}).then(function(sports) {
+  models.Sport.findAll({order: '"name" ASC' }).then(function(sports) {
     res.render('events/new', {title: "Create new event", sports: sports, flash: req.flash("dateError")});
   })
 } else {
@@ -98,15 +98,6 @@ router.post("/:id/requests/new", function(req, res, next) {
       res.redirect('/sessions/' + req.session.user.id + '/requests/index');
     });
   })
-});
-
-router.get("/requests/index", function(req, res, next) {
-  if (req.session.user) {
-  res.render('events/requests/index')
-} else {
-  req.flash("loginError", "You need to be logged in");
-  res.redirect('/sessions/login')
-}
 });
 
 router.get("/getEventLocations", function(req, res, next) {

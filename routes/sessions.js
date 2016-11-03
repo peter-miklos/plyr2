@@ -36,47 +36,55 @@ router.get('/logout', function(req, res) {
 });
 
 router.get('/:id/requests/index', function(req, res, next) {
-  models.Sport.findAll({}).then(function(sports) {
-    models.Event.findAll({}).then(function(events) {
-      models.Request.findAll({
-        where: {UserId: req.session.user.id},
-        order: '"createdAt" DESC'
-        }).then(function(myRequests) {
-        models.Status.findAll({}).then(function(statuses) {
-          models.User.findAll({}).then(function(users) {
-            models.Event.findAll({where: {UserId: req.session.user.id}}).then(function(myEvents) {
-              if (myEvents.length === 0) {
-                res.render("events/requests/index", {myRequests: myRequests,
-                                                    receivedRequests: [],
-                                                    title1: "Received requests",
-                                                    title2: "Sent requests",
-                                                    events: events,
-                                                    sports: sports,
-                                                    statuses: statuses,
-                                                    users: users})
-              } else {
-                models.Request.findAll({where: {
-                    EventId: {
-                      $any: myEvents.map(function(elem) { return elem.id })
-                    }
-                },
-                order: '"createdAt" DESC'}).then(function(receivedRequests) {
+  if (req.session.user) {
+    models.Sport.findAll({}).then(function(sports) {
+      models.Event.findAll({}).then(function(events) {
+        models.Request.findAll({
+          where: {UserId: req.session.user.id},
+          order: '"createdAt" DESC'
+          }).then(function(myRequests) {
+          models.Status.findAll({}).then(function(statuses) {
+            models.User.findAll({}).then(function(users) {
+              models.Event.findAll({where: {UserId: req.session.user.id}}).then(function(myEvents) {
+                if (myEvents.length === 0) {
                   res.render("events/requests/index", {myRequests: myRequests,
-                                                      receivedRequests: receivedRequests,
+                                                      receivedRequests: [],
                                                       title1: "Received requests",
                                                       title2: "Sent requests",
                                                       events: events,
                                                       sports: sports,
                                                       statuses: statuses,
                                                       users: users})
-                })
-              }
+                } else {
+                  models.Request.findAll({where: {
+                      EventId: {
+                        $any: myEvents.map(function(elem) { return elem.id })
+                      }
+                  },
+                  order: '"createdAt" DESC'}).then(function(receivedRequests) {
+                    res.render("events/requests/index", {myRequests: myRequests,
+                                                        receivedRequests: receivedRequests,
+                                                        title1: "Received requests",
+                                                        title2: "Sent requests",
+                                                        events: events,
+                                                        sports: sports,
+                                                        statuses: statuses,
+                                                        users: users})
+                  })
+                }
+              })
             })
           })
         })
       })
     })
-  })
+  } else {
+    req.flash("loginError", "You need to be logged in");
+    res.redirect('/sessions/login')
+  }
+
+
+
 })
 
 router.post("/:userId/requests/:requestId/complete", function(req, res, next) {
