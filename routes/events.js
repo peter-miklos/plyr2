@@ -25,7 +25,7 @@ router.get('/index', function(req, res, next) {
 
 router.get('/new', function(req, res, next) {
   if (req.session.user) {
-  models.Sport.findAll({}).then(function(sports) {
+  models.Sport.findAll({order: '"name" ASC' }).then(function(sports) {
     res.render('events/new', {title: "Create new event", sports: sports, flash: req.flash("dateError")});
   })
 } else {
