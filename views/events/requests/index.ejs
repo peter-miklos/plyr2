@@ -2,6 +2,7 @@
 <html>
   <head>
     <% include ../../partials/head %>
+
   </head>
   <body>
     <!-- Always shows a header, even in smaller screens. -->
@@ -18,17 +19,13 @@
                       No received requests found.
                     </div>
                   <%} else {%>
-                    <div class="table-responsive" id="received_requests">
-                      <table class="table">
+                    <div id="received_requests">
+                      <table class="table main-table">
                         <thead>
                           <tr>
                             <th>#</th>
                             <th>Sport</th>
                             <th>Date</th>
-                            <th>Location</th>
-                            <th>Comment</th>
-                            <th>Requestor</th>
-                            <th>Action/Status</th>
                           </tr>
                         </thead>
                         <tbody>
@@ -36,31 +33,55 @@
                             <% var openStatus = statuses.find(function(e) { return e.name === "Open"})%>
                             <% var eventIndex = events.findIndex(function(element) { return element.id === request.EventId})%>
                             <% var event = events[eventIndex]%>
-                            <tr class="clickable-row" data-href="/events/<%= event.id %>/show" id="other">
+                            <tr id="requestBasic_<%= request.id %>">
                               <td><%= index + 1 %></td>
                               <% var sportIndex = sports.findIndex(function(element) { return element.id === event.SportId}) %>
                               <td><%= sports[sportIndex].name %></td>
-                              <td><a href="/events/<%= event.id %>/show" id="link"><%= new Date(event.eventDate).toDateString() %></a></td>
-                              <td><%= event.location %></td>
-                              <td><%= request.comment %></td>
-                              <% var userIndex = users.findIndex(function(element) { return element.id === request.UserId}) %>
-                              <td><%= users[userIndex].name %></td>
-                              <td>
-                                <% if (request.StatusId === openStatus.id) { %>
-                                <form action="/sessions/<%= currentUser.id %>/requests/<%= request.id %>/complete" method="post">
-                                  <input type="hidden" name="action" value="Accepted">
-                                  <input type="hidden" name="request_id" value=<%= request.id %> >
-                                  <button name="Accepted" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" type="submit" >Confirm</button>
-                                </form>
-                                <form action="/sessions/<%= currentUser.id %>/requests/<%= request.id %>/complete" method="post">
-                                  <input type="hidden" name="action" value="Rejected">
-                                  <input type="hidden" name="request_id" value=<%= request.id %> >
-                                  <button name="Rejected" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" type="submit">Reject</button>
-                                </form>
-                                <% } else { %>
-                                  <% var statusIndex = statuses.findIndex(function(e) { return e.id === request.StatusId}) %>
-                                  <%= statuses[statusIndex].name %>
-                                <% } %>
+                              <td><%= new Date(event.eventDate).toDateString() %></td>
+                            </tr>
+                            <tr id="requestRow_<%= request.id %>" class='hidden'>
+                              <td colspan="3" >
+                                <table class="table sub-table" >
+                                  <tbody id="requestDetails_<%= request.id %>">
+                                    <tr>
+                                      <td>Location: </td>
+                                      <td><a href="/events/<%= event.id %>/show" id="link"><%= event.location %></td>
+                                    </tr>
+                                    <tr>
+                                      <td>Time: </td>
+                                      <td><%= event.eventDate.getHours() + ":" + event.eventDate.getMinutes() %></td>
+                                    </tr>
+                                    <tr>
+                                      <td>Comment: </td>
+                                      <td><%= request.comment %></td>
+                                    </tr>
+                                    <tr>
+                                      <td>Requestor: </td>
+                                      <% var userIndex = users.findIndex(function(element) { return element.id === request.UserId}) %>
+                                      <td><%= users[userIndex].name %></td>
+                                    </tr>
+                                    <tr>
+                                      <td>Status: </td>
+                                      <td colspan="2">
+                                        <% if (request.StatusId === openStatus.id) { %>
+                                        <form id="acceptRejectButton" action="/sessions/<%= currentUser.id %>/requests/<%= request.id %>/complete" method="post">
+                                          <input type="hidden" name="action" value="Accepted">
+                                          <input type="hidden" name="request_id" value=<%= request.id %> >
+                                          <button name="Accepted" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" type="submit" >Confirm</button>
+                                        </form>
+                                        <form id="acceptRejectButton" action="/sessions/<%= currentUser.id %>/requests/<%= request.id %>/complete" method="post">
+                                          <input type="hidden" name="action" value="Rejected">
+                                          <input type="hidden" name="request_id" value=<%= request.id %> >
+                                          <button name="Rejected" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" type="submit">&nbspReject&nbsp</button>
+                                        </form>
+                                        <% } else { %>
+                                          <% var statusIndex = statuses.findIndex(function(e) { return e.id === request.StatusId}) %>
+                                          <%= statuses[statusIndex].name %>
+                                        <% } %>
+                                      </td>
+                                    </tr>
+                                  </tbody>
+                                </table>
                               </td>
                             </tr>
                           <% }) %>
@@ -69,6 +90,7 @@
                     </div>
                   <% }%>
               </div>
+
               <div>
                 <h2><%= title2 %></h2>
                 <% if (myRequests.length === 0) { %>
@@ -76,35 +98,50 @@
                     No sent requests found.
                   </div>
                 <%} else {%>
-                  <div class="table-responsive" id="sent_requests">
-                    <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp full-width">
+                  <div id="sent_requests">
+                    <table class="table main-table">
                       <thead>
                         <tr>
                           <th>#</th>
                           <th>Sport</th>
-                          <th>Skill level</th>
                           <th>Date</th>
-                          <th>Time</th>
-                          <th>Location</th>
-                          <th>Comment</th>
-                          <th>Status</th>
                         </tr>
                       </thead>
                       <tbody>
                         <% myRequests.forEach(function(request, index) { %>
                           <% var eventIndex = events.findIndex(function(element) { return element.id === request.EventId})%>
                           <% var event = events[eventIndex]%>
-                          <tr class="clickable-row" data-href="/events/<%= event.id %>/show" id="other">
+                          <tr id="requestBasic_<%= request.id %>">
                             <td><%= index + 1 %></td>
                             <% var sportIndex = sports.findIndex(function(element) { return element.id === event.SportId}) %>
                             <td><%= sports[sportIndex].name %></td>
-                            <td><%= event.skill %></td>
-                            <td><a href="/events/<%= event.id %>/show" id="link"><%= new Date(event.eventDate).toDateString() %></a></td>
-                            <td><%= event.eventTime %></td>
-                            <td><%= event.location %></td>
-                            <td><%= request.comment %></td>
-                            <% var statusIndex = statuses.findIndex(function(element) { return element.id === request.StatusId}) %>
-                            <td><%= statuses[statusIndex].name %></td>
+                            <td><%= new Date(event.eventDate).toDateString() %></td>
+                          </tr>
+
+                          <tr id="requestRow_<%= request.id %>" class='hidden'>
+                            <td colspan="3">
+                              <table class="table sub-table ">
+                                <tbody id="requestDetails_<%= request.id %>">
+                                  <tr>
+                                    <td>Location: </td>
+                                    <td><a href="/events/<%= event.id %>/show" id="link"><%= event.location %></a></td>
+                                  </tr>
+                                  <tr>
+                                    <td>Time: </td>
+                                    <td><%= event.eventDate.getHours() + ":" + event.eventDate.getMinutes() %></td>
+                                  </tr>
+                                  <tr>
+                                    <td>Comment: </td>
+                                    <td><%= request.comment %></td>
+                                  </tr>
+                                  <tr>
+                                    <td>Status: </td>
+                                    <% var statusIndex = statuses.findIndex(function(element) { return element.id === request.StatusId}) %>
+                                    <td><%= statuses[statusIndex].name %></td>
+                                  </tr>
+                                </tbody>
+                              </table>
+                            </td>
                           </tr>
                         <% }) %>
                       </tbody>
@@ -112,6 +149,7 @@
                   </div>
                   <% }%>
               </div>
+
             </div>
           </div>
         </div>
