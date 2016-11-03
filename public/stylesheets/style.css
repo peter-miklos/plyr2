@@ -7,8 +7,17 @@ body {
 
 main {
   font-family: 'Work Sans', sans-serif;
-
   height: 100%;
+}
+
+header .mdl-layout-title {
+  font-family:'Share Tech Mono', monospace;
+  font-size: 30px;
+}
+
+body .mdl-layout-title {
+  font-family:'Share Tech Mono', monospace;
+  font-size: 30px;
 }
 
 .table .sub-table {
