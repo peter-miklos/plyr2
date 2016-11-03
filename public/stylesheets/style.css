@@ -20,6 +20,11 @@ main {
   border-top: 0;
 }
 
+body .main-table {
+  width: auto;
+  min-width: 70%;
+}
+
 .show-tr {
   display: table-row;
 }

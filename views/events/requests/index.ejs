@@ -20,7 +20,7 @@
                     </div>
                   <%} else {%>
                     <div id="received_requests">
-                      <table class="table">
+                      <table class="table main-table">
                         <thead>
                           <tr>
                             <th>#</th>
@@ -37,7 +37,7 @@
                               <td><%= index + 1 %></td>
                               <% var sportIndex = sports.findIndex(function(element) { return element.id === event.SportId}) %>
                               <td><%= sports[sportIndex].name %></td>
-                              <td><%= new Date(event.eventDate).toDateString() %></a></td>
+                              <td><%= new Date(event.eventDate).toDateString() %></td>
                             </tr>
                             <tr id="requestRow_<%= request.id %>" class='hidden'>
                               <td colspan="3" >
@@ -46,6 +46,10 @@
                                     <tr>
                                       <td>Location: </td>
                                       <td><a href="/events/<%= event.id %>/show" id="link"><%= event.location %></td>
+                                    </tr>
+                                    <tr>
+                                      <td>Time: </td>
+                                      <td><%= event.eventDate.getHours() + ":" + event.eventDate.getMinutes() %></td>
                                     </tr>
                                     <tr>
                                       <td>Comment: </td>
@@ -57,7 +61,8 @@
                                       <td><%= users[userIndex].name %></td>
                                     </tr>
                                     <tr>
-                                      <td colspan="3">
+                                      <td>Status: </td>
+                                      <td colspan="2">
                                         <% if (request.StatusId === openStatus.id) { %>
                                         <form id="acceptRejectButton" action="/sessions/<%= currentUser.id %>/requests/<%= request.id %>/complete" method="post">
                                           <input type="hidden" name="action" value="Accepted">
@@ -77,18 +82,15 @@
                                     </tr>
                                   </tbody>
                                 </table>
-
-
                               </td>
                             </tr>
-                            <% }) %>
-                          </tbody>
-                        </table>
-
-
-                  </div>
-                <% }%>
+                          <% }) %>
+                        </tbody>
+                      </table>
+                    </div>
+                  <% }%>
               </div>
+
               <div>
                 <h2><%= title2 %></h2>
                 <% if (myRequests.length === 0) { %>
@@ -97,35 +99,49 @@
                   </div>
                 <%} else {%>
                   <div id="sent_requests">
-                    <table class="table">
+                    <table class="table main-table">
                       <thead>
                         <tr>
                           <th>#</th>
                           <th>Sport</th>
                           <th>Date</th>
-                          <th>Skill level</th>
-                          <th>Time</th>
-                          <th>Location</th>
-                          <th>Comment</th>
-                          <th>Status</th>
                         </tr>
                       </thead>
                       <tbody>
                         <% myRequests.forEach(function(request, index) { %>
                           <% var eventIndex = events.findIndex(function(element) { return element.id === request.EventId})%>
                           <% var event = events[eventIndex]%>
-                          <tr class="clickable-row" data-href="/events/<%= event.id %>/show" id="other">
+                          <tr id="requestBasic_<%= request.id %>">
                             <td><%= index + 1 %></td>
                             <% var sportIndex = sports.findIndex(function(element) { return element.id === event.SportId}) %>
                             <td><%= sports[sportIndex].name %></td>
+                            <td><%= new Date(event.eventDate).toDateString() %></td>
+                          </tr>
 
-                            <td><a href="/events/<%= event.id %>/show" id="link"><%= new Date(event.eventDate).toDateString() %></a></td>
-                            <td><%= event.skill %></td>
-                            <td><%= event.eventTime %></td>
-                            <td><%= event.location %></td>
-                            <td><%= request.comment %></td>
-                            <% var statusIndex = statuses.findIndex(function(element) { return element.id === request.StatusId}) %>
-                            <td><%= statuses[statusIndex].name %></td>
+                          <tr id="requestRow_<%= request.id %>" class='hidden'>
+                            <td colspan="3">
+                              <table class="table sub-table ">
+                                <tbody id="requestDetails_<%= request.id %>">
+                                  <tr>
+                                    <td>Location: </td>
+                                    <td><a href="/events/<%= event.id %>/show" id="link"><%= event.location %></a></td>
+                                  </tr>
+                                  <tr>
+                                    <td>Time: </td>
+                                    <td><%= event.eventDate.getHours() + ":" + event.eventDate.getMinutes() %></td>
+                                  </tr>
+                                  <tr>
+                                    <td>Comment: </td>
+                                    <td><%= request.comment %></td>
+                                  </tr>
+                                  <tr>
+                                    <td>Status: </td>
+                                    <% var statusIndex = statuses.findIndex(function(element) { return element.id === request.StatusId}) %>
+                                    <td><%= statuses[statusIndex].name %></td>
+                                  </tr>
+                                </tbody>
+                              </table>
+                            </td>
                           </tr>
                         <% }) %>
                       </tbody>
@@ -133,6 +149,7 @@
                   </div>
                   <% }%>
               </div>
+
             </div>
           </div>
         </div>
