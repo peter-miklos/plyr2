@@ -109,6 +109,13 @@ $(document).ready(function() {
   }
 
   function addMapToStartPage(locations) {
+    var dayControlDiv = document.createElement('div');
+    var dayControl = new DayControl(dayControlDiv, map);
+    var allDateControlDiv = document.createElement('div');
+    var allDateControl = new AllDateControl(allDateControlDiv, map);
+    dayControlDiv.index = 1;
+    allDateControlDiv.index = 1;
+
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(function(position) {
         var map = new google.maps.Map(document.getElementById('map'), {
@@ -116,6 +123,8 @@ $(document).ready(function() {
           center: new google.maps.LatLng(position.coords.latitude, position.coords.longitude)
         });
         putPinsOnMap(locations, map);
+        map.controls[google.maps.ControlPosition.TOP_RIGHT].push(dayControlDiv);
+        map.controls[google.maps.ControlPosition.TOP_RIGHT].push(allDateControlDiv);
       });
     } else {
       var map = new google.maps.Map(document.getElementById('map'), {
@@ -146,25 +155,85 @@ $(document).ready(function() {
     }
   }
 
+  function DayControl(controlDiv, map) {
+    // Set CSS for the control border.
+    var controlUI = document.createElement('div');
+    controlUI.style.backgroundColor = '#fff';
+    controlUI.style.border = '2px solid #fff';
+    controlUI.style.borderRadius = '3px';
+    controlUI.style.boxShadow = '0 2px 6px rgba(0,0,0,.3)';
+    controlUI.style.cursor = 'pointer';
+    controlUI.style.marginBottom = '22px';
+    controlUI.style.marginTop = '10px';
+    controlUI.style.marginRight = '10px';
+    controlUI.style.textAlign = 'center';
+    controlUI.title = "Click to show today's events";
+    controlDiv.appendChild(controlUI);
+
+    // Set CSS for the control interior.
+    var controlText = document.createElement('div');
+    controlText.style.color = 'rgb(25,25,25)';
+    controlText.style.fontFamily = 'Roboto,Arial,sans-serif';
+    controlText.style.fontSize = '12px';
+    controlText.style.lineHeight = '38px';
+    controlText.style.paddingLeft = '5px';
+    controlText.style.paddingRight = '5px';
+    controlText.innerHTML = "Today's events";
+    controlUI.appendChild(controlText);
+
+    // Setup the click event listeners: simply set the map to Chicago.
+    controlUI.addEventListener('click', function() {
+      $.get("/events/getEventLocations", function(data) {
+        var date = new Date()
+        var dayData = data.filter(function(e) { return e[5] === date.setHours(0,0,0,0,0) })
+        addMapToStartPage(dayData);
+      })
+    });
+  }
+
+  function AllDateControl(controlDiv, map) {
+    // Set CSS for the control border.
+    var controlUI = document.createElement('div');
+    controlUI.style.backgroundColor = '#fff';
+    controlUI.style.border = '2px solid #fff';
+    controlUI.style.borderRadius = '3px';
+    controlUI.style.boxShadow = '0 2px 6px rgba(0,0,0,.3)';
+    controlUI.style.cursor = 'pointer';
+    controlUI.style.marginBottom = '22px';
+    controlUI.style.marginTop = '10px';
+    controlUI.style.marginLeft = '10px';
+    controlUI.style.textAlign = 'center';
+    controlUI.title = "Click to show all events";
+    controlDiv.appendChild(controlUI);
+
+    // Set CSS for the control interior.
+    var controlText = document.createElement('div');
+    controlText.style.color = 'rgb(25,25,25)';
+    controlText.style.fontFamily = 'Roboto,Arial,sans-serif';
+    controlText.style.fontSize = '12px';
+    controlText.style.lineHeight = '38px';
+    controlText.style.paddingLeft = '5px';
+    controlText.style.paddingRight = '5px';
+    controlText.innerHTML = "All events";
+    controlUI.appendChild(controlText);
+
+    // Setup the click event listeners: simply set the map to Chicago.
+    controlUI.addEventListener('click', function() {
+      getEventLocations();
+    });
+
+  }
+
   function displayWeather() {
-      var test = document.getElementById("location").innerText
-      console.log(test)
-            var url = 'http://api.openweathermap.org/data/2.5/weather?q=';
-            var apiKey = "&apikey=1235658b8e5f2613a1e72f249e6efe3a";
-            var units = '&units=metric';
-            var city = test;
-            console.log(city);
-            $.get(url + city + apiKey + units, function(data) {
-              console.log(data);
-              var icon = data.weather[0].icon
-              var temp = Math.round(data.main.temp)
-            $('#weather').html(' ' + temp +' ºC');
-            $('#weather').prepend($('<img>',{id:'theImg',src:'http://openweathermap.org/img/w/'+ icon + '.png'}));
-
-              });
-          }
-
-
-
-
+    var url = 'http://api.openweathermap.org/data/2.5/weather?q=';
+    var apiKey = "&apikey=1235658b8e5f2613a1e72f249e6efe3a";
+    var units = '&units=metric';
+    var city = document.getElementById("location").innerText;
+    $.get(url + city + apiKey + units, function(data) {
+      var icon = data.weather[0].icon
+      var temp = Math.round(data.main.temp)
+      $('#weather').html(' ' + temp +' ºC');
+      $('#weather').prepend($('<img>',{id:'theImg',src:'http://openweathermap.org/img/w/'+ icon + '.png'}));
+    });
+  }
 });
