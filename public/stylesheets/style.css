@@ -11,6 +11,7 @@ main {
   height: 100%;
 }
 
+
 .table .sub-table {
   background-color: #f3f3f3;
 
@@ -37,6 +38,16 @@ body .main-table {
 .form-horizontal {
   padding-top: 20px;
 
+}
+
+header .mdl-layout-title {
+  font-family:'Share Tech Mono', monospace;
+  font-size: 30px;
+}
+
+body .mdl-layout-title {
+  font-family:'Share Tech Mono', monospace;
+  font-size: 30px;
 }
 
 a {
