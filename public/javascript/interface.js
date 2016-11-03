@@ -29,8 +29,7 @@ $(document).ready(function() {
   });
 
   $(document).click(function(e){
-    var elemId = e.target.parentElement.id
-    console.log(elemId)
+    var elemId = e.target.parentElement.id    
     if (elemId.substring(0, 12) === "requestBasic") {
       var requestId = elemId.substring(13)
       if ($('#requestRow_' + requestId).is('.hidden')) {
