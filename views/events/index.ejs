@@ -15,9 +15,16 @@
              <% if (events.length === 0) { %>
                No events found.
              <%} else {%>
-               <div class="mdl-textfield mdl-js-textfield">
-                 <input class="mdl-textfield__input" type="text" id="searchInput" placeholder="Refine your search">
+               <div class="mdl-textfield mdl-js-textfield mdl-textfield--expandable">
+                 <label class="mdl-button mdl-js-button mdl-button--icon" for="searchInput">
+                   <i class="material-icons">search</i>
+                 </label>
+                 <div class="mdl-textfield__expandable-holder">
+                   <input class="mdl-textfield__input" type="text" id="searchInput">
+                   <label class="mdl-textfield__label" for="sample-expandable">Refine your search<</label>
+                 </div>
                </div>
+
                <table class="table" id="event_table">
                 <thead>
                   <tr>
