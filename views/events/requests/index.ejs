@@ -50,11 +50,12 @@
                                   <tbody id="requestDetails_<%= request.id %>">
                                     <tr>
                                       <td>Location: </td>
-                                      <td><a href="/events/<%= event.id %>/show" id="link"><%= event.location %></td>
+                                      <td><a href="/events/<%= event.id %>/show" id="link"><%s = event.location %><%= s.slice(0, s.lastIndexOf(","))%></td>
                                     </tr>
                                     <tr>
                                       <td>Time: </td>
-                                      <td><%= event.eventDate.getHours() + ":" + event.eventDate.getMinutes() %></td>
+                                      <% var minutes = event.eventDate.getMinutes() < 10 ? "0" + event.eventDate.getMinutes() : event.eventDate.getMinutes() %>
+                                      <td><%= event.eventDate.getHours() + ":" + minutes %></td>
                                     </tr>
                                     <tr>
                                       <td>Comment: </td>
@@ -134,11 +135,12 @@
                                 <tbody id="requestDetails_<%= request.id %>">
                                   <tr>
                                     <td>Location: </td>
-                                    <td><a href="/events/<%= event.id %>/show" id="link"><%= event.location %></a></td>
+                                    <td><a href="/events/<%= event.id %>/show" id="link"><%s = event.location %><%= s.slice(0, s.lastIndexOf(","))%></a></td>
                                   </tr>
                                   <tr>
                                     <td>Time: </td>
-                                    <td><%= event.eventDate.getHours() + ":" + event.eventDate.getMinutes() %></td>
+                                    <% var minutes = event.eventDate.getMinutes() < 10 ? "0" + event.eventDate.getMinutes() : event.eventDate.getMinutes() %>
+                                    <td><%= event.eventDate.getHours() + ":" + minutes %></td>
                                   </tr>
                                   <tr>
                                     <td>Comment: </td>

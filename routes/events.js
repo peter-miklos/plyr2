@@ -115,10 +115,11 @@ router.get("/getEventLocations", function(req, res, next) {
           events.forEach(function(event, index){
             var sportIndex = sports.findIndex(function(element) { return element.id === event.SportId})
             var url = '/static/icons/' + sports[sportIndex].name + '.png';
+            var minutes = event.eventDate.getMinutes() < 10 ? "0" + event.eventDate.getMinutes() : event.eventDate.getMinutes()
             var eventInfo = "<strong>" + sports[sportIndex].name + "</strong>"
                             + "<br/> Skill level: " + event.skill
                             + "<br/> Date: <strong>" + new Date(event.eventDate).toDateString() + "</strong>"
-                            + "<br/> Time: <strong>" + event.eventDate.getHours() + ":" + event.eventDate.getMinutes() + "</strong>"
+                            + "<br/> Time: <strong>" + event.eventDate.getHours() + ":" + minutes + "</strong>"
                             + "<br/> <a href='/events/" + event.id
                             + "/show'>Show Event </a>"
             eventLocations.push([event.latitude, event.longitude, url, index+1, eventInfo, event.eventDate.setHours(0,0,0,0,0)])

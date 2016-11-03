@@ -47,7 +47,8 @@
                       <td><%= sports[sportIndex].name %></td>
                       <td><%= event.skill %></td>
                       <td><a href="/events/<%= event.id %>/show" id="link"><%= days[d.getDay()] %> <%= d.getUTCDate();%> <%= months[d.getMonth()];%>  </a></td>
-                      <td><%= d.getHours() %>:<%= d.getMinutes() %></td>
+                      <% var minutes = event.eventDate.getMinutes() < 10 ? "0" + event.eventDate.getMinutes() : event.eventDate.getMinutes() %>
+                      <td><%= d.getHours() %>:<%= minutes %></td>
                       <td><%s = event.location %><%= s.slice(0, s.lastIndexOf(","))%></td>
                     </tr>
                   <% }) %>
