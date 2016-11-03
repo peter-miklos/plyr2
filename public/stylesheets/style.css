@@ -7,6 +7,10 @@ main {
   height: 100%;
 }
 
+.mdl-layout-title .logo {
+  font-family: 'Press Start 2P', cursive;
+}
+
 .full-width {
     width: 100%;
 }
