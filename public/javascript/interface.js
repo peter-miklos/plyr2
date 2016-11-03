@@ -251,7 +251,7 @@ $(document).ready(function() {
       var icon = data.weather[0].icon
       var temp = Math.round(data.main.temp)
       $('#weather').html(' ' + temp +' ºC');
-      $('#weather').prepend($('<img>',{id:'theImg',src:'http://openweathermap.org/img/w/'+ icon + '.png'}));
+      $('#weather').prepend($('<img>',{id:'theImg',src:'https://openweathermap.org/img/w/'+ icon + '.png'}));
     });
   }
 });
