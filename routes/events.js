@@ -123,7 +123,7 @@ router.get("/getEventLocations", function(req, res, next) {
           var events = allEvents.filter(function(e) { return (e.eventDate >= new Date()) });
           events.forEach(function(event, index){
             var sportIndex = sports.findIndex(function(element) { return element.id === event.SportId})
-            var url = '/static/icons/' + sports[sportIndex].name + '.png';
+            var url = '/static/images/' + sports[sportIndex].name + '.png';
             var eventInfo = "<strong>" + sports[sportIndex].name + "</strong>"
                             + "<br/> Skill level: " + event.skill
                             + "<br/> Date: <strong>" + new Date(event.eventDate).toDateString() + "</strong>"
