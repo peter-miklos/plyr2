@@ -33,6 +33,7 @@ describe('Manage requests', function() {
   before(function(done){
     browser.visit('/events/new').then(function() {
       browser
+      //needs sport?!?!!?
        .select("#skill", "4")
        .fill('date', '2016-11-30')
        .fill('time', "15:00")
@@ -83,7 +84,7 @@ describe('Manage requests', function() {
     describe("request cannot be added w/o log in", function() {
       before(function(done){
         browser.visit('/events/index').then(function() {
-          browser.clickLink("Wed Nov 30 2016", done);
+          browser.clickLink("Wed Nov 30 2016", done); //year needs to be removed!!!!
         })
       });
 
@@ -108,7 +109,7 @@ describe('Manage requests', function() {
 
       before(function(done){
         browser.visit('/events/index').then(function() {
-          browser.clickLink("Wed Nov 30 2016", done);
+          browser.clickLink("Wed Nov 30", done);
         })
       });
 
@@ -150,7 +151,7 @@ describe('Manage requests', function() {
 
       before(function(done){
         browser.visit('/events/index').then(function() {
-          browser.clickLink("Wed Nov 30 2016", done);
+          browser.clickLink("Wed Nov 30", done);
         })
       });
 
@@ -164,7 +165,7 @@ describe('Manage requests', function() {
 
       before(function(done){
         browser.visit('/events/index').then(function() {
-          browser.clickLink("Wed Nov 30 2016", done);
+          browser.clickLink("Wed Nov 30", done);
         })
       });
 
@@ -179,15 +180,15 @@ describe('Manage requests', function() {
       it("created request is available in user's sent requests", function(done) {
         browser.fill("comment", "I really wanna play", done);
         browser.pressButton("Send request").then(function() {
-          browser.assert.text("div", /I really wanna play/);
-        }).then(function() { done(); })
+          browser.assert.text("div", /I really wanna play/);  //this needs to be updated as all we see is
+        }).then(function() { done(); })                       //date sport and number
       })
     });
 
     describe("user cannot create a request to the same event more than once", function() {
       before(function(done){
         browser.visit('/events/index').then(function() {
-          browser.clickLink("Wed Nov 30 2016", done);
+          browser.clickLink("Wed Nov 30", done);
         })
       });
 
@@ -196,7 +197,7 @@ describe('Manage requests', function() {
       })
 
       it("informs user that he/she already joined the event", function() {
-        browser.assert.text("body", /Request has been sent/)
+        browser.assert.text("body", /You've alread sent a request to join!/)
       })
 
 
@@ -221,13 +222,13 @@ describe('Manage requests', function() {
     });
 
     it("received requests list shows the received request", function() {
-      browser.assert.text("div", /I really wanna play/);
+      browser.assert.text("div", /I really wanna play/); //this needs to be updated to be a td date/sport
       browser.assert.hasNoClass("div", "no_received_request");
     })
 
-    it("request becomes Rejeted", function(done) {
-      browser.pressButton("Reject").then(function() {
-        browser.assert.text("td", /Rejected/)
+    it("request becomes Rejeted", function(done) {  //this needs to be updated, row/document clickable
+      browser.pressButton("Reject").then(function() { //to show event details & accept reject button...
+        browser.assert.text("td", /Rejected/)        //but maybe we can see it on page as element even though it is "hidden"
       }).then(function() { done(); });
     })
   });
@@ -298,17 +299,17 @@ describe('Manage requests', function() {
         })
     });
 
-    before(function(done) {
+    before(function(done) {  //this needs to be updated same as above test
       browser.pressButton("Confirm").then(function() {
         browser.clickLink("My requests", done);
       })
     })
 
-    it("first request's status becomes Accepted", function() {
+    it("first request's status becomes Accepted", function() {  //this maaaaay need to be changed if hidden<tr> can't be seen in body
       browser.assert.text("tbody", /wanna play with you 1 Test User 1 Accepted/)
     })
 
-    it("second request's status becomes Rejected", function() {
+    it("second request's status becomes Rejected", function() { //this maaaaay need to be changed if hidden<tr> can't be seen in body
       browser.assert.text("body", /wanna play with you 2 Test User 3 Rejected/)
     })
 
