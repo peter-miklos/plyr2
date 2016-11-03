@@ -5,14 +5,16 @@ var models = require("../models");
 
 router.get('/index', function(req, res, next) {
   models.Sport.findAll({}).then(function(sports) {
-    models.Status.findAll({}).then(function(allStatus) {
-      var statuses = allStatus.filter(function(e) {return e.name === "Accepted"})
+    models.Status.find({where: { name: "Accepted" }}).then(function(status) {
       models.Request.findAll({where: {
-        StatusId: {
-          $any: statuses.map(function(e) {return e.id})
-        }
+        StatusId: status.id
       }}).then(function(requests) {
-        models.Event.findAll({
+        var acceptedRequests = requests.length === 0 ? [{EventId: 0}] : requests
+        models.Event.findAll({where: {
+          id: {
+            $notIn: acceptedRequests.map(function(e) { return e.EventId })
+          }
+        },
         order: '"createdAt" DESC'
       }).then(function(allEvents) {
           var events = allEvents.filter(function(e) { return (e.eventDate >= new Date()) });
@@ -102,14 +104,17 @@ router.post("/:id/requests/new", function(req, res, next) {
 router.get("/getEventLocations", function(req, res, next) {
   var eventLocations = [];
   models.Sport.findAll({}).then(function(sports) {
-    models.Status.findAll({}).then(function(allStatus) {
-      var statuses = allStatus.filter(function(e) {return e.name === "Accepted"})
+    models.Status.find({ where: { name: "Accepted" }}).then(function(status) {
       models.Request.findAll({where: {
-        StatusId: {
-          $any: statuses.map(function(e) {return e.id})
-        }
+        StatusId: status.id
       }}).then(function(requests) {
-        models.Event.findAll({}).then(function(allEvents) {
+        var acceptedRequests = requests.length === 0 ? [{EventId: 0}] : requests
+        models.Event.findAll({ where: {
+            id: {
+              $notIn: acceptedRequests.map(function(e) { return e.EventId })
+            }
+          }
+        }).then(function(allEvents) {
           var events = allEvents.filter(function(e) { return (e.eventDate >= new Date()) });
           events.forEach(function(event, index){
             var sportIndex = sports.findIndex(function(element) { return element.id === event.SportId})
