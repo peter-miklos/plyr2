@@ -28,6 +28,24 @@ $(document).ready(function() {
     window.location = $(this).data("href");
   });
 
+  $(document).click(function(e){
+    var elemId = e.target.parentElement.id
+    console.log(elemId)
+    if (elemId.substring(0, 12) === "requestBasic") {
+      var requestId = elemId.substring(13)
+      if ($('#requestRow_' + requestId).is('.hidden')) {
+        $('#requestRow_' + requestId).removeClass('hidden');
+        $('#requestRow_' + requestId).addClass('show-tr');
+      }
+      else
+      {
+        $('#requestRow_' + requestId).removeClass('show-tr');
+        $('#requestRow_' + requestId).addClass('hidden');
+      }
+    }
+
+      });
+
   function filterEventDate() {
     $("#searchInput").keyup(function () {
         //split the current value of searchInput
@@ -233,7 +251,7 @@ $(document).ready(function() {
       var icon = data.weather[0].icon
       var temp = Math.round(data.main.temp)
       $('#weather').html(' ' + temp +' ºC');
-      $('#weather').prepend($('<img>',{id:'theImg',src:'http://openweathermap.org/img/w/'+ icon + '.png'}));
+      $('#weather').prepend($('<img>',{id:'theImg',src:'https://openweathermap.org/img/w/'+ icon + '.png'}));
     });
   }
 });
