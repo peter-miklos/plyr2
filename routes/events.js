@@ -25,7 +25,7 @@ router.get('/index', function(req, res, next) {
 
 router.get('/new', function(req, res, next) {
   if (req.session.user) {
-  models.Sport.findAll({}).then(function(sports) {
+  models.Sport.findAll({order: '"name" ASC' }).then(function(sports) {
     res.render('events/new', {title: "Create new event", sports: sports, flash: req.flash("dateError")});
   })
 } else {
@@ -100,15 +100,6 @@ router.post("/:id/requests/new", function(req, res, next) {
   })
 });
 
-router.get("/requests/index", function(req, res, next) {
-  if (req.session.user) {
-  res.render('events/requests/index')
-} else {
-  req.flash("loginError", "You need to be logged in");
-  res.redirect('/sessions/login')
-}
-});
-
 router.get("/getEventLocations", function(req, res, next) {
   var eventLocations = [];
   models.Sport.findAll({}).then(function(sports) {
@@ -124,10 +115,11 @@ router.get("/getEventLocations", function(req, res, next) {
           events.forEach(function(event, index){
             var sportIndex = sports.findIndex(function(element) { return element.id === event.SportId})
             var url = '/static/icons/' + sports[sportIndex].name + '.png';
+            var minutes = event.eventDate.getMinutes() < 10 ? "0" + event.eventDate.getMinutes() : event.eventDate.getMinutes()
             var eventInfo = "<strong>" + sports[sportIndex].name + "</strong>"
                             + "<br/> Skill level: " + event.skill
                             + "<br/> Date: <strong>" + new Date(event.eventDate).toDateString() + "</strong>"
-                            + "<br/> Time: <strong>" + event.eventDate.getHours() + ":" + event.eventDate.getMinutes() + "</strong>"
+                            + "<br/> Time: <strong>" + event.eventDate.getHours() + ":" + minutes + "</strong>"
                             + "<br/> <a href='/events/" + event.id
                             + "/show'>Show Event </a>"
             eventLocations.push([event.latitude, event.longitude, url, index+1, eventInfo, event.eventDate.setHours(0,0,0,0,0)])
