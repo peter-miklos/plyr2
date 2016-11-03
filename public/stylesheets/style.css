@@ -20,6 +20,16 @@ main {
 
 }
 
+header .mdl-layout-title {
+  font-family:'Share Tech Mono', monospace;
+  font-size: 30px;
+}
+
+body .mdl-layout-title {
+  font-family:'Share Tech Mono', monospace;
+  font-size: 30px;
+}
+
 a {
   color: #00B7FF;
 }
