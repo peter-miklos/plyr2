@@ -1,6 +1,6 @@
 # PLYR2
 
-Plyr2 is a mobile friendly website that connects like-minded, sport enthusiasts.
+Plyr2 is a mobile friendly web app that connects like-minded, sport enthusiasts.
 Targeted at providing a solution to the problem of wanting to play tennis, ping
 pong or indeed any sport you desire, but being unable to find a partner,
 plyr2 is an elegant, scalable answer to a common summer problem.
@@ -16,12 +16,12 @@ Technologies used are:
 * Mocha / Zombie
 * Heroku
 
-You can check it out [here](https://creepy-goblin-98372.herokuapp.com)
+You can check it out [here](https://plyr2.herokuapp.com)
 
 If you want to run it locally follow these instructions:
 
-1. Fork / clone this repo: `git clone https://github.com/peter-miklos/sports_friend_finder`
-2. Change into the directory `cd sports_friend_finder`
+1. Fork / clone this repo: `git clone https://github.com/peter-miklos/plyr2`
+2. Change into the directory `cd plyr2`
 3. Run `npm install` (and `gem install node` if you don't already have rails)
 4. Set up your databases by entering psql and creating two databases: `create database sports_test` and `create database sports_test`
 5. Run a migration for both the development database `node_modules/.bin/sequelize db:migrate` and the test one `NODE_ENV=test node_modules/.bin/sequelize db:migrate`
