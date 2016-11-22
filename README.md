@@ -5,10 +5,17 @@ Targeted at providing a solution to the problem of wanting to play tennis, ping
 pong or indeed any sport you desire, but being unable to find a partner,
 Plyr2 is an elegant, scalable answer to a common summer problem.
 
-Plyr2 is a social media platform that enables users to both invite others to play with them and view other's requests on an interactive map. After picking their preferred sport, a user decides the date, time, location and skill level of their event, as well as space for any additional comments.
+Plyr2 is a social media platform that enables users to both invite others to play with them and view other's requests on an interactive map. After picking their preferred sport, a user decides the date, time, location and skill level of their event, as well as space for any additional comments:
 
-This is displayed with a nice, little logo on a google API-rendered map. Other users can then view these prospective events, and decide if they want to participate. Working under the assumption that people won't just use the site to see a picture of London with pretty logos, a request to play will be made by another user, who can include a personal message to the creator if they so choose. The person who created event then decides whether to accept or not. A log is kept of a user's past events so they are free to reminisce at their leisure.     
+<p align="center"><img src="https://cloud.githubusercontent.com/assets/16115618/20270316/84e2821e-aa7e-11e6-8901-ec8893da469a.png"></p>
 
+This is displayed with a nice, little logo on a google API-rendered map. Other users can then view these prospective events, and decide if they want to participate:
+
+<p align="center"><img src="https://cloud.githubusercontent.com/assets/16115618/20270314/82b789ee-aa7e-11e6-9e2e-3af87ef6d786.png"></p>
+
+Working under the assumption that people won't just use the site to see a picture of London with pretty logos, a request to play will be made by another user, who can include a personal message to the creator if they so choose. The person who created event then decides whether to accept or not. A log is kept of a user's past events so they are free to reminisce at their leisure:
+
+<p align="center"><img src="https://cloud.githubusercontent.com/assets/16115618/20270309/808c0f14-aa7e-11e6-8669-72b3aeaccb09.png"></p>
 
 Technologies used are:
 
