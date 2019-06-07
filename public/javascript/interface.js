@@ -18,12 +18,6 @@ $(document).ready(function() {
     setEventDate();
   }
 
-
-  if (document.getElementById("weather")) {
-    displayWeather();
-  }
-
-
   $(".clickable-row").click(function() {
     window.location = $(this).data("href");
   });
@@ -241,16 +235,4 @@ $(document).ready(function() {
 
   }
 
-  function displayWeather() {
-    var url = 'http://api.openweathermap.org/data/2.5/weather?q=';
-    var apiKey = "&apikey=1235658b8e5f2613a1e72f249e6efe3a";
-    var units = '&units=metric';
-    var city = document.getElementById("location").innerText;
-    $.get(url + city + apiKey + units, function(data) {
-      var icon = data.weather[0].icon
-      var temp = Math.round(data.main.temp)
-      $('#weather').html(' ' + temp +' ºC');
-      $('#weather').prepend($('<img>',{id:'theImg',src:'https://openweathermap.org/img/w/'+ icon + '.png'}));
-    });
-  }
 });
