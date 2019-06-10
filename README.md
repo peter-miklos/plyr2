@@ -32,7 +32,7 @@ If you want to run it locally follow these instructions:
 3. Install Node.js and NPM, then run `npm install`
 4. Enter PostgreSQL - `psql` - then create test and development databases: run `create database sports_development;` and `create database sports_test;`, then exit psql (`\q`)
 5. Run a migration for both the development database, `node_modules/.bin/sequelize db:migrate`, and the test one, `NODE_ENV=test node_modules/.bin/sequelize db:migrate`
-6. Create a [Google API key](https://developers.google.com/maps/documentation/geocoding/get-api-key), then add it to a new `.env` file
+6. Create a [Google Maps JavaScript API key](https://developers.google.com/maps/documentation/javascript/get-api-key), then add it to a new `.env` file
 7. Run the app! - Enter `DEBUG=* npm start`, then go to http://localhost:3000/addsportsstatuses in your browser
 
 Enjoy ...
