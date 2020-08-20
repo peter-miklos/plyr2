@@ -9,7 +9,7 @@
     "start": "node ./bin/www"
   },
   "dependencies": {
-    "bcrypt": "^0.8.7",
+    "bcrypt": "^5.0.0",
     "body-parser": "~1.15.1",
     "bookshelf": "^0.10.2",
     "connect-flash": "^0.1.1",
